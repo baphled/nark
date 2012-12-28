@@ -19,7 +19,7 @@ describe Rack::Tracker do
   context "sending a request" do
     it "should increment the total requests" do
       get '/'
-      Rack::Tracker.total_requests.should eql 1
+      Rack::Tracker.total_requests.should be_an Numeric
     end
   end
 end
