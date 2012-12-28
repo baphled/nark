@@ -1,10 +1,7 @@
 require "active_support/core_ext"
 require 'plugins'
 require 'caller'
-
-# FIXME: These need to be automatically required. Remove once done
-require 'plugins/requests'
-require 'plugins/request_times'
+require 'exceptions'
 
 #
 # This middleware is the basis of all tracking via rack middleware.
@@ -22,9 +19,19 @@ module Rack
       @@plugins_paths
     end
 
+    def self.require_plugins
+      plugins_paths.each do |plugin_path|
+        Dir["#{plugin_path}/*.rb"].each {|f| require f}
+      end
+    end
+
     def self.add_plugins plugins
       plugins.each do |plugin|
-        eval "include Rack::TrackerPlugin::#{plugin.camelize}"
+        begin
+          eval "include Rack::TrackerPlugin::#{plugin.camelize}"
+        rescue NameError => e
+          raise TrackerPlugin::NotFound.new e
+        end
       end
     end
 
@@ -35,7 +42,9 @@ module Rack
     end
 
     def self.available_plugins
-      Rack::TrackerPlugin.constants.collect { |plugin| plugin.to_s.underscore }.sort
+      found_objects = Rack::TrackerPlugin.constants
+      modules = found_objects.delete_if { |plugin| eval("Rack::TrackerPlugin::#{plugin}").is_a? Class }
+      modules.collect { |plugin| plugin.to_s.underscore }.sort
     end
 
     def self.add_plugin_path path
