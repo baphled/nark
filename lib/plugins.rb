@@ -14,9 +14,11 @@ module Rack
       end
 
       def add_plugins plugins
+        # FIXME: Should not be requiring all plugins here. Find a better home for it
+        require_plugins
         plugins.each do |plugin|
           begin
-            eval "include Rack::TrackerPlugin::#{plugin.camelize}"
+            eval "include Rack::TrackerPlugin::#{plugin.to_s.camelize}"
           rescue NameError => e
             raise TrackerPlugin::NotFound.new e
           end
