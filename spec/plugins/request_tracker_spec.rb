@@ -6,13 +6,7 @@ describe Rack::RequestTracker do
   before :all do
     class SubjectClass
       include Rack::RequestTracker
-
-      # FIXME: This is crap, could actually use Rack::Tracker or extracting the call method so that it is easy to
-      # autoamatically include in request like plugins
-      def call env
-        before_call env
-        @app.call env
-      end
+      include Rack::Caller
     end
   end
 

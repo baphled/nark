@@ -6,19 +6,7 @@ describe Rack::RequestTimeTracker do
   before :each do
     class SubjectClass
       include Rack::RequestTimeTracker
-
-      def initialize app
-        @app = app
-      end
-
-      # FIXME: This is crap, could actually use Rack::Tracker or extracting the call method so that it is easy to
-      # autoamatically include in request like plugins
-      def call env
-        before_call env
-        response = @app.call env
-        after_call env
-        response
-      end
+      include Rack::Caller
 
       def after_call env
         sleep 0.001
