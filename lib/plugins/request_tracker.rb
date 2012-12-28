@@ -13,11 +13,7 @@ module Rack
     end
   
     module InstanceMethods
-      def initialize app
-        @app = app
-      end
-
-      def pre_call env
+      def before_call env
         self.class.increment_requests
       end
     end

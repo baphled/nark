@@ -1,4 +1,4 @@
-require 'request_tracker'
+require 'plugins/request_tracker'
 
 #
 # This middleware is the basis of all tracking via rack middleware.

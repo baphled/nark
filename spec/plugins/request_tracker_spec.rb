@@ -1,6 +1,5 @@
 require "spec_helper"
 
-
 describe Rack::RequestTracker do
   include Rack::Test::Methods
 
@@ -11,7 +10,7 @@ describe Rack::RequestTracker do
       # FIXME: This is crap, could actually use Rack::Tracker or extracting the call method so that it is easy to
       # autoamatically include in request like plugins
       def call env
-        pre_call env
+        before_call env
         @app.call env
       end
     end
