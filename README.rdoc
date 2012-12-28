@@ -6,12 +6,19 @@ The idea here is to allow users to easily create modules that plug into the midd
 monitor information of their choosing.
 
 We'll start off with some basic functionality:
-  log requests
-  total requests
-  Github revision
-  Process ID
+  * log requests
+  * total requests
+  * Github revision
+  * Process ID
 
 Each of these will be an individual component that plugins into Rack::Tracker and is exposed via a simple interface.
+
+== Configuring that Tracker
+
+  Rack::Tracker.config do |config|
+    config.plugins_paths << 'some-plugin-path'
+    config.plugins = [:request_times, :requests]
+  end
 
 == Contributing to rack_tracker
  
