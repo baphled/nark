@@ -21,7 +21,7 @@ describe Rack::RequestTimeTracker do
       end
 
       def after_call env
-        sleep 0.1
+        sleep 0.001
         super
       end
     end
@@ -38,16 +38,17 @@ describe Rack::RequestTimeTracker do
   end
 
   it "stores the average request time"
+
   describe "#request_times" do
     it "tracks the times each request has taken" do
-      5.times { get '/' }
+      get '/'
       SubjectClass.request_times.should be_an Array
     end
 
-    it "stores the request type" do
+    it "stores a requests path and request time" do
       get '/'
       SubjectClass.request_times.first[:url].should eql '/'
-      SubjectClass.request_times.first[:duration].should be_within(0.1).of(0.1)
+      SubjectClass.request_times.first[:request_time].should be_within(0.1).of(0.1)
     end
   end
 
