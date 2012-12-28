@@ -13,5 +13,10 @@ module Rack
   class Tracker
     include Rack::Caller
     include Rack::TrackerPlugins
+
+    def initialize app
+      self.class.require_plugins
+      super
+    end
   end
 end
