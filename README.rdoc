@@ -20,6 +20,34 @@ Each of these will be an individual component that plugins into Rack::Tracker an
     config.plugins = [:request_times, :requests]
   end
 
+== Future DSL
+
+The grand idea is to allow you to describe request plugins in a
+simplicist way. Leaving most of the construction to be dealt with in the
+background and let you focus on the on things you really want to do.
+Build cool plugins.
+
+For this a DSL is needed, this is by no means the end product but simply
+an the curreny idea for the DSL, I really have no idea how this is
+eventually end up.
+
+  define_plugin :request_times do
+    class_variables => { :last_request_time => nil, :request_times => [] }
+
+    before_call -> { |env| @start_time = Time.now }
+
+    after_call -> do |env|
+      self.class.last_request_time = (Time.now - @start_time)
+      self.class.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
+    end
+  end
+
+  define_plugin :requests do
+    class_variables: { :total_requests => 0 }
+
+    before_call -> { |env| self.class.increment_requests }
+  end
+ 
 == Contributing to rack_tracker
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
