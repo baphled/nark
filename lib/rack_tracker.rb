@@ -21,6 +21,10 @@ module Rack
       end
     end
 
+    def self.available_plugins
+      Rack::TrackerPlugin.constants.collect { |plugin| plugin.to_s.underscore }
+    end
+
     protected
 
     def self.included_plugins
