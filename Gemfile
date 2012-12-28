@@ -11,4 +11,5 @@ group :development do
   gem "cucumber", ">= 0"
   gem "jeweler", "~> 1.8.4"
   gem 'rack-test'
+  gem 'pry'
 end
