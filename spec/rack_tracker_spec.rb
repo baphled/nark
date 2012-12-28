@@ -9,6 +9,13 @@ describe Rack::Tracker do
     Rack::Tracker.new(@target_app)
   end
 
+  describe "#call" do
+    it "calls to before_call" do
+      Rack::Tracker.any_instance.should_receive :before_call
+      get '/'
+    end
+  end
+
   context "sending a request" do
     it "should increment the total requests" do
       get '/'

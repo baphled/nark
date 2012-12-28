@@ -16,8 +16,12 @@ module Rack
     end
 
     def call env
-      pre_call env if respond_to? :pre_call
+      before_call env
       @app.call env
+    end
+
+    def before_call env
+      super
     end
   end
 end
