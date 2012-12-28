@@ -27,7 +27,7 @@ module Rack
       def after_call env
         request_time = (Time.now - @start_time)
         self.class.last_request_time = request_time
-        self.class.request_times << {:url => env['PATH_INFO'], :duration => request_time}
+        self.class.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
       end
     end
   
