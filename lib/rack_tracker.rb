@@ -11,9 +11,13 @@ require 'caller'
 #
 module Rack
   class Tracker
-    # FIXME: I want a nice way to be able to include custom plugins, this won't do
-    include Rack::TrackerPlugin::Requests
     include Rack::Caller
+
+    def self.add_plugins plugins
+      plugins.each do |plugin|
+        include eval "Rack::TrackerPlugin::#{plugin.camelize}"
+      end
+    end
 
     def self.plugins
       included_plugins.collect do |plugin|
