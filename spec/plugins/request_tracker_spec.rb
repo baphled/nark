@@ -31,4 +31,11 @@ describe Rack::RequestTracker do
       SubjectClass.should respond_to :total_requests
     end
   end
+
+  context "sending a request" do
+    it "should increment the total requests" do
+      get '/'
+      SubjectClass.total_requests.should be_an Numeric
+    end
+  end
 end
