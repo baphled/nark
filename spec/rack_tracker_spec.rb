@@ -14,6 +14,11 @@ describe Rack::Tracker do
       Rack::Tracker.any_instance.should_receive :before_call
       get '/'
     end
+
+    it "calls to after_call" do
+      Rack::Tracker.any_instance.should_receive :after_call
+      get '/'
+    end
   end
 
   context "sending a request" do

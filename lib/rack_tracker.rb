@@ -17,11 +17,13 @@ module Rack
 
     def call env
       before_call env
-      @app.call env
+      response = @app.call env
+      after_call env
+      response
     end
 
-    def before_call env
-      super
+    def method_missing method, args, &block
+      super unless [:after_call, :before_call].include? method
     end
   end
 end
