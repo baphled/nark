@@ -17,7 +17,7 @@ module Rack
 
     def self.plugins
       included_plugins.collect do |plugin|
-        plugin.to_s.split('::').last.downcase
+        plugin.to_s.split('::').last.underscore
       end
     end
 
