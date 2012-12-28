@@ -15,11 +15,16 @@ module Rack
     include Rack::Caller
 
     def self.plugins
-      plugins = ancestors.select do |module_name|
-        module_name.to_s =~ /Rack::[[:alnum:]]+Tracker$/
-      end
-      plugins.collect do |plugin|
+      included_plugins.collect do |plugin|
         plugin.to_s.gsub(/Rack::/,'').underscore
+      end
+    end
+
+    protected
+
+    def self.included_plugins
+      ancestors.select do |module_name|
+        module_name.to_s =~ /Rack::[[:alnum:]]+Tracker$/
       end
     end
   end
