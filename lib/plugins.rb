@@ -47,7 +47,10 @@ module Rack
     end
 
     module InstanceMethods
-
+      def initialize app
+        self.class.require_plugins
+        super
+      end
     end
 
     def self.included(receiver)

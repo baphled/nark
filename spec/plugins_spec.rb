@@ -12,6 +12,11 @@ describe Rack::TrackerPlugins do
     Object.send :remove_const, :SubjectClass
   end
 
+  it "requires all default plugins" do
+    Rack::Tracker.new stub(:app, :call => 'foo')
+    Rack::Tracker.available_plugins.should eql ['request_times', 'requests']
+  end
+
   describe "#plugins" do
     it "has no plugins set by default" do
       SubjectClass.plugins.should eql []
