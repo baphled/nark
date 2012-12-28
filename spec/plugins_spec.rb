@@ -2,15 +2,25 @@ require "spec_helper"
 
 describe Rack::TrackerPlugins do
 
+  before :each do
+    class SubjectClass
+      include Rack::TrackerPlugins
+    end
+  end
+
+  after :each do
+    Object.send :remove_const, :SubjectClass
+  end
+
   describe "#plugins" do
     it "has no plugins set by default" do
-      Rack::Tracker.plugins.should eql []
+      SubjectClass.plugins.should eql []
     end
 
     it "provides does not manage a plugins name" do
-      Rack::Tracker.require_plugins
-      Rack::Tracker.add_plugins ['request_times']
-      Rack::Tracker.plugins.should include 'request_times'
+      SubjectClass.require_plugins
+      SubjectClass.add_plugins ['request_times']
+      SubjectClass.plugins.should include 'request_times'
     end
   end
 
@@ -21,19 +31,19 @@ describe Rack::TrackerPlugins do
   describe "#add_plugin" do
     context "plugins are required" do
       before :each do
-        Rack::Tracker.require_plugins
+        SubjectClass.require_plugins
       end
 
       it "includes all listed plugins" do
-        Rack::Tracker.add_plugins ['requests']
-        Rack::Tracker.included_plugins.should include Rack::TrackerPlugin::Requests
+        SubjectClass.add_plugins ['requests']
+        SubjectClass.included_plugins.should include Rack::TrackerPlugin::Requests
       end
     end
 
     context "plugin is not found" do
       it "should throw an exception" do
         expect {
-          Rack::Tracker.add_plugins ['flakey']
+          SubjectClass.add_plugins ['flakey']
         }.to raise_error Rack::TrackerPlugin::NotFound
       end
     end
@@ -41,15 +51,15 @@ describe Rack::TrackerPlugins do
 
   describe "#require_plugins" do
     it "loads all plugins to the TrackerPlugin namespace" do
-      Rack::Tracker.require_plugins
-      Rack::Tracker.available_plugins.should eql ['request_times', 'requests']
+      SubjectClass.require_plugins
+      SubjectClass.available_plugins.should eql ['request_times', 'requests']
     end
   end
 
   describe "#plugins_paths" do
     it "stores the default plugins path" do
-      Rack::Tracker.plugins_paths.should_not be_empty
-      Rack::Tracker.available_plugins.should eql ['request_times', 'requests']
+      SubjectClass.plugins_paths.should_not be_empty
+      SubjectClass.available_plugins.should eql ['request_times', 'requests']
     end
   end
 
