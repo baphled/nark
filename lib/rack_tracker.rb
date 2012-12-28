@@ -13,5 +13,12 @@ module Rack
   class Tracker
     include Rack::Caller
     include Rack::TrackerPlugins
+
+    class << self
+      def configure
+        yield self
+        true
+      end
+    end
   end
 end

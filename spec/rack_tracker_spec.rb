@@ -1,8 +1,15 @@
 require "spec_helper"
 
 describe Rack::Tracker do
-  context "configure what I track" do
-    it "my plugins path"
-    it "stores the plugins I want to use"
+  describe "#configure" do
+    it "allows be to add plugin directories" do
+      plugin_path = File.join ::File.dirname(__FILE__), 'fixtures/plugins'
+      Rack::Tracker.configure do |c|
+        c.plugins_paths << plugin_path
+      end
+      Rack::Tracker.plugins_paths.count.should eql 2
+    end
+
+    it "allows to specify which plugins to include"
   end
 end
