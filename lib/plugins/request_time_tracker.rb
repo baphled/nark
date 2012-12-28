@@ -2,9 +2,14 @@ module Rack
   module RequestTimeTracker
     module ClassMethods
       @@last_request_time = nil
+      @@request_times = []
 
       def last_request_time
         @@last_request_time
+      end
+
+      def request_times
+        @@request_times
       end
 
       def last_request_time= time
@@ -20,7 +25,9 @@ module Rack
       end
 
       def after_call env
-        self.class.last_request_time = (Time.now - @start_time)
+        request_time = (Time.now - @start_time)
+        self.class.last_request_time = request_time
+        self.class.request_times << request_time
       end
     end
   

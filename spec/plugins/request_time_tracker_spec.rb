@@ -38,9 +38,13 @@ describe Rack::RequestTimeTracker do
   end
 
   it "stores the average request time"
+  it "tracks the times each request has taken" do
+    5.times { get '/' }
+    SubjectClass.request_times.count.should eql 5
+  end
 
   context "tracking the amount of time a request takes" do
-    it "times a request" do
+    it "stores the amount of milliseconds a request has taken" do
       get '/'
       SubjectClass.last_request_time.should be_within(0.1).of(0.4)
     end
