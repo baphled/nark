@@ -1,5 +1,6 @@
 require "active_support/core_ext"
-require 'plugins/request_tracker'
+require 'plugins'
+require 'plugins/requests'
 require 'caller'
 
 #
