@@ -25,7 +25,7 @@ module Rack
       #
       # TODO: It does make sense to fire off a message stating that the hooks have not been used
       #
-      def method_missing method, args, &block
+      def method_missing method, *args, &block
         super unless [:after_call, :before_call].include? method
       end
     end
