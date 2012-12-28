@@ -1,3 +1,4 @@
+require "active_support/core_ext"
 require 'plugins/request_tracker'
 require 'caller'
 
@@ -12,5 +13,13 @@ module Rack
     # FIXME: I want a nice way to be able to include custom plugins, this won't do
     include Rack::RequestTracker
     include Rack::Caller
+    def self.plugins
+      plugins = ancestors.select do |module_name|
+        module_name.to_s =~ /Rack::[[:alnum:]]+Tracker$/
+      end
+      plugins.collect do |plugin|
+        plugin.to_s.gsub(/Rack::/,'').underscore
+      end
+    end
   end
 end
