@@ -11,12 +11,12 @@ require 'caller'
 module Rack
   class Tracker
     # FIXME: I want a nice way to be able to include custom plugins, this won't do
-    include Rack::RequestTracker
+    include Rack::TrackerPlugin::Requests
     include Rack::Caller
 
     def self.plugins
       included_plugins.collect do |plugin|
-        plugin.to_s.gsub(/Rack::/,'').underscore
+        plugin.to_s.split('::').last.downcase
       end
     end
 
@@ -24,7 +24,7 @@ module Rack
 
     def self.included_plugins
       ancestors.select do |module_name|
-        module_name.to_s =~ /Rack::[[:alnum:]]+Tracker$/
+        module_name.to_s =~ /Rack::TrackerPlugin::[[:alnum:]]+$/
       end
     end
   end

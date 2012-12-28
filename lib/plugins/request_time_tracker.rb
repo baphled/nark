@@ -1,5 +1,5 @@
-module Rack
-  module RequestTimeTracker
+module Rack::TrackerPlugin
+  module RequestTime
     module ClassMethods
       @@last_request_time = nil
       @@request_times = []

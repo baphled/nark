@@ -1,11 +1,11 @@
 require "spec_helper"
 
-describe Rack::RequestTimeTracker do
+describe Rack::TrackerPlugin::RequestTime do
   include Rack::Test::Methods
 
   before :each do
     class SubjectClass
-      include Rack::RequestTimeTracker
+      include Rack::TrackerPlugin::RequestTime
       include Rack::Caller
 
       def after_call env

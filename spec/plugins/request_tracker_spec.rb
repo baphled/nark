@@ -1,11 +1,11 @@
 require "spec_helper"
 
-describe Rack::RequestTracker do
+describe Rack::TrackerPlugin::Requests do
   include Rack::Test::Methods
 
   before :all do
     class SubjectClass
-      include Rack::RequestTracker
+      include Rack::TrackerPlugin::Requests
       include Rack::Caller
     end
   end

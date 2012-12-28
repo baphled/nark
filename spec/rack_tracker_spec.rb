@@ -3,7 +3,7 @@ require "spec_helper"
 describe Rack::Tracker do
   describe "#plugins" do
     it "provides plugins used by default" do
-      Rack::Tracker.plugins.should eql ['request_tracker']
+      Rack::Tracker.plugins.should eql ['requests']
     end
   end
 
