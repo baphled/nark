@@ -1,6 +1,17 @@
 = rack_tracker
 
-Description goes here.
+Rack middleware that allows you to easily track and handle rack information of your own choosing.
+
+The idea here is to allow users to easily create modules that plug into the middleware and allow them to track and
+monitor information of their choosing.
+
+We'll start off with some basic functionality:
+  log requests
+  total requests
+  Github revision
+  Process ID
+
+Each of these will be an individual component that plugins into Rack::Tracker and is exposed via a simple interface.
 
 == Contributing to rack_tracker
  
