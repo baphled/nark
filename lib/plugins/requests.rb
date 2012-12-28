@@ -2,7 +2,7 @@ module Rack::TrackerPlugin
   module Requests
     module ClassMethods
       @@total_requests = 0
-      
+
       def total_requests
         @@total_requests
       end
@@ -11,7 +11,7 @@ module Rack::TrackerPlugin
         @@total_requests += 1
       end
     end
-  
+
     module InstanceMethods
       def before_call env
         self.class.increment_requests
