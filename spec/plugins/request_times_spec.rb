@@ -1,4 +1,5 @@
 require "spec_helper"
+require "#{File.dirname(__FILE__)}/../../lib/plugins/request_times.rb"
 
 describe Rack::TrackerPlugin::RequestTimes do
   include Rack::Test::Methods

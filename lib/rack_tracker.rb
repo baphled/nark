@@ -12,51 +12,6 @@ require 'exceptions'
 module Rack
   class Tracker
     include Rack::Caller
-
-    @@plugins_paths = ["#{::File.dirname(__FILE__)}/plugins"]
-
-    def self.plugins_paths
-      @@plugins_paths
-    end
-
-    def self.require_plugins
-      plugins_paths.each do |plugin_path|
-        Dir["#{plugin_path}/*.rb"].each {|f| require f}
-      end
-    end
-
-    def self.add_plugins plugins
-      plugins.each do |plugin|
-        begin
-          eval "include Rack::TrackerPlugin::#{plugin.camelize}"
-        rescue NameError => e
-          raise TrackerPlugin::NotFound.new e
-        end
-      end
-    end
-
-    def self.plugins
-      included_plugins.collect do |plugin|
-        plugin.to_s.split('::').last.underscore
-      end
-    end
-
-    def self.available_plugins
-      found_objects = Rack::TrackerPlugin.constants
-      modules = found_objects.delete_if { |plugin| eval("Rack::TrackerPlugin::#{plugin}").is_a? Class }
-      modules.collect { |plugin| plugin.to_s.underscore }.sort
-    end
-
-    def self.add_plugin_path path
-      @@plugins_paths << path
-    end
-
-    protected
-
-    def self.included_plugins
-      ancestors.select do |module_name|
-        module_name.to_s =~ /Rack::TrackerPlugin::[[:alnum:]]+$/
-      end
-    end
+    include Rack::TrackerPlugins
   end
 end
