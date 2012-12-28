@@ -10,10 +10,6 @@ describe Rack::Tracker do
   end
 
   context "sending a request" do
-    it "is set to zero" do
-      Rack::Tracker.total_requests.should eql 0
-    end
-
     it "should increment the total requests" do
       get '/'
       Rack::Tracker.total_requests.should eql 1
