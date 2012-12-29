@@ -13,7 +13,7 @@ describe Rack::TrackerPlugins do
   end
 
   it "stores an array of plugin available" do
-    Rack::Tracker.new stub(:app, :call => 'foo')
+    Rack::Tracker::Middleware.new stub(:app, :call => 'foo')
     Rack::Tracker.available_plugins.should be_an Array
   end
 

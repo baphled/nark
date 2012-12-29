@@ -10,8 +10,7 @@ require 'exceptions'
 # valuable information on the service you are currently running.
 #
 module Rack
-  class Tracker
-    include Rack::Caller
+  module Tracker
     include Rack::TrackerPlugins
 
     #
@@ -24,7 +23,7 @@ module Rack
     #
     class << self
       def configure
-        yield self
+        yield Rack::Tracker
         true
       end
     end
