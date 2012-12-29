@@ -42,10 +42,6 @@ describe Rack::Tracker::Plugins do
 
   describe "#add_plugin" do
     context "plugins are required" do
-      before :each do
-        SubjectClass.require_plugins
-      end
-
       it "includes all listed plugins" do
         SubjectClass.add_plugins ['requests']
         SubjectClass.included_plugins.should include Rack::Tracker::Plugins::Requests
@@ -63,7 +59,6 @@ describe Rack::Tracker::Plugins do
 
   describe "#require_plugins" do
     it "loads all plugins to the TrackerPlugin namespace" do
-      SubjectClass.require_plugins
       SubjectClass.available_plugins.should include 'requests'
     end
   end
