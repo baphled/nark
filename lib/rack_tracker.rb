@@ -1,7 +1,9 @@
 require "active_support/core_ext"
-require 'plugins'
-require 'caller'
-require 'exceptions'
+
+require 'rack_tracker/middleware'
+require 'rack_tracker/plugins'
+require 'rack_tracker/caller'
+require 'rack_tracker/exceptions'
 
 #
 # This middleware is the basis of all tracking via rack middleware.
