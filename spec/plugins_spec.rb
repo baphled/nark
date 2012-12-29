@@ -12,9 +12,9 @@ describe Rack::TrackerPlugins do
     Object.send :remove_const, :SubjectClass
   end
 
-  it "requires all default plugins" do
+  it "stores an array of plugin available" do
     Rack::Tracker.new stub(:app, :call => 'foo')
-    Rack::Tracker.available_plugins.should eql ['request_times', 'requests']
+    Rack::Tracker.available_plugins.should be_an Array
   end
 
   describe "#plugins" do
@@ -57,14 +57,13 @@ describe Rack::TrackerPlugins do
   describe "#require_plugins" do
     it "loads all plugins to the TrackerPlugin namespace" do
       SubjectClass.require_plugins
-      SubjectClass.available_plugins.should eql ['request_times', 'requests']
+      SubjectClass.available_plugins.should include 'requests'
     end
   end
 
   describe "#plugins_paths" do
     it "stores the default plugins path" do
       SubjectClass.plugins_paths.should_not be_empty
-      SubjectClass.available_plugins.should eql ['request_times', 'requests']
     end
   end
 
