@@ -14,7 +14,7 @@ describe Rack::Tracker::Plugins do
 
   it "stores an array of plugin available" do
     Rack::Tracker::Middleware.new stub(:app, :call => 'foo')
-    Rack::Tracker.available_plugins.should be_an Array
+    SubjectClass.available_plugins.should be_an Array
   end
 
   describe "#plugins" do
@@ -23,14 +23,21 @@ describe Rack::Tracker::Plugins do
     end
 
     it "provides does not manage a plugins name" do
-      SubjectClass.require_plugins
       SubjectClass.add_plugins ['request_times']
       SubjectClass.plugins.should include 'request_times'
     end
   end
 
   describe "#available_plugins" do
-    it "provides a list of plugins available"
+    it "should not include class_methods" do
+      SubjectClass.available_plugins.should_not include 'class_methods'
+    end
+
+    it "should not include instance_methods" do
+      SubjectClass.available_plugins.should_not include 'instance_methods'
+    end
+
+    it "provides a list of all available plugins"
   end
 
   describe "#add_plugin" do

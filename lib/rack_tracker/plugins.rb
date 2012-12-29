@@ -2,7 +2,9 @@ module Rack
   module Tracker
     module Plugins
       module ClassMethods
-        @@plugins_paths = ["#{::File.dirname(__FILE__)}/plugins"]
+        # FIXME: This is pretty brittle should find a better way of
+        # storing the path of the plugins
+        @@plugins_paths = ["#{::File.dirname(__FILE__)}/../plugins"]
 
         def plugins_paths
           @@plugins_paths
@@ -34,7 +36,9 @@ module Rack
 
         def available_plugins
           found_objects = Rack::Tracker::Plugins.constants
-          modules = found_objects.delete_if { |plugin| eval("Rack::Tracker::Plugins::#{plugin}").is_a? Class }
+          modules = found_objects.delete_if do |plugin|
+            eval("Rack::Tracker::Plugins::#{plugin}").is_a? Class or ignored_modules.include? plugin.to_s.camelize
+          end
           modules.collect { |plugin| plugin.to_s.underscore }.sort
         end
 
@@ -50,7 +54,7 @@ module Rack
         end
 
         def ignored_modules
-          ['InstanceMethods']
+          ['ClassMethods','InstanceMethods']
         end
       end
 
