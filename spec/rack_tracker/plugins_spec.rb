@@ -66,10 +66,4 @@ describe Rack::Tracker::Plugins do
       SubjectClass.plugins_paths.should_not be_empty
     end
   end
-
-  describe "#add_plugin_path" do
-    it "stores the plugin path"
-    it "throws an exception if no plugins were found"
-    it "allows us to add a new path to search for plugins in"
-  end
 end
