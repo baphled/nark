@@ -1,4 +1,4 @@
-module Rack::TrackerPlugin
+module Rack::Tracker::Plugins
   module Requests
     module ClassMethods
       @@total_requests = 0

@@ -1,10 +1,10 @@
 require "spec_helper"
 require "#{File.dirname(__FILE__)}/../../lib/plugins/repository_revision"
 
-describe Rack::TrackerPlugin::RepositoryRevision do
+describe Rack::Tracker::Plugins::RepositoryRevision do
   before :each do
     class SubjectClass
-      include Rack::TrackerPlugin::RepositoryRevision
+      include Rack::Tracker::Plugins::RepositoryRevision
     end
   end
 

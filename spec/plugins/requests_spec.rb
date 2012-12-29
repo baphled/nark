@@ -1,12 +1,12 @@
 require "spec_helper"
 require "#{File.dirname(__FILE__)}/../../lib/plugins/requests.rb"
 
-describe Rack::TrackerPlugin::Requests do
+describe Rack::Tracker::Plugins::Requests do
   include Rack::Test::Methods
 
   before :all do
     class SubjectClass
-      include Rack::TrackerPlugin::Requests
+      include Rack::Tracker::Plugins::Requests
       include Rack::Caller
     end
   end

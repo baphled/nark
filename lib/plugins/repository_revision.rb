@@ -1,5 +1,5 @@
 module Rack
-  module TrackerPlugin
+  module Tracker::Plugins
     module RepositoryRevision
       module ClassMethods
         def revision

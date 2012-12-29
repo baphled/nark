@@ -1,12 +1,12 @@
 require "spec_helper"
 require "#{File.dirname(__FILE__)}/../../lib/plugins/request_times.rb"
 
-describe Rack::TrackerPlugin::RequestTimes do
+describe Rack::Tracker::Plugins::RequestTimes do
   include Rack::Test::Methods
 
   before :each do
     class SubjectClass
-      include Rack::TrackerPlugin::RequestTimes
+      include Rack::Tracker::Plugins::RequestTimes
       include Rack::Caller
 
       def after_call env

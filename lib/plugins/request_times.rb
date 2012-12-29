@@ -1,4 +1,4 @@
-module Rack::TrackerPlugin
+module Rack::Tracker::Plugins
   module RequestTimes
     module ClassMethods
       @@last_request_time = nil
@@ -16,7 +16,7 @@ module Rack::TrackerPlugin
         @@last_request_time = time
       end
     end
-  
+
     module InstanceMethods
       attr_accessor :start_time
 
@@ -30,7 +30,7 @@ module Rack::TrackerPlugin
         self.class.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
       end
     end
-  
+
     def self.included(receiver)
       receiver.extend         ClassMethods
       receiver.send :include, InstanceMethods

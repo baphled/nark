@@ -41,7 +41,7 @@ describe Rack::Tracker::Plugins do
 
       it "includes all listed plugins" do
         SubjectClass.add_plugins ['requests']
-        SubjectClass.included_plugins.should include Rack::TrackerPlugin::Requests
+        SubjectClass.included_plugins.should include Rack::Tracker::Plugins::Requests
       end
     end
 
