@@ -11,7 +11,7 @@ require 'exceptions'
 #
 module Rack
   module Tracker
-    include Rack::TrackerPlugins
+    include Rack::Tracker::Plugins
 
     #
     # All Rack::Tracker class variables are settable via this configuration method.

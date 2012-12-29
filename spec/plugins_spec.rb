@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe Rack::TrackerPlugins do
+describe Rack::Tracker::Plugins do
 
   before :each do
     class SubjectClass
-      include Rack::TrackerPlugins
+      include Rack::Tracker::Plugins
     end
   end
 
