@@ -5,6 +5,15 @@ module Rack
         # FIXME: This is pretty brittle should find a better way of
         # storing the path of the plugins
         @@plugins_paths = ["#{::File.dirname(__FILE__)}/../plugins"]
+        @@listeners = []
+
+        def add_hook hook, &block
+          @@listeners << {hook: hook, plugin_method: block}
+        end
+
+        def listeners
+          @@listeners
+        end
 
         def plugins_paths
           @@plugins_paths
@@ -31,7 +40,7 @@ module Rack
         def plugins
           included_plugins.collect do |plugin|
             plugin.to_s.split('::').last.underscore
-	  end.sort
+          end.sort
         end
 
         def available_plugins
@@ -59,10 +68,12 @@ module Rack
       end
 
       module InstanceMethods
+
         def initialize app
           self.class.require_plugins
           super
         end
+
       end
 
       def self.included(receiver)

@@ -4,6 +4,9 @@ module Rack::Tracker::Plugins
     end
 
     module InstanceMethods
+      def do_something
+        puts 'doing something'
+      end
     end
 
     def self.included(receiver)

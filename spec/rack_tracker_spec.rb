@@ -14,7 +14,7 @@ describe Rack::Tracker do
       plugin_path = File.join ::File.dirname(__FILE__), 'fixtures/plugins'
       Rack::Tracker.configure do |c|
         c.plugins_paths << plugin_path
-	c.add_plugins [:dummy_plugin, :requests, :request_times]
+        c.add_plugins [:dummy_plugin, :requests, :request_times]
       end
       Rack::Tracker.plugins.should eql ["dummy_plugin", "request_times", "requests"]
     end

@@ -20,13 +20,8 @@ describe Rack::Caller do
   end
 
   describe "#call" do
-    it "calls to before_call" do
-      SubjectClass.any_instance.should_receive :before_call
-      get '/'
-    end
-
-    it "calls to after_call" do
-      SubjectClass.any_instance.should_receive :after_call
+    it "triggers before and after hooks at least twice" do
+      SubjectClass.any_instance.should_receive(:trigger_hook).at_least(:twice)
       get '/'
     end
   end
