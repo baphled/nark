@@ -31,7 +31,7 @@ module Rack
         def plugins
           included_plugins.collect do |plugin|
             plugin.to_s.split('::').last.underscore
-          end
+	  end.sort
         end
 
         def available_plugins
