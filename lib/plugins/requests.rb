@@ -12,15 +12,12 @@ module Rack::Tracker::Plugins
       end
     end
 
-    module InstanceMethods
-      def before_call env
-        self.class.increment_requests
-      end
+    Rack::Tracker.add_hook :before_call do |env|
+      Rack::Tracker.increment_requests
     end
 
     def self.included(receiver)
-      receiver.extend         ClassMethods
-      receiver.send :include, InstanceMethods
+      receiver.extend ClassMethods
     end
   end
 end

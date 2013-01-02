@@ -17,23 +17,18 @@ module Rack::Tracker::Plugins
       end
     end
 
-    module InstanceMethods
-      attr_accessor :start_time
+    Rack::Tracker.add_hook :before_call do |env|
+      @start_time = Time.now
+    end
 
-      def before_call env
-        @start_time = Time.now
-      end
-
-      def after_call env
-        request_time = (Time.now - @start_time)
-        self.class.last_request_time = request_time
-        self.class.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
-      end
+    Rack::Tracker.add_hook :after_call do |env|
+      request_time = (Time.now - @start_time)
+      Rack::Tracker.last_request_time = request_time
+      Rack::Tracker.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
     end
 
     def self.included(receiver)
       receiver.extend         ClassMethods
-      receiver.send :include, InstanceMethods
     end
   end
 end
