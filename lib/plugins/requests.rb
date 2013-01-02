@@ -7,13 +7,13 @@ module Rack::Tracker::Plugins
         @@total_requests
       end
 
-      def increment_requests
-        @@total_requests += 1
+      def total_requests= number
+        @@total_requests += number
       end
     end
 
     Rack::Tracker.add_hook :before_call do |env|
-      Rack::Tracker.increment_requests
+      Rack::Tracker.total_requests += 1
     end
 
     def self.included(receiver)
