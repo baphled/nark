@@ -8,15 +8,16 @@ module Rack::Tracker::Plugins
         @@last_request_time
       end
 
-      def request_times
-        @@request_times
-      end
-
       def last_request_time= time
         @@last_request_time = time
       end
+
+      def request_times
+        @@request_times
+      end
     end
 
+    # FIXME: These get automatically set when requiring the plugin. Need another solution for dealing with these
     Rack::Tracker.add_hook :before_call do |env|
       @start_time = Time.now
     end

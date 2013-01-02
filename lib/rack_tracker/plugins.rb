@@ -19,18 +19,15 @@ module Rack
           @@plugins_paths
         end
 
-        def require_plugins
-          plugins_paths.each do |plugin_path|
-            Dir["#{plugin_path}/*.rb"].each {|f| require f}
-          end
-        end
-
         def add_plugins plugins
-          # FIXME: Should not be requiring all plugins here. Find a better home for it
-          require_plugins
           plugins.each do |plugin|
             begin
-              eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
+              plugins_paths.each do |plugin_path|
+                if ::File.exists? "#{plugin_path}/#{plugin}.rb"
+                  require "#{plugin_path}/#{plugin}"
+                  eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
+                end
+              end
             rescue NameError => e
               raise TrackerPlugin::NotFound.new e
             end
