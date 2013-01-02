@@ -25,7 +25,7 @@ module Rack
           listener[:hook].to_sym == hook.to_sym
         end
         before_hooks.each do |before_hook|
-	  Rack::Tracker.class_eval 'before_hook[:plugin_method].call env'
+          Rack::Tracker.class_eval 'before_hook[:plugin_method].call env'
         end
       end
 
