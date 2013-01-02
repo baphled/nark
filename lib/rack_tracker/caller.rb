@@ -28,15 +28,6 @@ module Rack
           Rack::Tracker.class_eval 'before_hook[:plugin_method].call env'
         end
       end
-
-      #
-      # We are not bothered whether the before and after hooks are call or not
-      #
-      # TODO: It does make sense to fire off a message stating that the hooks have not been used
-      #
-      def method_missing method, *args, &block
-        super unless [:after_call, :before_call].include? method
-      end
     end
 
     def self.included(receiver)
