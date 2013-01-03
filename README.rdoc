@@ -31,21 +31,29 @@ For this a DSL is needed, this is by no means the end product but simply
 an the curreny idea for the DSL, I really have no idea how this is
 eventually end up.
 
-  define_plugin :request_times do
-    class_variables => { :last_request_time => nil, :request_times => [] }
+  Rack::Tracker::DefinePlugin.new :request_times do
+    Rack::Tracker.plugin_variables :last_request_time => nil, :request_times => []
 
-    before_call -> { |env| @start_time = Time.now }
-
-    after_call -> do |env|
-      self.class.last_request_time = (Time.now - @start_time)
-      self.class.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
+    Rack::Tracker.plugin_method :last_request_time do
+      Rack::Tracker.last_request_time
     end
-  end
 
-  define_plugin :requests do
-    class_variables: { :total_requests => 0 }
+    Rack::Tracker.plugin_method :last_request_time= do |time|
+      Rack::Tracker.last_request_time = time
+    end
 
-    before_call -> { |env| self.class.increment_requests }
+    Rack::Tracker.plugin_method :request_times do
+      Rack::Tracker.request_times
+    end
+
+    Rack::Tracker.add_hook :before_call do |env|
+      @start_time = Time.now
+    end
+
+    Rack::Tracker.add_hook :after_call do |env|
+      Rack::Tracker.last_request_time = (Time.now - @start_time)
+      Rack::Tracker.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
+    end
   end
  
 == Contributing to rack_tracker
