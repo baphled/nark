@@ -22,12 +22,7 @@ module Rack
         def add_plugins plugins
           plugins.each do |plugin|
             begin
-              plugins_paths.each do |plugin_path|
-                if ::File.exists? "#{plugin_path}/#{plugin}.rb"
-                  require "#{plugin_path}/#{plugin}"
-                  eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
-                end
-              end
+              find_and_require_plugin plugin
             rescue NameError => e
               raise TrackerPlugin::NotFound.new e
             end
@@ -61,6 +56,16 @@ module Rack
 
         def ignored_modules
           ['ClassMethods','InstanceMethods']
+        end
+        protected
+
+        def find_and_require_plugin plugin
+          plugins_paths.each do |plugin_path|
+            if ::File.exists? "#{plugin_path}/#{plugin}.rb"
+              require "#{plugin_path}/#{plugin}"
+              eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
+            end
+          end
         end
       end
 
