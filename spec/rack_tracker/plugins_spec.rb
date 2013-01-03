@@ -1,50 +1,33 @@
 require "spec_helper"
 
 describe Rack::Tracker::Plugins do
-
   include Rack::Test::Methods
 
   def app
     @target_app = mock('The target application')
     @target_app.stub(:call).and_return([200, {}, "Target application"])
-    SubjectClass.new @target_app
-  end
-
-  before :each do
-    class SubjectClass
-      include Rack::Tracker::Plugins
-      include Rack::Caller
-
-    end
-  end
-
-  after :each do
-    Object.send :remove_const, :SubjectClass
+    Rack::Tracker::Middleware.new @target_app
   end
 
   it "stores an array of plugin available" do
     Rack::Tracker::Middleware.new stub(:app, :call => 'foo')
-    SubjectClass.available_plugins.should be_an Array
+    Rack::Tracker.available_plugins.should be_an Array
   end
 
   describe "#plugins" do
-    it "has no plugins set by default" do
-      SubjectClass.plugins.should eql []
-    end
-
     it "provides does not manage a plugins name" do
-      SubjectClass.add_plugins ['request_times']
-      SubjectClass.plugins.should include 'request_times'
+      Rack::Tracker.add_plugins ['request_times']
+      Rack::Tracker.plugins.should include 'request_times'
     end
   end
 
   describe "#available_plugins" do
     it "should not include class_methods" do
-      SubjectClass.available_plugins.should_not include 'class_methods'
+      Rack::Tracker.available_plugins.should_not include 'class_methods'
     end
 
     it "should not include instance_methods" do
-      SubjectClass.available_plugins.should_not include 'instance_methods'
+      Rack::Tracker.available_plugins.should_not include 'instance_methods'
     end
 
     it "provides a list of all available plugins"
@@ -53,8 +36,8 @@ describe Rack::Tracker::Plugins do
   describe "#add_plugin" do
     context "plugins are required" do
       it "includes all listed plugins" do
-        SubjectClass.add_plugins ['requests']
-        SubjectClass.included_plugins.should include Rack::Tracker::Plugins::Requests
+        Rack::Tracker.add_plugins ['requests']
+        Rack::Tracker.included_plugins.should include Rack::Tracker::Plugins::Requests
       end
     end
 
@@ -62,7 +45,7 @@ describe Rack::Tracker::Plugins do
       it "should throw an exception" do
         pending 'Need to revisit this'
         expect {
-          SubjectClass.add_plugins ['flakey']
+          Rack::Tracker.add_plugins ['flakey']
         }.to raise_error Rack::TrackerPlugin::NotFound
       end
     end
@@ -71,9 +54,9 @@ describe Rack::Tracker::Plugins do
   describe "#add_hook" do
     it "adds a listener hook" do
       plugin_block = ->(env) { puts 'do something' }
-      SubjectClass.add_hook :before_call, &plugin_block
+      Rack::Tracker.add_hook :before_call, &plugin_block
       expected = {:hook => :before_call, :plugin_method => plugin_block}
-      SubjectClass.listeners.should include expected
+      Rack::Tracker.listeners.should include expected
     end
 
     describe ":before_call" do
@@ -84,20 +67,26 @@ describe Rack::Tracker::Plugins do
       it "calls the added hook" do
         TestObject.should_receive :foo
         block = ->(env) { TestObject.foo }
-        SubjectClass.add_hook :before_call, &block
+        Rack::Tracker.add_hook :before_call, &block
+        get '/'
+      end
+
+      it "can interact with Rack::Tracker class variables" do
+        Rack::Tracker.add_plugins [:request_times]
+        Rack::Tracker.should_receive :last_request_time=
         get '/'
       end
     end
   end
   describe "#require_plugins" do
     it "loads all plugins to the TrackerPlugin namespace" do
-      SubjectClass.available_plugins.should include 'requests'
+      Rack::Tracker.available_plugins.should include 'requests'
     end
   end
 
   describe "#plugins_paths" do
     it "stores the default plugins path" do
-      SubjectClass.plugins_paths.should_not be_empty
+      Rack::Tracker.plugins_paths.should_not be_empty
     end
   end
 end
