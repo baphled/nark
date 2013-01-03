@@ -1,11 +1,11 @@
 require "active_support/core_ext"
 
 require 'rack_tracker/middleware'
-require 'rack_tracker/plugins'
-require 'rack_tracker/plugins/dsl'
 require 'rack_tracker/caller'
 require 'rack_tracker/exceptions'
 require 'rack_tracker/macros'
+require 'rack_tracker/plugins'
+require 'rack_tracker/plugins/dsl'
 
 #
 # This middleware is the basis of all tracking via rack middleware.
@@ -15,8 +15,8 @@ require 'rack_tracker/macros'
 #
 module Rack
   module Tracker
-    include Rack::Tracker::Plugins
     include Rack::Tracker::Macros
+    include Rack::Tracker::Plugins
 
     #
     # All Rack::Tracker class variables are settable via this configuration method.
