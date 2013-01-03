@@ -12,6 +12,10 @@ module Rack
               @@currently_defining
             end
           end
+
+          def currently_defining= value
+            @@currently_defining = value
+          end
         end
 
         def initialize plugin_name, &block

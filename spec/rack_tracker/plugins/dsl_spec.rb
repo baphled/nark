@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Rack::Tracker::Plugins::DSL do
+  # FIXME: This feels so wrong
+  after :each do
+    Rack::Tracker::DSL.send :currently_defining=, nil
+  end
+
   describe "#new" do
     it "allows me to create a new plugin" do
       Rack::Tracker::DSL.new :suttin_cool do
@@ -8,14 +13,6 @@ describe Rack::Tracker::Plugins::DSL do
       expect {
         Rack::Tracker::Plugins::SuttinCool
       }.to_not raise_error NameError
-    end
-
-    it "keeps track of the current plugin being defined" do
-      Rack::Tracker::DSL.new :a_random_plugin do
-        Rack::Tracker.plugin_variables :total_requests => 0
-      end
-
-      Rack::Tracker::DSL.currently_defining.should eql :a_random_plugin
     end
 
     context "defining class variables" do
@@ -34,6 +31,14 @@ describe Rack::Tracker::Plugins::DSL do
           Rack::Tracker::DSL.currently_defining
         }.to raise_error Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined
       end
+    end
+
+    it "keeps track of the current plugin being defined" do
+      Rack::Tracker::DSL.new :a_random_plugin do
+        Rack::Tracker.plugin_variables :total_requests => 0
+      end
+
+      Rack::Tracker::DSL.currently_defining.should eql :a_random_plugin
     end
 
     it "allows me to add an event hook"

@@ -13,6 +13,9 @@ module Rack
                     @@#{variable}
                   end
 
+                  protected
+
+                  # FIXME: It's only really need for a way to clear our slate when running specs
                   def #{variable}= value
                     @@#{variable} = value
                   end
