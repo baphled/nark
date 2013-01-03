@@ -69,18 +69,8 @@ module Rack
         end
       end
 
-      module InstanceMethods
-
-        def initialize app
-          self.class.require_plugins
-          super
-        end
-
-      end
-
       def self.included(receiver)
         receiver.extend         ClassMethods
-        receiver.send :include, InstanceMethods
       end
     end
   end
