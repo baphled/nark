@@ -28,6 +28,12 @@ describe Rack::Tracker::Plugins::DSL do
         end
         RandomPluginWrapper.total_requests.should eql 0
       end
+
+      it "throws an exception if the plugin currently defined is not set" do
+        expect {
+          Rack::Tracker::DSL.currently_defining
+        }.to raise_error Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined
+      end
     end
 
     it "allows me to add an event hook"

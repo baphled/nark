@@ -6,7 +6,11 @@ module Rack
 
         class << self
           def currently_defining
-            @@currently_defining
+            if @@currently_defining.nil?
+              raise Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined
+            else
+              @@currently_defining
+            end
           end
         end
 
