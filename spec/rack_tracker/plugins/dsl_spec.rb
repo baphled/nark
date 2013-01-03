@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "#{File.dirname(__FILE__)}/../../../lib/plugins/repository_revision"
 
 describe Rack::Tracker::Plugins::DSL do
   describe "#new" do
