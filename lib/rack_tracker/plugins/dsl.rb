@@ -2,8 +2,17 @@ module Rack
   module Tracker
     module Plugins
       class DSL
+        @@currently_defining = nil
+
+        class << self
+          def currently_defining
+            @@currently_defining
+          end
+        end
+
         def initialize plugin_name, &block
           eval define_plugin_module plugin_name, &block
+          @@currently_defining = plugin_name
         end
 
         protected
