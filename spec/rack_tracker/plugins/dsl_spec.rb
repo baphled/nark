@@ -30,7 +30,6 @@ describe Rack::Tracker::Plugins::DSL do
 
     it "keeps track of the current plugin being defined" do
       Rack::Tracker::DSL.new :a_random_plugin do
-        Rack::Tracker.plugin_variables :total_requests => 0
       end
 
       Rack::Tracker::DSL.currently_defining.should eql :a_random_plugin
