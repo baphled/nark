@@ -2,6 +2,23 @@ module Rack
   module Tracker
     module Macros
       module ClassMethods
+        def plugin_method method_name, &block
+          plugin_method_code = """
+            module Rack::Tracker::Plugins::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
+              module ClassMethods
+                def #{method_name}
+                  '#{block.call}'
+                end
+              end
+
+              def self.included(receiver)
+                receiver.extend ClassMethods
+              end
+            end
+          """
+          Rack::Tracker.module_eval plugin_method_code
+        end
+
         def plugin_variables variable_hashes
           variable_hashes.reduce('') do |s, (variable, value)|
             plugin_class_methods = """

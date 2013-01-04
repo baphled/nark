@@ -29,4 +29,20 @@ describe "Plugin DSL" do
       Rack::Tracker.total_requests.should eql 1
     end
   end
+
+  describe "#plugin_method" do
+    it "allows us to define a plugin method" do
+      Rack::Tracker::DSL.new :something_really_cool do
+        Rack::Tracker.plugin_method :revision do
+          %x[cat .git/refs/heads/master| cut -f 1].chomp
+        end
+      end
+
+      module Rack::Tracker
+        include Rack::Tracker::Plugins::SomethingReallyCool
+      end
+
+      Rack::Tracker.revision.should eql %x[cat .git/refs/heads/master| cut -f 1].chomp
+    end
+  end
 end
