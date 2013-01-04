@@ -15,6 +15,10 @@ module Rack
           @@listeners
         end
 
+        def listeners= value
+          @@listeners = value
+        end
+
         def plugins_paths
           @@plugins_paths
         end

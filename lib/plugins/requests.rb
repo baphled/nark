@@ -12,10 +12,6 @@ module Rack::Tracker::Plugins
       end
     end
 
-    Rack::Tracker.add_hook :before_call do |env|
-      Rack::Tracker.total_requests += 1
-    end
-
     def self.included(receiver)
       receiver.extend ClassMethods
     end

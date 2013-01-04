@@ -73,11 +73,12 @@ describe Rack::Tracker::Plugins do
 
       it "can interact with Rack::Tracker class variables" do
         Rack::Tracker.add_plugins [:request_times]
-        Rack::Tracker.should_receive :last_request_time=
+        Rack::Tracker.should_receive(:last_request_time=).at_least :once
         get '/'
       end
     end
   end
+
   describe "#require_plugins" do
     it "loads all plugins to the TrackerPlugin namespace" do
       Rack::Tracker.available_plugins.should include 'requests'
