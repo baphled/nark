@@ -16,8 +16,15 @@ describe Rack::Tracker::Plugins do
 
   describe "#plugins" do
     it "can add a plugin" do
-      Rack::Tracker.add_plugins ['request_times']
-      Rack::Tracker.plugins.should include 'request_times'
+      Rack::Tracker::DSL.new :requests do |plugin|
+        plugin.variables :total_requests => 0
+
+        plugin.add_hook :before_call do |env|
+          Rack::Tracker.total_requests += 1
+        end
+      end
+      Rack::Tracker.add_plugins [:requests]
+      Rack::Tracker.plugins.should include 'requests'
     end
   end
 
@@ -36,7 +43,14 @@ describe Rack::Tracker::Plugins do
   describe "#add_plugin" do
     context "plugins are required" do
       it "includes all listed plugins" do
-        Rack::Tracker.add_plugins ['requests']
+        Rack::Tracker::DSL.new :requests do |plugin|
+          plugin.variables :total_requests => 0
+
+          plugin.add_hook :before_call do |env|
+            Rack::Tracker.total_requests += 1
+          end
+        end
+        Rack::Tracker.add_plugins [:requests]
         Rack::Tracker.included_plugins.should include Rack::Tracker::Plugins::Requests
       end
     end
@@ -72,8 +86,15 @@ describe Rack::Tracker::Plugins do
       end
 
       it "can interact with Rack::Tracker class variables" do
-        Rack::Tracker.add_plugins [:request_times]
-        Rack::Tracker.should_receive(:last_request_time=).at_least :once
+        Rack::Tracker::DSL.new :requests do |plugin|
+          plugin.variables :total_requests => 0
+
+          plugin.add_hook :before_call do |env|
+            Rack::Tracker.total_requests += 1
+          end
+        end
+        Rack::Tracker.add_plugins [:requests]
+        Rack::Tracker.should_receive(:total_requests=).at_least :once
         get '/'
       end
     end
@@ -82,12 +103,6 @@ describe Rack::Tracker::Plugins do
   describe "#require_plugins" do
     it "loads all plugins to the TrackerPlugin namespace" do
       Rack::Tracker.available_plugins.should include 'requests'
-    end
-  end
-
-  describe "#plugins_paths" do
-    it "stores the default plugins path" do
-      Rack::Tracker.plugins_paths.should_not be_empty
     end
   end
 end

@@ -2,9 +2,6 @@ module Rack
   module Tracker
     module Plugins
       module ClassMethods
-        # FIXME: This is pretty brittle should find a better way of
-        # storing the path of the plugins
-        @@plugins_paths = ["#{::File.dirname(__FILE__)}/../plugins"]
         @@listeners = []
 
         def listeners
@@ -15,14 +12,10 @@ module Rack
           @@listeners = value
         end
 
-        def plugins_paths
-          @@plugins_paths
-        end
-
         def add_plugins plugins
           plugins.each do |plugin|
             begin
-              find_and_require_plugin plugin
+              eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
             rescue NameError => e
               raise TrackerPlugin::NotFound.new e
             end
@@ -43,10 +36,6 @@ module Rack
           modules.collect { |plugin| plugin.to_s.underscore }.sort
         end
 
-        def add_plugin_path path
-          @@plugins_paths << path
-        end
-
         def included_plugins
           ancestors.select do |module_name|
             name = module_name.to_s.split('::').last
@@ -56,16 +45,6 @@ module Rack
 
         def ignored_modules
           ['ClassMethods','InstanceMethods']
-        end
-        protected
-
-        def find_and_require_plugin plugin
-          plugins_paths.each do |plugin_path|
-            if ::File.exists? "#{plugin_path}/#{plugin}.rb"
-              require "#{plugin_path}/#{plugin}"
-              eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
-            end
-          end
         end
       end
 
