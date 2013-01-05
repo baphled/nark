@@ -13,6 +13,8 @@ Dir["#{File.dirname(__FILE__)}/../lib/rack_tracker.rb"].each {|f| require f}
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
+  config.include PluginMacro
+
   config.before :each do
     Rack::Tracker.class_variable_set :@@listeners, []
   end

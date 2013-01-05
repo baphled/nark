@@ -10,26 +10,12 @@ describe "Running multiple plugins" do
   end
 
   describe "running two plugins that use the before hook" do
+    let(:request_times_plugin) { create_plugin(:request_times) }
+    let(:requests) { create_plugin(:requests) }
+
     before :each do
-      Rack::Tracker::Plugin.define :request_times do |plugin|
-        plugin.variables :last_request_time => nil
-
-        plugin.add_hook :before_call do |env|
-          @start_time = Time.now
-        end
-
-        plugin.add_hook :after_call do |env|
-          Rack::Tracker.last_request_time = (Time.now - @start_time)
-        end
-      end
-
-      Rack::Tracker::Plugin.define :requests do |plugin|
-        plugin.variables :total_requests => 0
-
-        plugin.add_hook :before_call do |env|
-          Rack::Tracker.total_requests += 1
-        end
-      end
+      Rack::Tracker::Plugin.define :request_times, &request_times_plugin
+      Rack::Tracker::Plugin.define :requests, &requests
     end
 
     it "can track the number of requests and the amount of time the request took" do
