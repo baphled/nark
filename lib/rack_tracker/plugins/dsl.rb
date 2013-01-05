@@ -13,8 +13,6 @@ module Rack
         end
 
         class << self
-          @@listeners = []
-
           def add_hook hook, &block
             Rack::Tracker.listeners << {hook: hook, plugin_method: block}
           end
