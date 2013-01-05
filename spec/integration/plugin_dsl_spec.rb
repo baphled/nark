@@ -13,7 +13,7 @@ describe "Plugin DSL" do
 
   describe "defining a plugin hook" do
     it "triggers the hook when the application is called" do
-      Rack::Tracker::DSL.new :something_really_cool do |plugin|
+      Rack::Tracker::Plugin::DSL.define :something_really_cool do |plugin|
         plugin.variables :total_requests => 0
 
         plugin.add_hook :before_call do |env|
@@ -22,7 +22,7 @@ describe "Plugin DSL" do
       end
 
       module Rack::Tracker
-        include Rack::Tracker::Plugins::SomethingReallyCool
+        include Rack::Tracker::Plugin::SomethingReallyCool
       end
 
       get '/'
@@ -32,14 +32,14 @@ describe "Plugin DSL" do
 
   describe "defining a plugin class method" do
     it "allows us to define a plugin method" do
-      Rack::Tracker::DSL.new :something_really_cool do |plugin|
+      Rack::Tracker::Plugin::DSL.define :something_really_cool do |plugin|
         plugin.method :revision do
           %x[cat .git/refs/heads/master| cut -f 1].chomp
         end
       end
 
       module Rack::Tracker
-        include Rack::Tracker::Plugins::SomethingReallyCool
+        include Rack::Tracker::Plugin::SomethingReallyCool
       end
 
       Rack::Tracker.revision.should eql %x[cat .git/refs/heads/master| cut -f 1].chomp
@@ -48,10 +48,10 @@ describe "Plugin DSL" do
 
   context "finished defining a plugin" do
     it "should not be storing a plugin name" do
-      Rack::Tracker::DSL.new :something_really_cool do |plugin|
+      Rack::Tracker::Plugin::DSL.define :something_really_cool do |plugin|
       end
       expect {
-        Rack::Tracker::Plugins::DSL.currently_defining
+        Rack::Tracker::Plugin::DSL.currently_defining
       }.to raise_error Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined
     end
   end

@@ -1,4 +1,4 @@
-module Rack::Tracker::Plugins
+module Rack::Tracker::Plugin
   module DummyPlugin
     module ClassMethods
     end

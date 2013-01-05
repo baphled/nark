@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Rack::Tracker::Plugins do
+describe Rack::Tracker::Plugin do
 
   it "stores an array of plugin available" do
     Rack::Tracker::Middleware.new stub(:app, :call => 'foo')
@@ -9,7 +9,7 @@ describe Rack::Tracker::Plugins do
 
   describe "#plugins" do
     it "can add a plugin" do
-      Rack::Tracker::DSL.new :requests do |plugin|
+      Rack::Tracker::Plugin::DSL.define :requests do |plugin|
         plugin.variables :total_requests => 0
 
         plugin.add_hook :before_call do |env|
@@ -36,7 +36,7 @@ describe Rack::Tracker::Plugins do
   describe "#add_plugin" do
     context "plugins are required" do
       it "includes all listed plugins" do
-        Rack::Tracker::DSL.new :requests do |plugin|
+        Rack::Tracker::Plugin::DSL.define :requests do |plugin|
           plugin.variables :total_requests => 0
 
           plugin.add_hook :before_call do |env|
@@ -44,7 +44,7 @@ describe Rack::Tracker::Plugins do
           end
         end
         Rack::Tracker.add_plugins [:requests]
-        Rack::Tracker.included_plugins.should include Rack::Tracker::Plugins::Requests
+        Rack::Tracker.included_plugins.should include Rack::Tracker::Plugin::Requests
       end
     end
 

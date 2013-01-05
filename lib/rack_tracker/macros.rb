@@ -8,7 +8,7 @@ module Rack
 
         def method method_name, &block
           plugin_method_code = """
-            module Rack::Tracker::Plugins::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
+            module Rack::Tracker::Plugin::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
               module ClassMethods
                 def #{method_name}
                   '#{block.call}'
@@ -26,7 +26,7 @@ module Rack
         def variables variable_hashes
           variable_hashes.reduce('') do |s, (variable, value)|
             plugin_class_methods = """
-              module Rack::Tracker::Plugins::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
+              module Rack::Tracker::Plugin::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
                 module ClassMethods
                   @@#{variable} = #{value}
 

@@ -1,6 +1,6 @@
 module Rack
   module Tracker
-    module Plugins
+    module Plugin
       module ClassMethods
         @@listeners = []
 
@@ -15,7 +15,7 @@ module Rack
         def add_plugins plugins
           plugins.each do |plugin|
             begin
-              eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
+              eval "include Rack::Tracker::Plugin::#{plugin.to_s.camelize}"
             rescue NameError => e
               raise Tracker::Exceptions::PluginNotFound.new e
             end
@@ -29,9 +29,9 @@ module Rack
         end
 
         def available_plugins
-          found_objects = Rack::Tracker::Plugins.constants
+          found_objects = Rack::Tracker::Plugin.constants
           modules = found_objects.delete_if do |plugin|
-            eval("Rack::Tracker::Plugins::#{plugin}").is_a? Class or ignored_modules.include? plugin.to_s.camelize
+            eval("Rack::Tracker::Plugin::#{plugin}").is_a? Class or ignored_modules.include? plugin.to_s.camelize
           end
           modules.collect { |plugin| plugin.to_s.underscore }.sort
         end
@@ -39,7 +39,7 @@ module Rack
         def included_plugins
           ancestors.select do |module_name|
             name = module_name.to_s.split('::').last
-            module_name.to_s =~ /Rack::Tracker::Plugins::[[:alnum:]]+$/ and not ignored_modules.include? name
+            module_name.to_s =~ /Rack::Tracker::Plugin::[[:alnum:]]+$/ and not ignored_modules.include? name
           end
         end
 
