@@ -9,7 +9,7 @@ describe Rack::Tracker::Plugin do
 
   describe "#plugins" do
     it "can add a plugin" do
-      Rack::Tracker::Plugin::DSL.define :requests do |plugin|
+      Rack::Tracker::Plugin.define :requests do |plugin|
         plugin.variables :total_requests => 0
 
         plugin.add_hook :before_call do |env|
@@ -36,7 +36,7 @@ describe Rack::Tracker::Plugin do
   describe "#add_plugin" do
     context "plugins are required" do
       it "includes all listed plugins" do
-        Rack::Tracker::Plugin::DSL.define :requests do |plugin|
+        Rack::Tracker::Plugin.define :requests do |plugin|
           plugin.variables :total_requests => 0
 
           plugin.add_hook :before_call do |env|

@@ -5,7 +5,6 @@ require 'rack_tracker/caller'
 require 'rack_tracker/exceptions'
 require 'rack_tracker/macros'
 require 'rack_tracker/plugin'
-require 'rack_tracker/plugin/dsl'
 
 #
 # This middleware is the basis of all tracking via rack middleware.

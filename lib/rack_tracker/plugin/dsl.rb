@@ -1,10 +1,10 @@
 module Rack
   module Tracker
     module Plugin
-      class DSL
+      module DSL
         include Rack::Tracker::Macros
 
-        class << self
+        module ClassMethods
           def define plugin_name, &block
             @@currently_defining = plugin_name
             eval define_plugin_module plugin_name, &block
@@ -34,6 +34,9 @@ module Rack
           end
         end
 
+        def self.included(receiver)
+          receiver.extend         ClassMethods
+        end
       end
     end
   end

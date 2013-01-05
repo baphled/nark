@@ -1,7 +1,12 @@
+require_relative "plugin/dsl"
+
 module Rack
   module Tracker
     module Plugin
+      include DSL
+
       module ClassMethods
+
         @@listeners = []
 
         def listeners
