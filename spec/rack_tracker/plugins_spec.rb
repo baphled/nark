@@ -15,7 +15,7 @@ describe Rack::Tracker::Plugins do
   end
 
   describe "#plugins" do
-    it "provides does not manage a plugins name" do
+    it "can add a plugin" do
       Rack::Tracker.add_plugins ['request_times']
       Rack::Tracker.plugins.should include 'request_times'
     end
