@@ -15,7 +15,6 @@ require 'rack_tracker/plugins/dsl'
 #
 module Rack
   module Tracker
-    include Rack::Tracker::Macros
     include Rack::Tracker::Plugins
 
     #

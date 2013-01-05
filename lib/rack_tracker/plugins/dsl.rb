@@ -2,9 +2,17 @@ module Rack
   module Tracker
     module Plugins
       class DSL
+        include Rack::Tracker::Macros
+
         @@currently_defining = nil
 
         class << self
+          @@listeners = []
+
+          def add_hook hook, &block
+            Rack::Tracker.listeners << {hook: hook, plugin_method: block}
+          end
+
           def currently_defining
             if @@currently_defining.nil?
               raise Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined

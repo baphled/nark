@@ -7,10 +7,6 @@ module Rack
         @@plugins_paths = ["#{::File.dirname(__FILE__)}/../plugins"]
         @@listeners = []
 
-        def add_hook hook, &block
-          @@listeners << {hook: hook, plugin_method: block}
-        end
-
         def listeners
           @@listeners
         end

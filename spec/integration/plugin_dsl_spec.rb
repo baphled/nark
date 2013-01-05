@@ -13,10 +13,10 @@ describe "Plugin DSL" do
 
   describe "defining a plugin hook" do
     it "triggers the hook when the application is called" do
-      Rack::Tracker::DSL.new :something_really_cool do
-        Rack::Tracker.plugin_variables :total_requests => 0
+      Rack::Tracker::DSL.new :something_really_cool do |plugin|
+        plugin.variables :total_requests => 0
 
-        Rack::Tracker.add_hook :before_call do |env|
+        plugin.add_hook :before_call do |env|
           Rack::Tracker.total_requests += 1
         end
       end
@@ -32,8 +32,8 @@ describe "Plugin DSL" do
 
   describe "#plugin_method" do
     it "allows us to define a plugin method" do
-      Rack::Tracker::DSL.new :something_really_cool do
-        Rack::Tracker.plugin_method :revision do
+      Rack::Tracker::DSL.new :something_really_cool do |plugin|
+        plugin.plugin_method :revision do
           %x[cat .git/refs/heads/master| cut -f 1].chomp
         end
       end

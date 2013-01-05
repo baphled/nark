@@ -54,7 +54,7 @@ describe Rack::Tracker::Plugins do
   describe "#add_hook" do
     it "adds a listener hook" do
       plugin_block = ->(env) { puts 'do something' }
-      Rack::Tracker.add_hook :before_call, &plugin_block
+      Rack::Tracker::Plugins::DSL.add_hook :before_call, &plugin_block
       expected = {:hook => :before_call, :plugin_method => plugin_block}
       Rack::Tracker.listeners.should include expected
     end
@@ -67,7 +67,7 @@ describe Rack::Tracker::Plugins do
       it "calls the added hook" do
         TestObject.should_receive :foo
         block = ->(env) { TestObject.foo }
-        Rack::Tracker.add_hook :before_call, &block
+        Rack::Tracker::Plugins::DSL.add_hook :before_call, &block
         get '/'
       end
 
