@@ -20,8 +20,17 @@ describe Rack::Tracker::Plugin do
   end
 
   describe "#require_plugins" do
-    it "loads all plugins to the TrackerPlugin namespace" do
+    let(:requests) { create_plugin(:requests) }
+
+    it "automatically includes a defined module" do
+      Rack::Tracker::Plugin.define :requests, &requests
       Rack::Tracker.available_plugins.should include 'requests'
+    end
+  end
+
+  describe "#listeners" do
+    it "stores a list of events to listen out for" do
+      Rack::Tracker.listeners.should be_an Array
     end
   end
 end

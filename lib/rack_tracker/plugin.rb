@@ -25,15 +25,8 @@ module Rack
           modules.collect { |plugin| plugin.to_s.underscore }.sort
         end
 
-        def included_plugins
-          ancestors.select do |module_name|
-            name = module_name.to_s.split('::').last
-            module_name.to_s =~ /Rack::Tracker::Plugin::[[:alnum:]]+$/ and not ignored_modules.include? name
-          end
-        end
-
         def ignored_modules
-          ['ClassMethods','InstanceMethods']
+          ['ClassMethods','InstanceMethods','DSL']
         end
       end
 
