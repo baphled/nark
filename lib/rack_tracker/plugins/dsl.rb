@@ -6,6 +6,12 @@ module Rack
 
         @@currently_defining = nil
 
+        def initialize plugin_name, &block
+          @@currently_defining = plugin_name
+          yield Rack::Tracker::DSL
+          eval define_plugin_module plugin_name, &block
+        end
+
         class << self
           @@listeners = []
 
@@ -24,12 +30,6 @@ module Rack
           def currently_defining= value
             @@currently_defining = value
           end
-        end
-
-        def initialize plugin_name, &block
-          @@currently_defining = plugin_name
-          yield Rack::Tracker::DSL
-          eval define_plugin_module plugin_name, &block
         end
 
         protected
