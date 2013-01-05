@@ -13,10 +13,6 @@ module Rack
         end
 
         class << self
-          def add_hook hook, &block
-            Rack::Tracker.listeners << {hook: hook, plugin_method: block}
-          end
-
           def currently_defining
             if @@currently_defining.nil?
               raise Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined

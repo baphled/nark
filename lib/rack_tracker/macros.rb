@@ -2,6 +2,10 @@ module Rack
   module Tracker
     module Macros
       module ClassMethods
+        def add_hook hook, &block
+          Rack::Tracker.listeners << {hook: hook, plugin_method: block}
+        end
+
         def method method_name, &block
           plugin_method_code = """
             module Rack::Tracker::Plugins::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
