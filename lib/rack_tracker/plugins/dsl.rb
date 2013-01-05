@@ -8,8 +8,8 @@ module Rack
 
         def initialize plugin_name, &block
           @@currently_defining = plugin_name
-          yield Rack::Tracker::DSL
           eval define_plugin_module plugin_name, &block
+          yield Rack::Tracker::DSL
         end
 
         class << self
