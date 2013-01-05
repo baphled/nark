@@ -16,20 +16,5 @@ require 'rack_tracker/plugins/dsl'
 module Rack
   module Tracker
     include Rack::Tracker::Plugins
-
-    #
-    # All Rack::Tracker class variables are settable via this configuration method.
-    #
-    # This means that configuration settings are dynamically added dependant on
-    # what variables you expose via your plugins to Rack::Tracker.
-    #
-    # TODO: Refactor so only specific class variables, possibly only setters, are exposed via our plugins.
-    #
-    class << self
-      def configure
-        yield Rack::Tracker
-        true
-      end
-    end
   end
 end

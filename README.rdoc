@@ -13,13 +13,6 @@ We'll start off with some basic functionality:
 
 Each of these will be an individual component that plugins into Rack::Tracker and is exposed via a simple interface.
 
-== Configuring that Tracker
-
-  Rack::Tracker.config do |config|
-    config.plugins_paths << 'some-plugin-path'
-    config.plugins = [:request_times, :requests]
-  end
-
 == Future DSL
 
 The grand idea is to allow you to describe request plugins in a
