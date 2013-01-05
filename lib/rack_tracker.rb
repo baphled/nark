@@ -1,7 +1,6 @@
 require "active_support/core_ext"
 
 require 'rack_tracker/middleware'
-require 'rack_tracker/caller'
 require 'rack_tracker/exceptions'
 require 'rack_tracker/plugin'
 

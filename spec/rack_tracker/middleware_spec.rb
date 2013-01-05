@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Rack::Caller do
+describe Rack::Tracker::Middleware do
   include Rack::Test::Methods
 
   def app
