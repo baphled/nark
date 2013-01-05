@@ -16,12 +16,8 @@ describe Rack::Tracker::Plugin::DSL do
         Rack::Tracker::Plugin.define :a_cool_plugin do |plugin|
           plugin.variables :total_requests => 0
         end
-        class RandomPluginWrapper
-          include Rack::Tracker::Plugin::ACoolPlugin
-        end
-        RandomPluginWrapper.total_requests.should eql 0
+        Rack::Tracker.total_requests.should eql 0
       end
-
     end
 
     it "keeps track of the current plugin being defined" do
@@ -41,4 +37,3 @@ describe Rack::Tracker::Plugin::DSL do
     end
   end
 end
-

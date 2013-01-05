@@ -12,6 +12,7 @@ module Rack
             eval define_plugin_module plugin_name, &block
             yield Rack::Tracker::DSL
             @@currently_defining = nil
+            Rack::Tracker.module_eval "include Rack::Tracker::Plugin::#{plugin_name.to_s.camelize}"
           end
 
           def currently_defining

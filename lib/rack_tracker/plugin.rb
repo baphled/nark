@@ -17,22 +17,6 @@ module Rack
           @@listeners = value
         end
 
-        def add_plugins plugins
-          plugins.each do |plugin|
-            begin
-              eval "include Rack::Tracker::Plugin::#{plugin.to_s.camelize}"
-            rescue NameError => e
-              raise Tracker::Exceptions::PluginNotFound.new e
-            end
-          end
-        end
-
-        def plugins
-          included_plugins.collect do |plugin|
-            plugin.to_s.split('::').last.underscore
-          end.sort
-        end
-
         def available_plugins
           found_objects = Rack::Tracker::Plugin.constants
           modules = found_objects.delete_if do |plugin|

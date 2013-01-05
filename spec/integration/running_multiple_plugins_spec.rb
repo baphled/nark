@@ -19,7 +19,6 @@ describe "Running multiple plugins" do
     end
 
     it "can track the number of requests and the amount of time the request took" do
-      Rack::Tracker.add_plugins [:request_times, :requests ]
       get '/'
       Rack::Tracker.last_request_time.should be_within(0.1).of(0.1)
       Rack::Tracker.total_requests.should_not eql 0

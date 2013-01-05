@@ -7,15 +7,6 @@ describe Rack::Tracker::Plugin do
     Rack::Tracker.available_plugins.should be_an Array
   end
 
-  describe "#plugins" do
-    it "can add a plugin" do
-      requests_block = create_plugin(:requests)
-      Rack::Tracker::Plugin.define :requests, &requests_block
-      Rack::Tracker.add_plugins [:requests]
-      Rack::Tracker.plugins.should include 'requests'
-    end
-  end
-
   describe "#available_plugins" do
     it "should not include class_methods" do
       Rack::Tracker.available_plugins.should_not include 'class_methods'
@@ -26,26 +17,6 @@ describe Rack::Tracker::Plugin do
     end
 
     it "provides a list of all available plugins"
-  end
-
-  describe "#add_plugin" do
-    context "plugins are required" do
-      it "includes all listed plugins" do
-      requests_block = create_plugin(:requests)
-      Rack::Tracker::Plugin.define :requests, &requests_block
-        Rack::Tracker.add_plugins [:requests]
-        Rack::Tracker.included_plugins.should include Rack::Tracker::Plugin::Requests
-      end
-    end
-
-    context "plugin is not found" do
-      it "should throw an exception" do
-        pending 'Need to revisit this'
-        expect {
-          Rack::Tracker.add_plugins ['flakey']
-        }.to raise_error Rack::TrackerPlugin::NotFound
-      end
-    end
   end
 
   describe "#require_plugins" do
