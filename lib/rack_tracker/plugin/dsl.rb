@@ -1,3 +1,5 @@
+require 'rack_tracker/macros'
+
 module Rack
   module Tracker
     module Plugin
