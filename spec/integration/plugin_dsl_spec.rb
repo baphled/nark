@@ -30,7 +30,7 @@ describe "Plugin DSL" do
     end
   end
 
-  describe "#method" do
+  describe "defining a plugin class method" do
     it "allows us to define a plugin method" do
       Rack::Tracker::DSL.new :something_really_cool do |plugin|
         plugin.method :revision do
