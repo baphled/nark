@@ -34,9 +34,6 @@ describe Rack::Tracker::Plugins::DSL do
 
       Rack::Tracker::DSL.currently_defining.should eql :a_random_plugin
     end
-
-    it "allows me to add an event hook"
-    it "allows me to add plugin variables"
   end
 
   describe "#currently_defining" do
