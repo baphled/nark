@@ -24,26 +24,14 @@ For this a DSL is needed, this is by no means the end product but simply
 an the curreny idea for the DSL, I really have no idea how this is
 eventually end up.
 
-  Rack::Tracker::DefinePlugin.new :request_times do
-    Rack::Tracker.plugin_variables :last_request_time => nil, :request_times => []
+  Rack::Tracker::DSL.new :request_times do |plugin|
+    plugin.variables :last_request_time => nil, :request_times => []
 
-    Rack::Tracker.plugin_method :last_request_time do
-      Rack::Tracker.last_request_time
-    end
-
-    Rack::Tracker.plugin_method :last_request_time= do |time|
-      Rack::Tracker.last_request_time = time
-    end
-
-    Rack::Tracker.plugin_method :request_times do
-      Rack::Tracker.request_times
-    end
-
-    Rack::Tracker.add_hook :before_call do |env|
+    plugin.add_hook :before_call do |env|
       @start_time = Time.now
     end
 
-    Rack::Tracker.add_hook :after_call do |env|
+    plugin.add_hook :after_call do |env|
       Rack::Tracker.last_request_time = (Time.now - @start_time)
       Rack::Tracker.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
     end
