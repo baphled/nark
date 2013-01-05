@@ -45,4 +45,14 @@ describe "Plugin DSL" do
       Rack::Tracker.revision.should eql %x[cat .git/refs/heads/master| cut -f 1].chomp
     end
   end
+
+  context "finished defining a plugin" do
+    it "should not be storing a plugin name" do
+      Rack::Tracker::DSL.new :something_really_cool do |plugin|
+      end
+      expect {
+        Rack::Tracker::Plugins::DSL.currently_defining
+      }.to raise_error Rack::Tracker::Exceptions::UnableToTrackPluginBeingDefined
+    end
+  end
 end

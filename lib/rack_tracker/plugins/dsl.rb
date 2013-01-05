@@ -4,12 +4,11 @@ module Rack
       class DSL
         include Rack::Tracker::Macros
 
-        @@currently_defining = nil
-
         def initialize plugin_name, &block
           @@currently_defining = plugin_name
           eval define_plugin_module plugin_name, &block
           yield Rack::Tracker::DSL
+          @@currently_defining = nil
         end
 
         class << self
