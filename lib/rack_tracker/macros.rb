@@ -28,7 +28,7 @@ module Rack
             plugin_class_methods = """
               module Rack::Tracker::Plugin::#{Rack::Tracker::Plugin.currently_defining.to_s.camelize}
                 module ClassMethods
-                  @@#{variable} = #{value}
+                  @@#{variable} = #{value.inspect}
 
                   def #{variable}
                     @@#{variable}
