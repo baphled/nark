@@ -16,6 +16,6 @@ RSpec.configure do |config|
   config.include PluginMacro
 
   config.before :each do
-    Rack::Tracker.class_variable_set :@@listeners, []
+    Rack::Tracker::Middleware.class_variable_set :@@events, []
   end
 end

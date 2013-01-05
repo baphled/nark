@@ -19,7 +19,7 @@ module Rack
       end
 
       def trigger_hook hook, env
-        before_hooks = self.class.listeners.select do |listener|
+        before_hooks = self.class.events.select do |listener|
           listener[:hook].to_sym == hook.to_sym
         end
         before_hooks.each do |before_hook|
@@ -28,14 +28,14 @@ module Rack
       end
 
       class << self
-        @@listeners = []
+        @@events = []
 
-        def listeners
-          @@listeners
+        def events
+          @@events
         end
 
-        def listeners= value
-          @@listeners = value
+        def events= value
+          @@events = value
         end
       end
     end
