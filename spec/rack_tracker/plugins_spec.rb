@@ -1,13 +1,6 @@
 require "spec_helper"
 
 describe Rack::Tracker::Plugins do
-  include Rack::Test::Methods
-
-  def app
-    @target_app = mock('The target application')
-    @target_app.stub(:call).and_return([200, {}, "Target application"])
-    Rack::Tracker::Middleware.new @target_app
-  end
 
   it "stores an array of plugin available" do
     Rack::Tracker::Middleware.new stub(:app, :call => 'foo')
@@ -61,41 +54,6 @@ describe Rack::Tracker::Plugins do
         expect {
           Rack::Tracker.add_plugins ['flakey']
         }.to raise_error Rack::TrackerPlugin::NotFound
-      end
-    end
-  end
-
-  describe "#add_hook" do
-    it "adds a listener hook" do
-      plugin_block = ->(env) { puts 'do something' }
-      Rack::Tracker::Plugins::DSL.add_hook :before_call, &plugin_block
-      expected = {:hook => :before_call, :plugin_method => plugin_block}
-      Rack::Tracker.listeners.should include expected
-    end
-
-    describe ":before_call" do
-      class TestObject
-        def self.foo; end
-      end
-
-      it "calls the added hook" do
-        TestObject.should_receive :foo
-        block = ->(env) { TestObject.foo }
-        Rack::Tracker::Plugins::DSL.add_hook :before_call, &block
-        get '/'
-      end
-
-      it "can interact with Rack::Tracker class variables" do
-        Rack::Tracker::DSL.new :requests do |plugin|
-          plugin.variables :total_requests => 0
-
-          plugin.add_hook :before_call do |env|
-            Rack::Tracker.total_requests += 1
-          end
-        end
-        Rack::Tracker.add_plugins [:requests]
-        Rack::Tracker.should_receive(:total_requests=).at_least :once
-        get '/'
       end
     end
   end
