@@ -3,7 +3,7 @@ module Rack
     module Macros
       module ClassMethods
         def add_hook hook, &block
-          Rack::Tracker.listeners << {hook: hook, plugin_method: block}
+          Rack::Tracker::Middleware.listeners << {hook: hook, plugin_method: block}
         end
 
         def method method_name, &block

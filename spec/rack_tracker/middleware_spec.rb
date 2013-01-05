@@ -15,4 +15,10 @@ describe Rack::Tracker::Middleware do
       get '/'
     end
   end
+
+  describe "#listeners" do
+    it "stores a list of events to listen out for" do
+      Rack::Tracker::Middleware.listeners.should be_an Array
+    end
+  end
 end

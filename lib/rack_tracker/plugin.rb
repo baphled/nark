@@ -6,17 +6,6 @@ module Rack
       include DSL
 
       module ClassMethods
-
-        @@listeners = []
-
-        def listeners
-          @@listeners
-        end
-
-        def listeners= value
-          @@listeners = value
-        end
-
         def available_plugins
           found_objects = Rack::Tracker::Plugin.constants
           modules = found_objects.delete_if do |plugin|

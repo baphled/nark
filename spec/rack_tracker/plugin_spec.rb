@@ -27,10 +27,4 @@ describe Rack::Tracker::Plugin do
       Rack::Tracker.available_plugins.should include 'requests'
     end
   end
-
-  describe "#listeners" do
-    it "stores a list of events to listen out for" do
-      Rack::Tracker.listeners.should be_an Array
-    end
-  end
 end
