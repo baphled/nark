@@ -17,7 +17,7 @@ module Rack
             begin
               eval "include Rack::Tracker::Plugins::#{plugin.to_s.camelize}"
             rescue NameError => e
-              raise TrackerPlugin::NotFound.new e
+              raise Tracker::Exceptions::PluginNotFound.new e
             end
           end
         end
