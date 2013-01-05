@@ -30,10 +30,10 @@ describe "Plugin DSL" do
     end
   end
 
-  describe "#plugin_method" do
+  describe "#method" do
     it "allows us to define a plugin method" do
       Rack::Tracker::DSL.new :something_really_cool do |plugin|
-        plugin.plugin_method :revision do
+        plugin.method :revision do
           %x[cat .git/refs/heads/master| cut -f 1].chomp
         end
       end

@@ -2,7 +2,7 @@ module Rack
   module Tracker
     module Macros
       module ClassMethods
-        def plugin_method method_name, &block
+        def method method_name, &block
           plugin_method_code = """
             module Rack::Tracker::Plugins::#{Rack::Tracker::DSL.currently_defining.to_s.camelize}
               module ClassMethods
