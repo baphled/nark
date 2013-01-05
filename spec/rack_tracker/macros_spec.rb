@@ -14,6 +14,15 @@ describe Rack::Tracker::Macros do
     end
   end
 
+  describe "#method" do
+    it "creates the defined class method" do
+      Rack::Tracker::Plugin.define(:revision) do |plugin|
+        plugin.method :revision do
+          `cat .git/refs/heads/master| cut -f 1`.chomp
+        end
+      end
+      Rack::Tracker.revision.should eql `cat .git/refs/heads/master| cut -f 1`.chomp
+    end
   end
 
   describe "#variables" do
@@ -28,10 +37,10 @@ describe Rack::Tracker::Macros do
       Rack::Tracker::Plugin.define(:some_cool_plugin) do |plugin|
         plugin.variables :msg => 'hey', :value => 2, :hash => {:foo => 'bar'}
       end
+      hash = {:foo => 'bar'}
       Rack::Tracker.hash.should eql hash
       Rack::Tracker.msg.should eql 'hey'
       Rack::Tracker.value.should eql 2
-      hash = {:foo => 'bar'}
     end
   end
 end
