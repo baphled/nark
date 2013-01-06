@@ -39,6 +39,12 @@ end"""
     plugin.last_request_time = (Time.now - @start_time)
   end
 end"""
+          when :revisions
+"""Rack::Tracker::Plugin.define :revisions do |plugin|
+  plugin.method :revision do
+    %x[cat .git/refs/heads/master| cut -f 1].chomp
+  end
+end"""
           end
         end
       end

@@ -36,14 +36,13 @@ Feature: Generating a plugin
     end
     """
 
-  @wip
   Scenario: I should be able to generate a "revisions" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec rack_tracker example revisions`
     Then The "revisions" plugin should be created
     And the file "lib/rack_tracker/plugin/revisions.rb" should contain exactly:
     """
-    Rack::Tracker::Plugin.define :requests do |plugin|
+    Rack::Tracker::Plugin.define :revisions do |plugin|
       plugin.method :revision do
         %x[cat .git/refs/heads/master| cut -f 1].chomp
       end

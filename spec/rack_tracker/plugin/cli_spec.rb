@@ -46,6 +46,17 @@ end"""
         CliWrapper.example :request_times
         File.read('lib/rack_tracker/plugin/request_times.rb').should include expected
       end
+
+      it "can create a revisions plugin" do
+        expected =
+"""Rack::Tracker::Plugin.define :revisions do |plugin|
+  plugin.method :revision do
+    %x[cat .git/refs/heads/master| cut -f 1].chomp
+  end
+end"""
+        CliWrapper.example :revisions
+        File.read('lib/rack_tracker/plugin/revisions.rb').should include expected
+      end
     end
   end
 end
