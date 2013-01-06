@@ -17,7 +17,6 @@ Feature: Generating a plugin
     end
     """
 
-  @wip
   Scenario: I should be able to generate a "request times" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec rack_tracker example request_times`

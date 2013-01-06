@@ -12,12 +12,12 @@ describe Rack::Tracker::Cli do
     end
 
     context "copying an example" do
-      it "allows a user to example an example to the plugins directory" do
+      it "allows a user to create an example to the plugins directory" do
         CliWrapper.example :requests
         File.should exist 'lib/rack_tracker/plugin/requests.rb'
       end
 
-      it "stores the expected content within the new file" do
+      it "can create a requests plugin" do
         expected =
 """Rack::Tracker::Plugin.define :requests do |plugin|
   plugin.variables :total_requests => 0
@@ -28,6 +28,23 @@ describe Rack::Tracker::Cli do
 end"""
         CliWrapper.example :requests
         File.read('lib/rack_tracker/plugin/requests.rb').should include expected
+      end
+
+      it "can create a request_times plugin" do
+        expected =
+"""Rack::Tracker::Plugin.define :requests do |plugin|
+  plugin.variables :last_request_time => nil
+
+  plugin.add_hook :before_call do |env|
+    @start_time = Time.now
+  end
+
+  plugin.add_hook :after_call do |env|
+    plugin.last_request_time = (Time.now - @start_time)
+  end
+end"""
+        CliWrapper.example :request_times
+        File.read('lib/rack_tracker/plugin/request_times.rb').should include expected
       end
     end
   end
