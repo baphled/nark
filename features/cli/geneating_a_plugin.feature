@@ -48,3 +48,14 @@ Feature: Generating a plugin
       end
     end
     """
+
+  @wip
+  Scenario: I should be able to get a list of available plugin examples
+    Given I have installed the plugin
+    When I successfully run `bundle exec rack_tracker example list`
+    Then the output should contain:
+    """
+    :requests       - Tracks the number of requests made to your application
+    :request_times  - Keeps track of the amount of time each request takes
+    :revisions      - Outputs the git revision
+    """
