@@ -8,6 +8,8 @@ describe Rack::Tracker::Plugin do
   end
 
   describe "#available_plugins" do
+    let(:requests) { create_plugin(:requests) }
+
     it "should not include class_methods" do
       Rack::Tracker.available_plugins.should_not include 'class_methods'
     end
@@ -17,10 +19,6 @@ describe Rack::Tracker::Plugin do
     end
 
     it "provides a list of all available plugins"
-  end
-
-  describe "#require_plugins" do
-    let(:requests) { create_plugin(:requests) }
 
     it "automatically includes a defined module" do
       Rack::Tracker::Plugin.define :requests, &requests
