@@ -11,3 +11,4 @@ $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'rack_tracker'
 
 require 'rspec/expectations'
+require "aruba/cucumber"

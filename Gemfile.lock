@@ -18,6 +18,7 @@ GEM
       gherkin (~> 2.11.0)
       json (>= 1.4.6)
     diff-lcs (1.1.3)
+    fakefs (0.4.2)
     ffi (1.2.0)
     gherkin (2.11.5)
       json (>= 1.4.6)
@@ -58,6 +59,7 @@ DEPENDENCIES
   activesupport
   aruba
   cucumber
+  fakefs
   jeweler (~> 1.8.4)
   pry
   rack-test

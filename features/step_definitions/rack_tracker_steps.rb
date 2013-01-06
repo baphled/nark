@@ -1,13 +1,11 @@
 Given /^I have installed the plugin$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-When /^I run "(.*?)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  # Do nothing here
 end
 
 Then /^The requests plugin should be created$/ do
-  pending # express the regexp above with the code you wish you had
+  steps %{
+    Then a file named "lib/rack_tracker/plugin/requests.rb" should exist
+  }
 end
 
 Then /^it should be created in the default location$/ do
