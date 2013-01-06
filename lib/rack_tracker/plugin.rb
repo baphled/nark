@@ -1,4 +1,5 @@
 require_relative "plugin/dsl"
+require_relative "plugin/cli"
 
 module Rack
   module Tracker
@@ -13,6 +14,7 @@ module Rack
     #
     module Plugin
       include DSL
+      include Cli
 
       module ClassMethods
         #

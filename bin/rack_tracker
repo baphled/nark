@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'rack_tracker'
+
+puts method = ARGV.shift
+puts plugin_name = ARGV.shift
+Rack::Tracker::Plugin.public_send method.to_sym, plugin_name

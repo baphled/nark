@@ -1,8 +1,11 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require 'rspec'
 require "pry"
 require 'rack/test'
+require 'fakefs/spec_helpers'
+
 require 'rack_tracker'
 
 ENV['RACK_ENV'] = 'test'
