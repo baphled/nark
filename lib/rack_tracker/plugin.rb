@@ -2,16 +2,36 @@ require_relative "plugin/dsl"
 
 module Rack
   module Tracker
+    #
+    # This is the main Module for the Plugin functionality.
+    #
+    # It's main functionality is to allow users to easily create their own
+    # custom plugins using a simple DSL.
+    #
+    # It also keeps track of these plugins so that a user can easily figure out
+    # what plugins are being used at any given time.
+    #
     module Plugin
       include DSL
 
       module ClassMethods
+        #
+        # Returns a list of plugins that are currently attached
+        #
+        # Figures out what plugins are setup and returns a list of them
+        #
         def available_plugins
-          found_objects = Rack::Tracker::Plugin.constants
-          modules = found_objects.delete_if do |plugin|
+          found_modules = Rack::Tracker::Plugin.constants
+          modules = filter_modules found_modules
+          modules.collect { |plugin| plugin.to_s.underscore }.sort
+        end
+
+        protected
+
+        def filter_modules found_modules
+          found_modules.delete_if do |plugin|
             eval("Rack::Tracker::Plugin::#{plugin}").is_a? Class or ignored_modules.include? plugin.to_s.camelize
           end
-          modules.collect { |plugin| plugin.to_s.underscore }.sort
         end
 
         def ignored_modules

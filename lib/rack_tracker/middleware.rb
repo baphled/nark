@@ -7,10 +7,24 @@
 module Rack
   module Tracker
     class Middleware
+      #
+      # Set the application to an instance variable.
+      #
+      # This is needed to allow Rack to call our middleware simply by
+      # use the module.
+      #
       def initialize app
         @app = app
       end
 
+      #
+      # Call our middleware
+      #
+      # This is called by Rack when the Module is included in an application.
+      #
+      # This is where events are triggered if any are defined within a custom
+      # plugin.
+      #
       def call env
         trigger_hook :before_call, env
         response = @app.call env
@@ -18,6 +32,12 @@ module Rack
         response
       end
 
+      #
+      # Triggers an event.
+      #
+      # This is used internally to determine whether there are any events to be
+      # triggered.
+      #
       def trigger_hook hook, env
         before_hooks = self.class.events.select do |listener|
           listener[:hook].to_sym == hook.to_sym
@@ -28,12 +48,21 @@ module Rack
       end
 
       class << self
+        #
+        # Keeps tracks of the events to be triggered.
+        #
         @@events = []
 
+        #
+        # Accessor for the events class instance
+        #
         def events
           @@events
         end
 
+        #
+        # Setter for the events class instance
+        #
         def events= value
           @@events = value
         end
