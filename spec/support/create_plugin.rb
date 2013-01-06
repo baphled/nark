@@ -18,7 +18,7 @@ module PluginMacro
           end
 
           plugin.add_hook :after_call do |env|
-            Rack::Tracker.last_request_time = (Time.now - @start_time)
+            plugin.last_request_time = (Time.now - @start_time)
           end
         end
       when :requests
@@ -26,7 +26,7 @@ module PluginMacro
           plugin.variables :total_requests => 0
 
           plugin.add_hook :before_call do |env|
-            Rack::Tracker.total_requests += 1
+            plugin.total_requests += 1
           end
         end
       end

@@ -6,6 +6,12 @@ module Rack
       module DSL
         include Rack::Tracker::Macros
 
+        class << self
+          def method_missing method, *args, &block
+            Rack::Tracker.send method, *args, &block
+          end
+        end
+
         module ClassMethods
           def define plugin_name, &block
             @@currently_defining = plugin_name

@@ -35,8 +35,8 @@ eventually end up.
     end
 
     plugin.add_hook :after_call do |env|
-      Rack::Tracker.last_request_time = (Time.now - @start_time)
-      Rack::Tracker.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
+      plugin.last_request_time = (Time.now - @start_time)
+      plugin.request_times << {:url => env['PATH_INFO'], :request_time => request_time}
     end
   end
 ```
