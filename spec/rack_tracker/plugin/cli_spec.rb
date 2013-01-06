@@ -14,7 +14,13 @@ describe Rack::Tracker::Cli do
           :request_times => 'Keeps track of the amount of time each request takes',
           :revisions => 'Outputs the git revision'
         }
-        CliWrapper.list.should eql example_list
+        CliWrapper.list(:plugins).should eql example_list
+      end
+
+      context "list not found" do
+        it "returns an error" do
+          CliWrapper.list(:foo).should eql 'Invalid list type'
+        end
       end
     end
   end

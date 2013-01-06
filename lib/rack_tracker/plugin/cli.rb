@@ -3,11 +3,16 @@ module Rack
     module Cli
       module ClassMethods
         def list type
-          {
-            :requests => 'Tracks the number of requests made to your application',
-            :request_times => 'Keeps track of the amount of time each request takes',
-            :revisions => 'Outputs the git revision'
-          }
+          case type.to_sym
+          when :plugins
+            {
+              :requests => 'Tracks the number of requests made to your application',
+              :request_times => 'Keeps track of the amount of time each request takes',
+              :revisions => 'Outputs the git revision'
+            }
+          else
+            'Invalid list type'
+          end
         end
 
         def example plugin
