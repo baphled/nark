@@ -6,11 +6,20 @@ describe Rack::Tracker::Cli do
     include Rack::Tracker::Cli
   end
 
-  describe "#examples" do
+  describe "#list" do
     context "listing examples" do
-      it "lists all the example plugins available"
+      it "lists all the example plugins available" do
+        example_list = {
+          :requests => 'Tracks the number of requests made to your application',
+          :request_times => 'Keeps track of the amount of time each request takes',
+          :revisions => 'Outputs the git revision'
+        }
+        CliWrapper.list.should eql example_list
+      end
     end
+  end
 
+  describe "#examples" do
     context "copying an example" do
       it "allows a user to create an example to the plugins directory" do
         CliWrapper.example :requests

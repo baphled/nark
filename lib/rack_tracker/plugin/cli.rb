@@ -2,6 +2,14 @@ module Rack
   module Tracker
     module Cli
       module ClassMethods
+        def list type
+          {
+            :requests => 'Tracks the number of requests made to your application',
+            :request_times => 'Keeps track of the amount of time each request takes',
+            :revisions => 'Outputs the git revision'
+          }
+        end
+
         def example plugin
           copy_to_path = 'lib/rack_tracker/plugin'
           plugin_content = determine_plugin_content plugin
