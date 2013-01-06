@@ -52,7 +52,7 @@ Feature: Generating a plugin
   @wip
   Scenario: I should be able to get a list of available plugin examples
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker example list`
+    When I successfully run `bundle exec rack_tracker list examples`
     Then the output should contain:
     """
     :requests       - Tracks the number of requests made to your application
