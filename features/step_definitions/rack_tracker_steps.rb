@@ -2,9 +2,9 @@ Given /^I have installed the plugin$/ do
   # Do nothing here
 end
 
-Then /^The requests plugin should be created$/ do
+Then /^The "([^"]*)" plugin should be created$/ do |plugin_name|
   steps %{
-    Then a file named "lib/rack_tracker/plugin/requests.rb" should exist
+    Then a file named "lib/rack_tracker/plugin/#{plugin_name}.rb" should exist
   }
 end
 
