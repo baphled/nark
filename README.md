@@ -12,7 +12,7 @@ We'll start off with some basic functionality:
   * Github revision
   * Process ID
 
-Each of these will be an individual component that plugins into Rack::Tracker and is exposed via a simple interface.
+Each of these will be an individual component that plugins into Nark and is exposed via a simple interface.
 
 Plugin DSL
 ----------
@@ -27,7 +27,7 @@ an the curreny idea for the DSL, I really have no idea how this is
 eventually end up.
 
 ```
-  Rack::Tracker::Plugins::DSL.new :request_times do |plugin|
+  Nark::Plugins::DSL.new :request_times do |plugin|
     plugin.variables :last_request_time => nil, :request_times => []
 
     plugin.add_hook :before_call do |env|
