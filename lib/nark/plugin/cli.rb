@@ -4,11 +4,15 @@ module Nark
       def list type
         case type.to_sym
         when :plugins
+          list = []
           {
             :requests => 'Tracks the number of requests made to your application',
             :request_times => 'Keeps track of the amount of time each request takes',
             :revisions => 'Outputs the git revision'
-          }
+          }.reduce('') do |s, (plugin, description)|
+            list << "#{plugin.to_s} - #{description}"
+          end
+          list
         else
           'Invalid list type'
         end
