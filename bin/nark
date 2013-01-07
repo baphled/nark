@@ -4,5 +4,9 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'nark'
 
 method = ARGV.shift
-plugin_name = ARGV.shift
-Nark::Plugin.public_send method.to_sym, plugin_name
+arguement = ARGV.shift
+if method == 'list'
+  puts Nark::Plugin.list(arguement)
+else
+  Nark::Plugin.public_send method.to_sym, arguement
+end

@@ -10,7 +10,7 @@ module Nark
             :request_times => 'Keeps track of the amount of time each request takes',
             :revisions => 'Outputs the git revision'
           }.reduce('') do |s, (plugin, description)|
-            list << "#{plugin.to_s} - #{description}"
+            list << sprintf("%-20s - %s", plugin.to_sym, description)
           end
           list
         else

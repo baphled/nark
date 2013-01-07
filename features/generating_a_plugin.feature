@@ -49,13 +49,17 @@ Feature: Generating a plugin
     end
     """
 
-  @wip
   Scenario: I should be able to get a list of available plugin examples
     Given I have installed the plugin
-    When I successfully run `bundle exec nark list examples`
+    When I successfully run `bundle exec nark list plugins`
     Then the output should contain:
     """
-    :requests       - Tracks the number of requests made to your application
-    :request_times  - Keeps track of the amount of time each request takes
-    :revisions      - Outputs the git revision
+    requests             - Tracks the number of requests made to your application
+    request_times        - Keeps track of the amount of time each request takes
+    revisions            - Outputs the git revision
     """
+
+  Scenario: I should be able to get a list of available plugin examples
+    Given I have installed the plugin
+    When I successfully run `bundle exec nark list foo`
+    Then the output should contain "Invalid list type"

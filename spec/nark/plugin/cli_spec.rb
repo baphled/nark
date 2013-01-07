@@ -10,9 +10,9 @@ describe Nark::Cli do
     context "listing examples" do
       it "lists all the example plugins available" do
         example_list = [
-          "requests - Tracks the number of requests made to your application",
-          "request_times - Keeps track of the amount of time each request takes",
-          "revisions - Outputs the git revision"
+          "requests             - Tracks the number of requests made to your application",
+          "request_times        - Keeps track of the amount of time each request takes",
+          "revisions            - Outputs the git revision"
         ]
         CliWrapper.list(:plugins).should eql example_list
       end
