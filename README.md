@@ -1,6 +1,8 @@
 Nark
 ====
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/baphled/nark)
+
 Rack middleware that allows you to easily track and handle rack information of your own choosing.
 
 The idea here is to allow users to easily create modules that plug into the middleware and allow them to track and
