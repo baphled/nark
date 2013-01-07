@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "nark"
   gem.homepage = "http://github.com/baphled/nark"
   gem.license = "MIT"
-  gem.summary = %Q{A metrics tracker middleware}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Narks on your application like a dirty little snitch}
+  gem.description = %Q{TODO: Allows you to build plugins that can be used to nark on various parts of your application}
   gem.email = "baphled@boodah.net"
   gem.authors = ["baphled"]
   # dependencies defined in Gemfile

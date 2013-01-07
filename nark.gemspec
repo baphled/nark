@@ -9,32 +9,54 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["baphled"]
-  s.date = "2013-01-05"
-  s.description = "TODO: longer description of your gem"
+  s.date = "2013-01-07"
+  s.description = "TODO: Allows you to build plugins that can be used to nark on various parts of your application"
   s.email = "baphled@boodah.net"
+  s.executables = ["nark"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
   ]
   s.files = [
-   "Gemfile",
+    ".document",
+    ".rspec",
+    ".rvmrc",
+    "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
     "VERSION",
+    "bin/nark",
+    "features/command_line_interaction.feature",
+    "features/generating_a_plugin.feature",
+    "features/nark.feature",
+    "features/step_definitions/nark_steps.rb",
+    "features/support/env.rb",
     "lib/nark.rb",
     "lib/nark/exceptions.rb",
     "lib/nark/middleware.rb",
     "lib/nark/plugin.rb",
+    "lib/nark/plugin/cli.rb",
     "lib/nark/plugin/dsl.rb",
     "lib/nark/plugin/macros.rb",
+    "nark.gemspec",
+    "spec/integration/plugin_dsl_spec.rb",
+    "spec/integration/running_multiple_plugins_spec.rb",
+    "spec/nark/macros_spec.rb",
+    "spec/nark/middleware_spec.rb",
+    "spec/nark/plugin/cli_spec.rb",
+    "spec/nark/plugin/dsl_spec.rb",
+    "spec/nark/plugin_spec.rb",
+    "spec/nark_spec.rb",
+    "spec/spec_helper.rb",
+    "spec/support/create_plugin.rb"
   ]
   s.homepage = "http://github.com/baphled/nark"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
-  s.summary = "A metrics tracker middleware"
+  s.summary = "Narks on your application like a dirty little snitch"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -43,7 +65,9 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_development_dependency(%q<fakefs>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<aruba>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<rack-test>, [">= 0"])
       s.add_development_dependency(%q<pry>, [">= 0"])
@@ -51,7 +75,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_dependency(%q<fakefs>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<aruba>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<rack-test>, [">= 0"])
       s.add_dependency(%q<pry>, [">= 0"])
@@ -60,7 +86,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
+    s.add_dependency(%q<fakefs>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<aruba>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<rack-test>, [">= 0"])
     s.add_dependency(%q<pry>, [">= 0"])
