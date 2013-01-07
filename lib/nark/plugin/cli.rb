@@ -87,6 +87,26 @@ end"""
 end"""
         end
       end
+
+      def create plugin
+        copy_to_path = 'lib/nark/plugin'
+        plugin_content = 
+          """Nark::Plugin.define :#{plugin.to_s} do |plugin|
+  plugin.method :#{plugin.to_s} do
+    # Do something clever here.
+  end
+end"""
+
+        plugin_path = ::File.join(copy_to_path, plugin.to_s)
+
+        if not ::File.directory? ::File.dirname plugin_path
+          FileUtils.mkdir_p ::File.dirname plugin_path
+        end
+
+        ::File.open "#{plugin_path}.rb", 'w' do |file|
+          file.write plugin_content
+        end
+      end
     end
 
     def self.included(receiver)

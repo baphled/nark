@@ -50,10 +50,22 @@ describe Nark::Cli do
   end
 
   describe "#create" do
-    it "takes a plugin name"
-    it "optionally takes a plugin path"
-    it "create a skeleton file in the expected path"
-    it "creates the skeleton file with the plugin name"
+    it "create a skeleton file in the expected path" do
+      CliWrapper.create(:foo_bar)
+      File.should exist 'lib/nark/plugin/foo_bar.rb'
+    end
+
+    it "creates the skeleton file with the plugin name" do
+      expected = 
+"""Nark::Plugin.define :baz_bar do |plugin|
+  plugin.method :baz_bar do
+    # Do something clever here.
+  end
+end"""
+      CliWrapper.create :baz_bar
+      File.read('lib/nark/plugin/baz_bar.rb').should eql expected
+    end
+
   end
 
   describe "#list" do
