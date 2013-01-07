@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require "pry"
 require 'rack/test'
-require 'rack_tracker'
+require 'nark'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -16,6 +16,6 @@ RSpec.configure do |config|
   config.include PluginMacro
 
   config.before :each do
-    Rack::Tracker::Middleware.class_variable_set :@@events, []
+    Nark::Middleware.class_variable_set :@@events, []
   end
 end

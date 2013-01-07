@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "rack_tracker"
+  s.name = "nark"
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -23,14 +23,14 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
-    "lib/rack_tracker.rb",
-    "lib/rack_tracker/exceptions.rb",
-    "lib/rack_tracker/middleware.rb",
-    "lib/rack_tracker/plugin.rb",
-    "lib/rack_tracker/plugin/dsl.rb",
-    "lib/rack_tracker/plugin/macros.rb",
+    "lib/nark.rb",
+    "lib/nark/exceptions.rb",
+    "lib/nark/middleware.rb",
+    "lib/nark/plugin.rb",
+    "lib/nark/plugin/dsl.rb",
+    "lib/nark/plugin/macros.rb",
   ]
-  s.homepage = "http://github.com/baphled/rack_tracker"
+  s.homepage = "http://github.com/baphled/nark"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"

@@ -14,8 +14,8 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "rack_tracker"
-  gem.homepage = "http://github.com/baphled/rack_tracker"
+  gem.name = "nark"
+  gem.homepage = "http://github.com/baphled/nark"
   gem.license = "MIT"
   gem.summary = %Q{A metrics tracker middleware}
   gem.description = %Q{TODO: longer description of your gem}
@@ -46,7 +46,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "rack_tracker #{version}"
+  rdoc.title = "nark #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
