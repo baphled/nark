@@ -6,6 +6,56 @@ describe Nark::Cli do
     include Nark::Cli
   end
 
+  describe "#help" do
+    it "describes how to use list" do
+      help_output =
+        """
+        Usage: nark list plugins
+
+        Lists all example plugins that you can generate.
+        """
+        CliWrapper.help(:list).should eql help_output
+    end
+
+    it "describes how to use example" do
+      help_output =
+        """
+        Usage: nark example requests
+
+        Creates an example plugin.
+        """
+        CliWrapper.help(:example).should eql help_output
+    end
+
+    it "describes how to use create" do
+      pending "Yet to implement actual functionality for this"
+      help_output =
+        """
+        Usage: nark create foo
+
+        Creates new plugin template called foo.
+        """
+        CliWrapper.help(:example).should eql help_output
+    end
+
+    it "displays the help message by default" do
+      help_output =
+        """
+        Usage: nark help
+
+        Displays this message.
+        """
+        CliWrapper.help.should eql help_output
+    end
+  end
+
+  describe "#create" do
+    it "takes a plugin name"
+    it "optionally takes a plugin path"
+    it "create a skeleton file in the expected path"
+    it "creates the skeleton file with the plugin name"
+  end
+
   describe "#list" do
     context "listing examples" do
       it "lists all the example plugins available" do

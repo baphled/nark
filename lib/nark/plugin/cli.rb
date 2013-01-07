@@ -1,7 +1,31 @@
 module Nark
   module Cli
     module ClassMethods
+      def help option = ''
+        case option.to_sym
+        when :list
+        """
+        Usage: nark list plugins
+
+        Lists all example plugins that you can generate.
+        """
+        when :example
+        """
+        Usage: nark example requests
+
+        Creates an example plugin.
+        """
+        else
+        """
+        Usage: nark help
+
+        Displays this message.
+        """
+        end
+      end
+
       def list type
+        # FIXME: This is sloppy. Come up with a way of removing the dependencies
         case type.to_sym
         when :plugins
           list = []
