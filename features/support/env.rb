@@ -8,7 +8,7 @@ rescue Bundler::BundlerError => e
 end
 
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
-require 'rack_tracker'
+require 'nark'
 
 require 'rspec/expectations'
 require "aruba/cucumber"

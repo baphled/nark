@@ -4,7 +4,7 @@ end
 
 Then /^The "([^"]*)" plugin should be created$/ do |plugin_name|
   steps %{
-    Then a file named "lib/rack_tracker/plugin/#{plugin_name}.rb" should exist
+    Then a file named "lib/nark/plugin/#{plugin_name}.rb" should exist
   }
 end
 

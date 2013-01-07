@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe Rack::Tracker::Cli do
+describe Nark::Cli do
   include FakeFS::SpecHelpers
   module CliWrapper
-    include Rack::Tracker::Cli
+    include Nark::Cli
   end
 
   describe "#list" do
@@ -29,12 +29,12 @@ describe Rack::Tracker::Cli do
     context "copying an example" do
       it "allows a user to create an example to the plugins directory" do
         CliWrapper.example :requests
-        File.should exist 'lib/rack_tracker/plugin/requests.rb'
+        File.should exist 'lib/nark/plugin/requests.rb'
       end
 
       it "can create a requests plugin" do
         expected =
-"""Rack::Tracker::Plugin.define :requests do |plugin|
+"""Nark::Plugin.define :requests do |plugin|
   plugin.variables :total_requests => 0
 
   plugin.add_hook :before_call do |env|
@@ -42,12 +42,12 @@ describe Rack::Tracker::Cli do
   end
 end"""
         CliWrapper.example :requests
-        File.read('lib/rack_tracker/plugin/requests.rb').should include expected
+        File.read('lib/nark/plugin/requests.rb').should include expected
       end
 
       it "can create a request_times plugin" do
         expected =
-"""Rack::Tracker::Plugin.define :requests do |plugin|
+"""Nark::Plugin.define :requests do |plugin|
   plugin.variables :last_request_time => nil
 
   plugin.add_hook :before_call do |env|
@@ -59,18 +59,18 @@ end"""
   end
 end"""
         CliWrapper.example :request_times
-        File.read('lib/rack_tracker/plugin/request_times.rb').should include expected
+        File.read('lib/nark/plugin/request_times.rb').should include expected
       end
 
       it "can create a revisions plugin" do
         expected =
-"""Rack::Tracker::Plugin.define :revisions do |plugin|
+"""Nark::Plugin.define :revisions do |plugin|
   plugin.method :revision do
     %x[cat .git/refs/heads/master| cut -f 1].chomp
   end
 end"""
         CliWrapper.example :revisions
-        File.read('lib/rack_tracker/plugin/revisions.rb').should include expected
+        File.read('lib/nark/plugin/revisions.rb').should include expected
       end
     end
   end

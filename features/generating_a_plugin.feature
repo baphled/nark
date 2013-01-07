@@ -4,11 +4,11 @@ Feature: Generating a plugin
 
   Scenario: I should be able to generate a "requests" plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker example requests`
+    When I successfully run `bundle exec nark example requests`
     Then The "requests" plugin should be created
-    And the file "lib/rack_tracker/plugin/requests.rb" should contain exactly:
+    And the file "lib/nark/plugin/requests.rb" should contain exactly:
     """
-    Rack::Tracker::Plugin.define :requests do |plugin|
+    Nark::Plugin.define :requests do |plugin|
       plugin.variables :total_requests => 0
 
       plugin.add_hook :before_call do |env|
@@ -19,11 +19,11 @@ Feature: Generating a plugin
 
   Scenario: I should be able to generate a "request times" plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker example request_times`
+    When I successfully run `bundle exec nark example request_times`
     Then The "request_times" plugin should be created
-    And the file "lib/rack_tracker/plugin/request_times.rb" should contain exactly:
+    And the file "lib/nark/plugin/request_times.rb" should contain exactly:
     """
-    Rack::Tracker::Plugin.define :requests do |plugin|
+    Nark::Plugin.define :requests do |plugin|
       plugin.variables :last_request_time => nil
 
       plugin.add_hook :before_call do |env|
@@ -38,11 +38,11 @@ Feature: Generating a plugin
 
   Scenario: I should be able to generate a "revisions" plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker example revisions`
+    When I successfully run `bundle exec nark example revisions`
     Then The "revisions" plugin should be created
-    And the file "lib/rack_tracker/plugin/revisions.rb" should contain exactly:
+    And the file "lib/nark/plugin/revisions.rb" should contain exactly:
     """
-    Rack::Tracker::Plugin.define :revisions do |plugin|
+    Nark::Plugin.define :revisions do |plugin|
       plugin.method :revision do
         %x[cat .git/refs/heads/master| cut -f 1].chomp
       end
@@ -52,7 +52,7 @@ Feature: Generating a plugin
   @wip
   Scenario: I should be able to get a list of available plugin examples
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker list examples`
+    When I successfully run `bundle exec nark list examples`
     Then the output should contain:
     """
     :requests       - Tracks the number of requests made to your application

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Rack::Tracker do
+describe Nark do
   describe "#configure" do
   end
 end

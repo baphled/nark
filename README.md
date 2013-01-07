@@ -1,5 +1,5 @@
-RackTracker
-===========
+Nark
+====
 
 Rack middleware that allows you to easily track and handle rack information of your own choosing.
 
@@ -41,7 +41,7 @@ eventually end up.
   end
 ```
  
-Contributing to rack_tracker
+Contributing to Nark
 ----------------------------
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.

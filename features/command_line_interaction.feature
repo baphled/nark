@@ -6,7 +6,7 @@ Feature: Command line interaction
   @wip
   Scenario: I should be informed if I give an invalid command
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker foo`
+    When I successfully run `bundle exec nark foo`
     Then the output should contain
     """
     Invalid command: foo
@@ -15,7 +15,7 @@ Feature: Command line interaction
   @wip
   Scenario: I should get the help import if the command is invalid
     Given I have installed the plugin
-    When I successfully run `bundle exec rack_tracker example help`
+    When I successfully run `bundle exec nark example help`
     Then the output should contain:
     """
     help        - This output

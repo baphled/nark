@@ -9,7 +9,7 @@ Feature: Defining a plugin
     Given I have a application I want to track
     When I created the following plugin
     """
-      Rack::Tracker::Plugin.define :requests do |plugin|
+      Nark::Plugin.define :requests do |plugin|
       end
     """
     Then the plugin should be crated 
@@ -20,31 +20,31 @@ Feature: Defining a plugin
     Given I have a application I want to track
     When I created the following plugin
     """
-      Rack::Tracker::Plugin.define :requests do |plugin|
+      Nark::Plugin.define :requests do |plugin|
         plugin.variables :last_request_time => nil
       end
     """
-    Then the "last_request_time" will be accessible via "Rack::Tracker"
+    Then the "last_request_time" will be accessible via "Nark"
 
   @wip
   Scenario: I should be able to define a plugin method
     Given I have a application I want to track
     When I created the following plugin
     """
-      Rack::Tracker::Plugin.define :requests do |plugin|
+      Nark::Plugin.define :requests do |plugin|
         plugin.method :revision do
           2 + 2
         end
       end
     """
-    Then the "revision" will be accessible via "Rack::Tracker"
+    Then the "revision" will be accessible via "Nark"
 
   @wip
   Scenario: I should be able to setup a new event hook
     Given I have a application I want to track
     When I created the following plugin
     """
-      Rack::Tracker::Plugin.define :requests do |plugin|
+      Nark::Plugin.define :requests do |plugin|
         plugin.variables :last_request_time => nil
 
         plugin.add_hook :before_call do |env|
@@ -52,7 +52,7 @@ Feature: Defining a plugin
         end
 
         plugin.add_hook :after_call do |env|
-          Rack::Tracker.last_request_time = (Time.now - @start_time)
+          Nark.last_request_time = (Time.now - @start_time)
         end
       end
     """
