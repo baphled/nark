@@ -50,7 +50,9 @@ Gem::Specification.new do |s|
     "spec/nark/plugin_spec.rb",
     "spec/nark_spec.rb",
     "spec/spec_helper.rb",
-    "spec/support/create_plugin.rb"
+    "spec/support/create_plugin.rb",
+    "lib/nark/plugin/dsl.rb",
+    "lib/nark/plugin/macros.rb",
   ]
   s.homepage = "http://github.com/baphled/nark"
   s.licenses = ["MIT"]
