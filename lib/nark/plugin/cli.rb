@@ -47,14 +47,7 @@ module Nark
         plugin_content = determine_plugin_content plugin
 
         plugin_path = ::File.join(copy_to_path, plugin.to_s)
-
-        if not ::File.directory? ::File.dirname plugin_path
-          FileUtils.mkdir_p ::File.dirname plugin_path
-        end
-
-        ::File.open "#{plugin_path}.rb", 'w' do |file|
-          file.write plugin_content
-        end
+        create_template plugin_path, plugin_content
       end
 
       def determine_plugin_content plugin
@@ -96,9 +89,13 @@ end"""
     # Do something clever here.
   end
 end"""
-
         plugin_path = ::File.join(copy_to_path, plugin.to_s)
+        create_template plugin_path, plugin_content
+      end
+      
+      protected
 
+      def create_template plugin_path, plugin_content
         if not ::File.directory? ::File.dirname plugin_path
           FileUtils.mkdir_p ::File.dirname plugin_path
         end
@@ -107,6 +104,7 @@ end"""
           file.write plugin_content
         end
       end
+
     end
 
     def self.included(receiver)
