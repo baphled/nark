@@ -52,11 +52,6 @@ module Nark
         end
       end
 
-      def determine_plugin_content plugin_name
-        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', plugin_name
-        IO.read(File.expand_path plugin_path)
-      end
-
       def create plugin
         template_content = determine_plugin_content 'template.erb'
         template = ERB.new template_content
@@ -67,6 +62,11 @@ module Nark
       end
       
       protected
+
+      def determine_plugin_content plugin_name
+        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', plugin_name
+        IO.read(File.expand_path plugin_path)
+      end
 
       def plugin_list
         {
