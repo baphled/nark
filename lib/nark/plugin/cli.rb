@@ -29,11 +29,7 @@ module Nark
         case type.to_sym
         when :plugins
           list = []
-          {
-            :requests => 'Tracks the number of requests made to your application',
-            :request_times => 'Keeps track of the amount of time each request takes',
-            :revisions => 'Outputs the git revision'
-          }.reduce('') do |s, (plugin, description)|
+          plugin_list.reduce('') do |s, (plugin, description)|
             list << sprintf("%-20s - %s", plugin.to_sym, description)
           end
           list
@@ -52,7 +48,7 @@ module Nark
         rescue IOError => e
           puts e.exception
         rescue Errno::ENOENT
-          "Invalid plugin name. Try one of the following: requests, request_times, revisions"
+          "Invalid plugin name. Try one of the following: #{plugin_list.keys.join(', ')}"
         end
       end
 
@@ -71,6 +67,14 @@ module Nark
       end
       
       protected
+
+      def plugin_list
+        {
+          :requests => 'Tracks the number of requests made to your application',
+          :request_times => 'Keeps track of the amount of time each request takes',
+          :revisions => 'Outputs the git revision'
+        }
+      end
 
       def destination_path
         'lib/nark/plugin'
