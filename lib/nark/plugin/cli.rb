@@ -44,10 +44,17 @@ module Nark
 
       def example plugin
         copy_to_path = 'lib/nark/plugin'
-        plugin_content = determine_plugin_content plugin
+        begin
+          plugin_content = determine_plugin_content plugin
 
-        plugin_path = ::File.join(copy_to_path, plugin.to_s)
-        create_template plugin_path, plugin_content
+          plugin_path = ::File.join(copy_to_path, plugin.to_s)
+          create_template plugin_path, plugin_content
+        rescue EOFError
+        rescue IOError => e
+          puts e.exception
+        rescue Errno::ENOENT
+          "Invalid plugin name. Try one of the following: requests, request_times, revisions"
+        end
       end
 
       def determine_plugin_content plugin

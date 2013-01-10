@@ -134,6 +134,17 @@ end"""
         CliWrapper.example :revisions
         File.read('lib/nark/plugin/revisions.rb').should include expected
       end
+
+      it "does not throw an exeception if the plugin template can not be found" do
+        expect {
+          CliWrapper.example :foo
+        }.to_not raise_error Errno
+      end
+
+      it "displays an error if the plugin is not found" do
+        expected = "Invalid plugin name. Try one of the following: requests, request_times, revisions"
+        CliWrapper.example(:foo).should eql expected
+      end
     end
   end
 end
