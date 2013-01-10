@@ -51,34 +51,8 @@ module Nark
       end
 
       def determine_plugin_content plugin
-        case plugin.to_sym
-        when :requests
-          """Nark::Plugin.define :requests do |plugin|
-  plugin.variables :total_requests => 0
-
-  plugin.add_hook :before_call do |env|
-    plugin.total_requests += 1
-  end
-end"""
-        when :request_times
-          """Nark::Plugin.define :requests do |plugin|
-  plugin.variables :last_request_time => nil
-
-  plugin.add_hook :before_call do |env|
-    @start_time = Time.now
-  end
-
-  plugin.add_hook :after_call do |env|
-    plugin.last_request_time = (Time.now - @start_time)
-  end
-end"""
-        when :revisions
-          """Nark::Plugin.define :revisions do |plugin|
-  plugin.method :revision do
-    %x[cat .git/refs/heads/master| cut -f 1].chomp
-  end
-end"""
-        end
+        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', "#{plugin.to_s}.rb"
+        IO.read(File.expand_path plugin_path)
       end
 
       def create plugin
