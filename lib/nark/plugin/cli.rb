@@ -64,12 +64,12 @@ module Nark
 
       def create plugin
         copy_to_path = 'lib/nark/plugin'
-        plugin_content = 
-          """Nark::Plugin.define :#{plugin.to_s} do |plugin|
-  plugin.method :#{plugin.to_s} do
-    # Do something clever here.
-  end
-end"""
+
+        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', "template.erb"
+        template_content = IO.read(File.expand_path plugin_path)
+
+        template = ERB.new template_content
+        plugin_content = template.result binding
         plugin_path = ::File.join(copy_to_path, plugin.to_s)
         create_template plugin_path, plugin_content
       end

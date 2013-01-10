@@ -63,7 +63,7 @@ describe Nark::Cli do
   end
 end"""
       CliWrapper.create :baz_bar
-      File.read('lib/nark/plugin/baz_bar.rb').should eql expected
+      File.read('lib/nark/plugin/baz_bar.rb').should include expected
     end
 
   end
