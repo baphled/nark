@@ -43,11 +43,10 @@ module Nark
       end
 
       def example plugin
-        copy_to_path = 'lib/nark/plugin'
         begin
           plugin_content = determine_plugin_content "#{plugin}.rb"
 
-          plugin_path = ::File.join(copy_to_path, plugin.to_s)
+          plugin_path = ::File.join(destination_path, plugin.to_s)
           create_template plugin_path, plugin_content
         rescue EOFError
         rescue IOError => e
@@ -63,17 +62,19 @@ module Nark
       end
 
       def create plugin
-        copy_to_path = 'lib/nark/plugin'
-
         template_content = determine_plugin_content 'template.erb'
-
         template = ERB.new template_content
+
         plugin_content = template.result binding
-        plugin_path = ::File.join(copy_to_path, plugin.to_s)
+        plugin_path = ::File.join(destination_path, plugin.to_s)
         create_template plugin_path, plugin_content
       end
       
       protected
+
+      def destination_path
+        'lib/nark/plugin'
+      end
 
       def create_template plugin_path, plugin_content
         if not ::File.directory? ::File.dirname plugin_path
