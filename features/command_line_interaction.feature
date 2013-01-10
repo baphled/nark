@@ -22,3 +22,13 @@ Feature: Command line interaction
     scaffold    - Generate a scaffold plugin
     """
 
+  Scenario: I should be able to get a list of plugins
+    Given I have installed the plugin
+    When I successfully run `bundle exec nark list plugins`
+    Then the output should contain:
+    """
+    requests             - Tracks the number of requests made to your application
+    request_times        - Keeps track of the amount of time each request takes
+    revisions            - Outputs the git revision
+    """
+
