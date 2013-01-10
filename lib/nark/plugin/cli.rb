@@ -45,7 +45,7 @@ module Nark
       def example plugin
         copy_to_path = 'lib/nark/plugin'
         begin
-          plugin_content = determine_plugin_content plugin
+          plugin_content = determine_plugin_content "#{plugin}.rb"
 
           plugin_path = ::File.join(copy_to_path, plugin.to_s)
           create_template plugin_path, plugin_content
@@ -57,16 +57,15 @@ module Nark
         end
       end
 
-      def determine_plugin_content plugin
-        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', "#{plugin.to_s}.rb"
+      def determine_plugin_content plugin_name
+        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', plugin_name
         IO.read(File.expand_path plugin_path)
       end
 
       def create plugin
         copy_to_path = 'lib/nark/plugin'
 
-        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', "template.erb"
-        template_content = IO.read(File.expand_path plugin_path)
+        template_content = determine_plugin_content 'template.erb'
 
         template = ERB.new template_content
         plugin_content = template.result binding
