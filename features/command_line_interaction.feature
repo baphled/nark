@@ -14,12 +14,12 @@ Feature: Command line interaction
   @wip
   Scenario: I should get the help import if the command is invalid
     Given I have installed the plugin
-    When I successfully run `bundle exec nark example help`
+    When I successfully run `bundle exec nark help example`
     Then the output should contain:
     """
-    help        - This output
-    example     - Generate an example plugin
-    scaffold    - Generate a scaffold plugin
+    Usage: nark example requests
+
+    Creates an example plugin.
     """
 
   Scenario: I should be able to get a list of plugins
