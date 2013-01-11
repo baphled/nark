@@ -25,7 +25,6 @@ module Nark
       end
 
       def list type
-        # FIXME: This is sloppy. Come up with a way of removing the dependencies
         case type.to_sym
         when :plugins
           list = []
@@ -68,6 +67,7 @@ module Nark
         IO.read(File.expand_path plugin_path)
       end
 
+      # FIXME: This is sloppy. Come up with a way of removing the dependencies
       def plugin_list
         {
           :requests => 'Tracks the number of requests made to your application',
