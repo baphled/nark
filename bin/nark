@@ -7,6 +7,8 @@ method = ARGV.shift
 arguement = ARGV.shift
 if method == 'list'
   puts Nark::Plugin.list(arguement)
+elsif method == 'help'
+  puts Nark::Plugin.help
 else
   begin
     Nark::Plugin.public_send method.to_sym, arguement
