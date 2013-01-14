@@ -26,9 +26,10 @@ module Nark
     #
     def call env
       trigger_hook :before_call, env
-      response = @app.call env
+      status, header, body = @app.call env
+      trigger_hook :after_response, [status, header, body, env]
       trigger_hook :after_call, env
-      response
+      [status, header, body]
     end
 
     #

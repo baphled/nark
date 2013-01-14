@@ -52,7 +52,7 @@ Feature: Defining a plugin
     And I request a page
     Then the total requests should be 1
 
-  @wip @webapp
+  @webapp
   Scenario: I should be able to intercept response
     Given I have a application I want to track
     When I created the following plugin
@@ -60,14 +60,14 @@ Feature: Defining a plugin
     Nark::Plugin.define :status_codes do |plugin|
       plugin.variables :status_codes => []
 
-      plugin.add_hook :after_response do |status_code, header, body|
-        status_codes << {:status_code => status_code, :header => header, :body => body}
+      plugin.add_hook :after_response do |status_code, header, body, env|
+        plugin.status_codes << {:status => status_code, :path => env['PATH_INFO']}
       end
     end
     """
     And I request a page
     Then the "status_codes" should be
     """
-    [{:status_code => 400, :path => '/'}]
+    [{:status => 200, :path => '/'}]
     """
 
