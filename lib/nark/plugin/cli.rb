@@ -41,7 +41,7 @@ module Nark
         begin
           plugin_content = determine_plugin_content "#{plugin}.rb"
 
-          plugin_path = ::File.join(destination_path, plugin.to_s)
+          plugin_path = File.join(destination_path, plugin.to_s)
           create_template plugin_path, plugin_content
         rescue EOFError
         rescue IOError => e
@@ -56,7 +56,7 @@ module Nark
         template = ERB.new template_content
 
         plugin_content = template.result binding
-        plugin_path = ::File.join(destination_path, plugin.to_s)
+        plugin_path = File.join(destination_path, plugin.to_s)
         create_template plugin_path, plugin_content
       end
       
@@ -81,11 +81,11 @@ module Nark
       end
 
       def create_template plugin_path, plugin_content
-        if not ::File.directory? ::File.dirname plugin_path
-          FileUtils.mkdir_p ::File.dirname plugin_path
+        if not File.directory? File.dirname plugin_path
+          FileUtils.mkdir_p File.dirname plugin_path
         end
 
-        ::File.open "#{plugin_path}.rb", 'w' do |file|
+        File.open "#{plugin_path}.rb", 'w' do |file|
           file.write plugin_content
         end
       end
