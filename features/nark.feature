@@ -36,21 +36,18 @@ Feature: Defining a plugin
     Then the "revision" will be accessible via "Nark"
     And the "revision" should be 4
 
-  @wip
+  @webapp
   Scenario: I should be able to setup a new event hook
     Given I have a application I want to track
     When I created the following plugin
     """
       Nark::Plugin.define :requests do |plugin|
-        plugin.variables :last_request_time => nil
+        plugin.variables :total_requests => 0
 
         plugin.add_hook :before_call do |env|
-          @start_time = Time.now
-        end
-
-        plugin.add_hook :after_call do |env|
-          Nark.last_request_time = (Time.now - @start_time)
+          plugin.total_requests += 1
         end
       end
     """
-    And I request a page Then the amount of time should be tracked
+    And I request a page
+    Then the amount of time should be tracked

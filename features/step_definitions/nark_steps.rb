@@ -27,3 +27,11 @@ end
 Then /^the "(.*?)" should be (\d+)$/ do |method, value|
   Nark.send(method.to_sym).should eql value
 end
+
+When /^I request a page$/ do
+  get '/'
+end
+
+Then /^the amount of time should be tracked$/ do
+  Nark.total_requests.should eql 1
+end

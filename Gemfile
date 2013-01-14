@@ -14,4 +14,5 @@ group :development do
   gem "jeweler", "~> 1.8.4"
   gem 'rack-test'
   gem 'pry'
+  gem 'sinatra'
 end
