@@ -32,6 +32,6 @@ When /^I request a page$/ do
   get '/'
 end
 
-Then /^the amount of time should be tracked$/ do
-  Nark.total_requests.should eql 1
+Then /^the total requests should be (\d+)$/ do |amount|
+  Nark.total_requests.should eql amount.to_i
 end

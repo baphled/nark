@@ -50,4 +50,4 @@ Feature: Defining a plugin
       end
     """
     And I request a page
-    Then the amount of time should be tracked
+    Then the total requests should be 1
