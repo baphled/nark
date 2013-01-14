@@ -13,6 +13,7 @@ We'll start off with some basic functionality:
   * total requests
   * Github revision
   * Process ID
+  * Status code history
 
 Each of these will be an individual component that plugins into Nark and is exposed via a simple interface.
 
