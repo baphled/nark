@@ -13,18 +13,16 @@ Feature: Defining a plugin
     """
     And it should be included
 
-  @wip
   Scenario: I should be able to define a plugin variable
     Given I have a application I want to track
     When I created the following plugin
     """
       Nark::Plugin.define :requests do |plugin|
-        plugin.variables :last_request_time => nil
+        plugin.variables :last_request_time => 'foo'
       end
     """
     Then the "last_request_time" will be accessible via "Nark"
 
-  @wip
   Scenario: I should be able to define a plugin method
     Given I have a application I want to track
     When I created the following plugin
@@ -36,6 +34,7 @@ Feature: Defining a plugin
       end
     """
     Then the "revision" will be accessible via "Nark"
+    And the "revision" should be 4
 
   @wip
   Scenario: I should be able to setup a new event hook

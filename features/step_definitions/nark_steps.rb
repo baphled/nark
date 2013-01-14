@@ -19,3 +19,11 @@ end
 Then /^it should be included$/ do
   Nark.available_plugins.should eql ["requests"]
 end
+
+Then /^the "(.*?)" will be accessible via "(.*?)"$/ do |method, module_name|
+  module_name.constantize.should respond_to method.to_sym
+end
+
+Then /^the "(.*?)" should be (\d+)$/ do |method, value|
+  Nark.send(method.to_sym).should eql value
+end
