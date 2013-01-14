@@ -64,7 +64,7 @@ module Nark
 
       def determine_plugin_content plugin_name
         plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', plugin_name
-        IO.read(File.expand_path plugin_path)
+        IO.read(File.expand_path plugin_path).chomp
       end
 
       # FIXME: This is sloppy. Come up with a way of removing the dependencies
