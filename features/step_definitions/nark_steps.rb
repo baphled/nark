@@ -35,3 +35,7 @@ end
 Then /^the total requests should be (\d+)$/ do |amount|
   Nark.total_requests.should eql amount.to_i
 end
+
+Then /^the "(.*?)" should be$/ do |method, string|
+  Nark.send(method.to_sym).should eql [{:status_code => 400, :path => '/'}]
+end
