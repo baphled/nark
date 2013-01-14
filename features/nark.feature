@@ -4,7 +4,6 @@ Feature: Defining a plugin
   A developer
   I want to be able to easily create a plugin and interact with my plugin
 
-  @wip
   Scenario: I should be able to create a basic plugin
     Given I have a application I want to track
     When I created the following plugin
@@ -12,7 +11,6 @@ Feature: Defining a plugin
       Nark::Plugin.define :requests do |plugin|
       end
     """
-    Then the plugin should be crated 
     And it should be included
 
   @wip
