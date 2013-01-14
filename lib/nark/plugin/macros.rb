@@ -17,6 +17,7 @@ module Nark
       #
       # At present the following hooks can be attached to:
       #   :before_call
+      #   :after_response
       #   :after_call
       #
       def add_hook hook, &block
