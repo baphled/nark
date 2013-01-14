@@ -29,7 +29,7 @@ an the curreny idea for the DSL, I really have no idea how this is
 eventually end up.
 
 ```
-  Nark::Plugins::DSL.new :request_times do |plugin|
+  Nark::Plugin.define :request_times do |plugin|
     plugin.variables :last_request_time => nil, :request_times => []
 
     plugin.add_hook :before_call do |env|
