@@ -21,7 +21,7 @@ Then /^The "([^"]*)" plugin should be created$/ do |plugin_name|
 end
 
 Then /^it should be included$/ do
-  Nark.available_plugins.should eql [{:name=>"requests", :description=>"Fallback description: Use the description macro to define the plugins description"}]
+  Nark.available_plugins.should include :name=>"requests", :description=>"Fallback description: Use the description macro to define the plugins description"
 end
 
 Then /^the "(.*?)" will be accessible via "(.*?)"$/ do |method, module_name|
