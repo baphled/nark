@@ -1,4 +1,6 @@
 Nark::Plugin.define :<%= plugin.to_sym %> do |plugin|
+  plugin.description 'Some cool description'
+
   plugin.method :<%= plugin.to_sym %> do
     # Do something clever here.
   end

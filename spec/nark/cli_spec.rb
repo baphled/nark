@@ -54,6 +54,8 @@ describe Nark::CLI do
     it "creates the skeleton file with the plugin name" do
       expected = 
 """Nark::Plugin.define :baz_bar do |plugin|
+  plugin.description 'Some cool description'
+
   plugin.method :baz_bar do
     # Do something clever here.
   end
