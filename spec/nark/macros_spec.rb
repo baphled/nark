@@ -55,4 +55,14 @@ describe Nark::Macros do
       Nark.value.should eql 2
     end
   end
+
+  describe "#description" do
+    it "allows a user to set a description for the plugin" do
+      Nark::Plugin.define :requests do |plugin|
+        plugin.description 'A cool description'
+      end
+      Nark::Plugin::Requests.metadata.should eql 'A cool description'
+      Nark.available_plugins.should include :name => 'requests', :description => 'A cool description'
+    end
+  end
 end

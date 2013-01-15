@@ -21,6 +21,6 @@ RSpec.configure do |config|
 
   config.before :each do
     Nark.settings_path = 'config/nark.yml'
-    Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin.to_sym }
+    Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin[:name].to_sym }
   end
 end
