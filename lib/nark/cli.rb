@@ -67,10 +67,16 @@ module Nark
       #
       # Creates the passed plugin
       #
-      def plugins
-        included_plugins = Nark.available_plugins
-        included_plugins.collect do |plugin|
-          sprintf("%-20s - %s", plugin[:name], plugin[:description])
+      def plugins options
+        case options.to_sym
+        when :included
+          included_plugins = Nark.available_plugins
+          list = included_plugins.collect do |plugin|
+            sprintf("%-20s - %s", plugin[:name], plugin[:description])
+          end
+          list
+        else
+          'Invalid plugins option'
         end
       end
 
