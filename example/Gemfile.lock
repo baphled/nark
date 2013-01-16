@@ -1,12 +1,13 @@
 PATH
   remote: ..
   specs:
-    nark (0.1.0)
-      activesupport
+    nark (0.2.0)
+      activesupport (>= 3.2.9)
 
 GEM
+  remote: http://rubygems.org/
   specs:
-    activesupport (3.2.9)
+    activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     i18n (0.6.1)
@@ -25,4 +26,5 @@ PLATFORMS
 
 DEPENDENCIES
   nark!
+  rack
   sinatra

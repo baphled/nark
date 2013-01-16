@@ -1,3 +1,5 @@
+source :rubygems
 gem 'nark', :path => '..'
 
 gem 'sinatra'
+gem 'rack'
