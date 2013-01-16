@@ -48,3 +48,23 @@ Feature: Command line interaction
     Given I have installed the plugin
     When I successfully run `bundle exec nark list foo`
     Then the output should contain "Invalid list type"
+
+  @wip
+  Scenario: I should be able to list all the plugins that are currently included
+    Given I created the following plugin
+    """
+      Nark::Plugin.define :requests do |plugin|
+        plugin.description 'Tracks the number of requests made to your application'
+
+        plugin.variables :total_requests => 0
+
+        plugin.add_hook :before_call do |env|
+          plugin.total_requests += 1
+        end
+      end
+    """
+    When I successfully run `bundle exec nark plugins`
+    Then the output should contain:
+    """
+    requests             - Tracks the number of requests made to your application
+    """
