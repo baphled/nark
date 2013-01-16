@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    nark (0.2.0)
+      activesupport (>= 3.2.9)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -68,6 +74,7 @@ DEPENDENCIES
   cucumber
   fakefs
   jeweler (~> 1.8.4)
+  nark!
   pry
   rack-test
   rdoc (~> 3.12)

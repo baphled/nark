@@ -1,6 +1,9 @@
 source "http://rubygems.org"
 # Add dependencies required to use your gem here.
 # Example:
+#
+gemspec
+
 gem "activesupport"
 
 # Add dependencies to develop your gem here.
