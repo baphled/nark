@@ -67,6 +67,13 @@ module Nark
       #
       # Creates the passed plugin
       #
+      def plugins
+        included_plugins = Nark.available_plugins
+        included_plugins.collect do |plugin|
+          sprintf("%-20s - %s", plugin[:name], plugin[:description])
+        end
+      end
+
       def example plugin
         begin
           plugin_content = determine_plugin_content "#{plugin}.rb"

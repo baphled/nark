@@ -142,4 +142,16 @@ end"""
       end
     end
   end
+
+  describe "#plugins" do
+    it "returns a list of all included plugins" do
+      Nark::Plugin.define :requests do |plugin|
+        plugin.description 'Tracks the number of requests made to your application'
+      end
+      expected = [
+        "requests             - Tracks the number of requests made to your application",
+      ]
+      CliWrapper.plugins(:included).should eql expected
+    end
+  end
 end
