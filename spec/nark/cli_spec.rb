@@ -153,5 +153,10 @@ end"""
       ]
       CliWrapper.plugins(:included).should eql expected
     end
+    
+    it "returns an error message if the given option is not valid" do
+      expected = 'Invalid plugins option'
+      CliWrapper.plugins(:foo).should eql expected
+    end
   end
 end
