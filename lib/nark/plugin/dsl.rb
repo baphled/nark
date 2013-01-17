@@ -39,6 +39,10 @@ module Nark
           @@currently_defining = nil
         end
 
+        def undefine plugin_name
+          Nark::Plugin.send :remove_const, plugin_name.to_s.camelize.to_sym
+        end
+
         #
         # Track the plugin that is currently being defined
         #

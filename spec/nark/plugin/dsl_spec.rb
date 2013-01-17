@@ -27,6 +27,23 @@ describe Nark::Plugin::DSL do
     end
   end
 
+  describe "#undefine" do
+    it "removes the plugin from its namespace" do
+      Nark::Plugin.define :random_plugin do |plugin|
+        plugin.method :foo do
+          'cool stuff'
+        end
+      end
+      Nark::Plugin.constants.should include :RandomPlugin
+      Nark::Plugin.undefine :random_plugin
+      Nark::Plugin.constants.should_not include :RandomPlugin
+    end
+
+    it "removes all of the relating class methods"
+    it "removes all of the relating class variables"
+    it "removes the plugin events"
+  end
+
   describe "#currently_defining" do
     context "not started to define one yet" do
       it "throws an exception" do
