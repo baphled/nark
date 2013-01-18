@@ -27,9 +27,9 @@ module Nark
     # plugin.
     #
     def call env
-      trigger_hook :before_call, env
+      trigger :before_call, env
       status, header, body = @app.call env
-      trigger_hook :after_call, [status, header, body, env]
+      trigger :after_call, [status, header, body, env]
       [status, header, body]
     end
   end

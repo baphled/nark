@@ -11,7 +11,7 @@ describe Nark::Middleware do
 
   describe "#call" do
     it "triggers before and after hooks at least twice" do
-      Nark::Middleware.any_instance.should_receive(:trigger_hook).at_least(:twice)
+      Nark::Middleware.any_instance.should_receive(:trigger).at_least(:twice)
       get '/'
     end
   end
