@@ -41,8 +41,8 @@ module Nark
 
         def undefine plugin_name
           undefine_plugin_class_methods plugin_name
-          Nark::Plugin.send :remove_const, plugin_name.to_s.camelize.to_sym
           undefine_events plugin_name
+          Nark::Plugin.send :remove_const, plugin_name.to_s.camelize.to_sym
         end
 
         #
