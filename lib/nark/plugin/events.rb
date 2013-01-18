@@ -7,7 +7,18 @@ module Nark
       #
       # Keeps tracks of the events to be triggered.
       #
+      # We don't want this accessible as it is only really for internal
+      # use
+      #
+      protected
+
       @@events = []
+
+      public
+
+      def add event
+        events << event
+      end
 
       #
       # Accessor for the events class instance
