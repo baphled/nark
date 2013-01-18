@@ -63,6 +63,14 @@ describe Nark::Plugin::DSL do
     end
 
     it "removes the plugin events"
+
+    it "doesn't try to undefine class methods when there aren't any" do
+      Nark::Plugin.define :random_plugin do |plugin|
+      end
+      expect {
+        Nark::Plugin.undefine :random_plugin
+      }.to_not raise_error NameError
+    end
   end
 
   describe "#currently_defining" do
