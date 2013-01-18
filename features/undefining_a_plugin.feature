@@ -16,10 +16,7 @@ Feature: Undefining a plugin
     end
     """
     And I request a page
-    Then the "status_codes" should be
-    """
-    [{:status => 200, :path => '/'}]
-    """
+    Then the "status_codes" will be accessible via "Nark"
 
     When I undefine the "status_codes" plugin
     Then I should not be able to access "status_codes"
@@ -47,12 +44,10 @@ Feature: Undefining a plugin
       end
     end
     """
-    And I request a page
-    Then the "status_codes" should be
-    """
-    [{:status => 200, :path => '/'}]
-    """
+    Then the "status_codes" will be accessible via "Nark"
+    And the "total_requests" will be accessible via "Nark"
 
     When I undefine the "status_codes" plugin
+    And the "total_requests" will be accessible via "Nark"
     Then I should not be able to access "status_codes"
     And there should be 1 event handlers
