@@ -60,4 +60,4 @@ Contributing to Nark
 Copyright
 ---------
 
-Copyright (c) 2012-2013 baphled. See LICENSE.txt for further details.
+Copyright (c) 2012-2013 Yomi Colledge (baphled). See LICENSE.txt for further details.
