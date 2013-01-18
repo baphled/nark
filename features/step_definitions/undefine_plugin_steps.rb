@@ -9,3 +9,7 @@ end
 Then /^there should be no event handlers$/ do
   Nark::Middleware.events.should be_empty
 end
+
+Then /^there should be (\d+) event handlers$/ do |amount|
+  Nark::Middleware.events.count.should eql amount.to_i
+end
