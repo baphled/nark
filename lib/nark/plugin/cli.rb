@@ -1,5 +1,5 @@
 module Nark
-  module Cli
+  module CLI
     module ClassMethods
       def help option = ''
         case option.to_sym
@@ -59,7 +59,7 @@ module Nark
         plugin_path = File.join(destination_path, plugin.to_s)
         create_template plugin_path, plugin_content
       end
-      
+
       protected
 
       def determine_plugin_content plugin_name

@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe Nark::Cli do
+describe Nark::CLI do
   include FakeFS::SpecHelpers
   module CliWrapper
-    include Nark::Cli
+    include Nark::CLI
   end
 
   describe "#help" do

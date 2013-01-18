@@ -13,7 +13,7 @@ module Nark
   #
   module Plugin
     include DSL
-    include Cli
+    include CLI
 
     module ClassMethods
       #
