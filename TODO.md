@@ -11,8 +11,7 @@ TODO
 
  * Testing
    * Cover the actual code that is created by the DSL
-   * What happens when a user defines a method that accesses a variables
-   they don't own?
+   * What happens when a user defines a method that accesses a variables they don't own?
     * Probably nothing
    * Make it easier to debug new plugins
      * How much time has it added to requests 
@@ -34,10 +33,11 @@ TODO
      * HTTP
      * RPC (though this won't be my primary focus)
 
- * Warnings
+ * Usability
    * Can not have duplicate events
    * when trying to create a plugin with the same name as one already included
    * when a plugin variable or method is already in use
+   * Let the user know how event hooks are available.
 
  * Plugins
    * Improve the way descriptions are handled

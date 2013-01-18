@@ -79,9 +79,9 @@ eventually end up.
   end
 ```
  
-The project is far from perfect but I'm working on improving the way it
-works and its flexibility and welcome any critism (good or bad) and
-welcome any contributions.
+The project is far from perfect but I'm working on improving the way it hook
+works and its flexibility and welcome any critism (good or bad) and welcome any
+contributions.
 
 Contributing to Nark
 ----------------------------
