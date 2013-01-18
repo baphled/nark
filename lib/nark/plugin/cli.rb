@@ -1,6 +1,22 @@
 module Nark
+  #
+  # Basic CLI wrapper to expose Nark to the command line
+  #
+  # TODO: Refactor this so that it separates the presentation from logic.
+  # TODO: Refactor this so that it is more dynamic.
+  # TODO: Refactor to expose a public interface that can be asked what is available_plugins.
+  # TODO: Interact with an interface that returns help based on the available interface.
+  #
+  #
   module CLI
     module ClassMethods
+      #
+      # Output Narks help information
+      #
+      # At present we are forced to keep this up to date whilst adding new
+      # features. This should be refactored so that it gather the neccessary
+      # information via the new feature.
+      #
       def help option = ''
         case option.to_sym
         when :list
@@ -24,6 +40,11 @@ module Nark
         end
       end
 
+      #
+      # Returns a list of available plugins
+      #
+      # TODO: Make this dynamic so that it can work out what plugins added as part of this project
+      #
       def list type
         case type.to_sym
         when :plugins
@@ -37,6 +58,9 @@ module Nark
         end
       end
 
+      #
+      # Creates the passed plugin
+      #
       def example plugin
         begin
           plugin_content = determine_plugin_content "#{plugin}.rb"
@@ -51,6 +75,9 @@ module Nark
         end
       end
 
+      #
+      # Creates a template plugin that you can use to create your own plugin
+      #
       def create plugin
         template_content = determine_plugin_content 'template.erb'
         template = ERB.new template_content
@@ -67,7 +94,11 @@ module Nark
         IO.read(File.expand_path plugin_path).chomp
       end
 
+      #
+      #  Returns a list of plugins that are part of Nark
+      #
       # FIXME: This is sloppy. Come up with a way of removing the dependencies
+      #
       def plugin_list
         {
           :requests => 'Tracks the number of requests made to your application',
@@ -76,10 +107,22 @@ module Nark
         }
       end
 
+      #
+      # Stores the location where plugins will be created
+      #
+      # TODO:Allow users to customise this value.
+      #
       def destination_path
         'lib/nark/plugin'
       end
 
+      protected
+
+      #
+      # Creates the plugin with the passed in content
+      #
+      # This will more than likely be extracted once we devise a way for developers to easily create their own plugins
+      #
       def create_template plugin_path, plugin_content
         if not File.directory? File.dirname plugin_path
           FileUtils.mkdir_p File.dirname plugin_path
