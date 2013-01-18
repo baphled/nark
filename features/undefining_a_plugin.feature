@@ -3,7 +3,6 @@ Feature: Undefining a plugin
   As a user
   I want to be able to quickly and easily remove a plugin and the added functionality they provide.
 
-  @wip
   Scenario: I should be able to easily remove a plugin that I have already defined
     Given I have a application I want to track
     When I created the following plugin

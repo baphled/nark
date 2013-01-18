@@ -62,7 +62,16 @@ describe Nark::Plugin::DSL do
       Nark.should_not respond_to :cool
     end
 
-    it "removes the plugin events"
+    it "removes the plugin events" do
+      Nark::Plugin.define :random_plugin do |plugin|
+        plugin.add_hook :before_call do |env|
+          puts 'some before hook'
+        end
+      end
+      Nark::Middleware.events.should_not be_empty
+      Nark::Plugin.undefine :random_plugin
+      Nark::Middleware.events.should be_empty
+    end
 
     it "doesn't try to undefine class methods when there aren't any" do
       Nark::Plugin.define :random_plugin do |plugin|
