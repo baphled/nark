@@ -8,13 +8,20 @@ require_relative 'plugin/events'
 module Nark
   class Middleware
     #
+    # Keep trap of the event Handlers
+    #
+    # Also make it easier to handle our changes
+    #
+    attr_accessor :event_handler
+    #
     # Set the application to an instance variable.
     #
     # This is needed to allow Rack to call our middleware simply by
     # use the module.
     #
-    def initialize app
+    def initialize app, event_handler = Nark::Plugin
       @app = app
+      @event_handler = event_handler
     end
 
     #
@@ -26,9 +33,9 @@ module Nark
     # plugin.
     #
     def call env
-      Nark::Plugin.trigger :before_call, env
+      event_handler.trigger :before_call, env
       status, header, body = @app.call env
-      Nark::Plugin.trigger :after_call, [status, header, body, env]
+      event_handler.trigger :after_call, [status, header, body, env]
       [status, header, body]
     end
   end
