@@ -21,4 +21,21 @@ describe Nark::Middleware do
       Nark::Middleware.events.should be_an Array
     end
   end
+
+  describe "#before_call" do
+    it "takes the responses environment"
+  end
+
+  describe "#after_call" do
+    it "takes a response payload"
+
+    describe "response payload" do
+      it "has a status code"
+      it "has a response header"
+    end
+
+    describe "request environment" do
+      it "has the original request environment"
+    end
+  end
 end
