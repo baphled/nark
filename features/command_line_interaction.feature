@@ -3,7 +3,7 @@ Feature: Command line interaction
   As a user
   I want to be able to interact with the tracker via a CLI
 
-  @cli
+  @CLI
   Scenario: I should be informed if I give an invalid command
     Given I have installed the plugin
     When I successfully run `bundle exec nark foo`
@@ -12,7 +12,7 @@ Feature: Command line interaction
 
     Displays this message."""
 
-  @cli
+  @CLI
   Scenario: I should get the help import if the command is invalid
     Given I have installed the plugin
     When I successfully run `bundle exec nark help example`
@@ -21,7 +21,7 @@ Feature: Command line interaction
 
     Creates an example plugin."""
 
-  @cli
+  @CLI
   Scenario: I should be able to get a list of plugins
     Given I have installed the plugin
     When I successfully run `bundle exec nark list plugins`
