@@ -5,6 +5,8 @@ Nark
 
 [![Dependency Status](https://gemnasium.com/baphled/nark.png)](https://gemnasium.com/baphled/nark)
 
+[![Build Status](https://travis-ci.org/baphled/nark.png)](undefined)
+
 Rack middleware that allows you to easily track and handle rack information of your own choosing.
 
 The idea here is to allow users to easily create modules that plug into the middleware and allow them to track and
