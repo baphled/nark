@@ -4,20 +4,35 @@ module Nark
     end
 
     module ClassMethods
+
+      protected
+
       #
       # Keeps tracks of the events to be triggered.
       #
       # We don't want this accessible as it is only really for internal
       # use
       #
-      protected
-
       @@events = []
 
       public
 
-      def add event
+      #
+      # Adds an event hook.
+      #
+      # This is used to fire off custom messages when Nark is running.
+      #
+      def add_trigger event
         events << event
+      end
+
+      #
+      # Remove all hooks relating to a given plugin
+      #
+      # This is primarily used when a plugin is undefined
+      #
+      def remove_trigger plugin_name
+        events.reject! { |event| event[:plugin] == plugin_name.to_s }
       end
 
       #

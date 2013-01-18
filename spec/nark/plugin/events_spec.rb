@@ -11,7 +11,7 @@ describe Nark::Events do
     it "triggers before and after hooks at least twice" do
       env = {}
       wrapper = Wrapper.new
-      Wrapper.add event_hook
+      Wrapper.add_trigger event_hook
       wrapper.should_receive(:trigger_hook)
       wrapper.trigger_hook :before_call, env
     end
@@ -27,10 +27,17 @@ describe Nark::Events do
     end
   end
 
-  describe "#add" do
+  describe "#add_trigger" do
     it "adds a new event" do
       Wrapper.events.should_receive(:<<).and_return event_hook
-      Wrapper.add event_hook
+      Wrapper.add_trigger event_hook
+    end
+  end
+
+  describe "#remove_trigger" do
+    it "can remove a plugin event" do
+      Wrapper.events.should_receive(:reject!).and_return event_hook
+      Wrapper.remove_trigger :new_plugin
     end
   end
 end
