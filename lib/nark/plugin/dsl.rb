@@ -10,6 +10,8 @@ module Nark
     # Allowing users to easily generate plugins that automatically become
     # part of the tracker once they have been successfully defined.
     #
+    # TODO: Find a better way of keeping track of the plugin we are currently defining
+    #
     module DSL
       include Nark::Macros
 
@@ -70,10 +72,6 @@ module Nark
           end
         end
 
-        def currently_defining= value
-          @@currently_defining = value
-        end
-
         #
         # These procted methods are for handling the injection and
         # removal of plugin functionality into Nark.
@@ -82,6 +80,13 @@ module Nark
         # for the moment until the DSL is full ironed out.
         #
         protected
+
+        #
+        # Set the the name of the plugin that is currently being defined
+        #
+        def currently_defining= value
+          @@currently_defining = value
+        end
 
         #
         # Work out if we need to remove any class methods associated to the plugin we are undefining
