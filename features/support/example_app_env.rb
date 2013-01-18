@@ -20,10 +20,10 @@ end
 
 World(Rack::Test::Methods, AppHelper)
 
-Before('@webapp') do
+Before('@middleware') do
   #set the application and rack test methods
 end
 
-After('@webapp') do
+After('@middleware') do
   #unset the application and rack test methods
 end
