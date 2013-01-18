@@ -19,6 +19,38 @@ We'll start off with some basic functionality:
 
 Each of these will be an individual component that plugins into Nark and is exposed via a simple interface.
 
+Setup
+-----
+
+`gem install nark`
+
+Then in your config.ru
+
+```
+require 'nark'
+require Dir['/path/of/plugins'].each { |f| requure f }
+
+use Nark::Middleware
+run YourApplication
+```
+
+Where YourApplication is the web service want to nark on.
+
+Event Handlers
+--------------
+
+Nark at present has 3 events handles:
+  * before_call
+  * after_response
+  * after_call
+
+`before_call` is typically used to setup something before a request is
+made. Such as request start times or request ip and browser type.
+
+`after_call` takes the responses status, header, body and
+environment. Allowing your to manipulate response data as well as have
+access to the request environment.
+
 Plugin DSL
 ----------
 
@@ -46,9 +78,14 @@ eventually end up.
   end
 ```
  
+The project is far from perfect but I'm working on improving the way it
+works and its flexibility and welcome any critism (good or bad) and
+welcome any contributions.
+
 Contributing to Nark
 ----------------------------
  
+* Check out the TODO.md and TECHDEBT.md
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
