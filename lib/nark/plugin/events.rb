@@ -36,13 +36,6 @@ module Nark
       end
 
       #
-      # Accessor for the events class instance
-      #
-      def events
-        @@events
-      end
-
-      #
       # Triggers an event.
       #
       # This is used internally to determine whether there are any events to be
@@ -54,8 +47,20 @@ module Nark
         end
       end
 
+      #
+      # Accessor for the events class instance
+      #
+      # FIXME: This should be immutable
+      #
+      def events
+        @@events
+      end
+
       protected
 
+      #
+      # Works out which hooks should be triggered
+      #
       def triggered event
         events.select do |event_hook|
           event_hook[:hook].to_sym == event.to_sym
