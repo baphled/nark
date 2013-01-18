@@ -16,8 +16,7 @@ module Nark
       class << self
         #
         # Delegate class methods not explicitly part of the DSL or Macros to
-        # Nark as this is where all plugin class variables are
-        # included.
+        # Nark as this is where all plugin class variables are included.
         #
         def method_missing method, *args, &block
           Nark.send method, *args, &block
@@ -48,6 +47,8 @@ module Nark
         # This functionality is potentially quite complex and could
         # possibly do with having a new home. We'll leave it where it is
         # for the time being and see how this module evolves.
+        #
+        # FIXME: This functionality is getting quite complex and most of the logic doesn't actually belong within here.
         #
         def undefine plugin_name
           undefine_plugin_class_methods plugin_name
@@ -82,15 +83,35 @@ module Nark
         #
         protected
 
+        #
+        # Work out if we need to remove any class methods associated to the plugin we are undefining
+        #
         def undefine_plugin_class_methods plugin_name
           plugin_module = eval "Nark::Plugin::#{plugin_name.to_s.camelize}"
           if plugin_module.constants.include? :ClassMethods
-            plugin_class_methods = eval "#{plugin_module}::ClassMethods"
-            instance_methods = plugin_class_methods.instance_methods
-            instance_methods.each { |method| plugin_class_methods.send :remove_method, method.to_sym }
+            remove_plugin_class_methods plugin_module
           end
         end
 
+        #
+        # Actually remove the plugin methods from Nark
+        #
+        def remove_plugin_class_methods plugin_module
+          instance = module_instance(plugin_module)
+          instance_methods = instance.instance_methods
+          instance_methods.each { |method| instance.send :remove_method, method.to_sym }
+        end
+
+        #
+        # Gets an instance of the plugin's ClassMethods
+        #
+        def module_instance plugin_module
+          eval "#{plugin_module}::ClassMethods"
+        end
+
+        #
+        # Remove the plugin events
+        #
         def undefine_events plugin_name
           Nark::Middleware.events.reject! { |event| event[:plugin] == plugin_name.to_s }
         end
