@@ -2,6 +2,7 @@ Feature: Generating a plugin
   As a developer
   I'd like to be able to generate a sample plugin to get me started
 
+  @plugin-dsl
   Scenario: I should be able to generate a "requests" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example requests`
@@ -17,6 +18,7 @@ Feature: Generating a plugin
     end
     """
 
+  @plugin-dsl
   Scenario: I should be able to generate a "request times" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example request_times`
@@ -36,6 +38,7 @@ Feature: Generating a plugin
     end
     """
 
+  @plugin-dsl
   Scenario: I should be able to generate a "revisions" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example revisions`

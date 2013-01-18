@@ -3,7 +3,7 @@ Feature: Nark Middleware
   As the middleware
   I want to be able to intercept requests and responses
 
-  @middleware
+  @middleware @plugin-dsl
   Scenario: I should be able to setup a new event hook
     Given I have a application I want to track
     When I created the following plugin
@@ -19,7 +19,7 @@ Feature: Nark Middleware
     And I request a page
     Then the total requests should be 1
 
-  @middleware
+  @middleware @plugin-dsl
   Scenario: I should be able to intercept response
     Given I have a application I want to track
     When I created the following plugin

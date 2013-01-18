@@ -12,3 +12,7 @@ require 'nark'
 
 require 'rspec/expectations'
 require "aruba/cucumber"
+
+After("@plugin-dsl") do
+  Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin }
+end

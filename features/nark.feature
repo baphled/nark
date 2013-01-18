@@ -4,6 +4,7 @@ Feature: Defining a plugin
   A developer
   I want to be able to easily create a plugin and interact with my plugin
 
+  @plugin-dsl
   Scenario: I should be able to create a basic plugin
     Given I have a application I want to track
     When I created the following plugin
@@ -13,6 +14,7 @@ Feature: Defining a plugin
     """
     And it should be included
 
+  @plugin-dsl
   Scenario: I should be able to define a plugin variable
     Given I have a application I want to track
     When I created the following plugin
@@ -23,6 +25,7 @@ Feature: Defining a plugin
     """
     Then the "last_request_time" will be accessible via "Nark"
 
+  @plugin-dsl
   Scenario: I should be able to define a plugin method
     Given I have a application I want to track
     When I created the following plugin
