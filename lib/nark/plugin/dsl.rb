@@ -52,7 +52,7 @@ module Nark
         #
         def undefine plugin_name
           undefine_plugin_class_methods plugin_name
-          undefine_events plugin_name
+          Nark::Plugin.remove_trigger plugin_name
           Nark::Plugin.send :remove_const, plugin_name.to_s.camelize.to_sym
         end
 
@@ -107,13 +107,6 @@ module Nark
         #
         def module_instance plugin_module
           eval "#{plugin_module}::ClassMethods"
-        end
-
-        #
-        # Remove the plugin events
-        #
-        def undefine_events plugin_name
-          Nark::Plugin.events.reject! { |event| event[:plugin] == plugin_name.to_s }
         end
 
         def define_plugin_module plugin_name
