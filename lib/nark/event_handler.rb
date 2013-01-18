@@ -8,7 +8,7 @@ module Nark
       # triggered.
       #
       def trigger_hook hook, env
-        event_hooks = Nark::EventHandler.events.select do |listener|
+        event_hooks = self.class.events.select do |listener|
           listener[:hook].to_sym == hook.to_sym
         end
         event_hooks.each do |before_hook|
@@ -17,7 +17,7 @@ module Nark
       end
     end
 
-    class << self
+    module ClassMethods
       #
       # Keeps tracks of the events to be triggered.
       #
@@ -33,6 +33,7 @@ module Nark
 
     def self.included(receiver)
       receiver.send :include, InstanceMethods
+      receiver.extend         ClassMethods
     end
   end
 end

@@ -20,6 +20,6 @@ RSpec.configure do |config|
   config.include PluginMacro
 
   config.before :each do
-    Nark::Middleware.class_variable_set :@@events, []
+    Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin.to_sym }
   end
 end

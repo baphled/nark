@@ -92,7 +92,7 @@ module Nark
         end
 
         def undefine_events plugin_name
-          Nark::EventHandler.events.reject! { |event| event[:plugin] == plugin_name.to_s }
+          Nark::Middleware.events.reject! { |event| event[:plugin] == plugin_name.to_s }
         end
 
         def define_plugin_module plugin_name
