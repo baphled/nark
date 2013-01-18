@@ -9,5 +9,3 @@ Cover the technical debt and consider the architecture and flexibility.
 * Contain plugin functionality instead of blindly injecting them into Nark
 * Decrease the use of eval in general
   * I don't know how to improve this yet. 
-* Review the need for a after_response hook
-  * Starting to think there should only be two hooks in the middlewars call

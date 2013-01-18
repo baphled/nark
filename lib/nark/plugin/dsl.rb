@@ -39,6 +39,16 @@ module Nark
           @@currently_defining = nil
         end
 
+        #
+        # Undefine a custom plugin
+        #
+        # This allows a user to remove a plugin from Nark without having
+        # to restart the server.
+        #
+        # This functionality is potentially quite complex and could
+        # possibly do with having a new home. We'll leave it where it is
+        # for the time being and see how this module evolves.
+        #
         def undefine plugin_name
           undefine_plugin_class_methods plugin_name
           undefine_events plugin_name
@@ -63,6 +73,13 @@ module Nark
           @@currently_defining = value
         end
 
+        #
+        # These procted methods are for handling the injection and
+        # removal of plugin functionality into Nark.
+        #
+        # They don't really belong here as such but will be left alone
+        # for the moment until the DSL is full ironed out.
+        #
         protected
 
         def undefine_plugin_class_methods plugin_name

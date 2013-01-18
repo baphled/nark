@@ -46,6 +46,9 @@ module Nark
       end
     end
 
+    #
+    # TODO: Extract this into it's own object/struct It feels like it
+    # doesn't belong here anymore
     class << self
       #
       # Keeps tracks of the events to be triggered.
