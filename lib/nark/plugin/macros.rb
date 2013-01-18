@@ -17,11 +17,11 @@ module Nark
       #
       # At present the following hooks can be attached to:
       #   :before_call
-      #   :after_response
       #   :after_call
       #
       def add_hook hook, &block
-        Nark::Plugin.events << {hook: hook, plugin_method: block, plugin: Nark::Plugin.currently_defining.to_s }
+        event_trigger = { hook: hook, plugin_method: block, plugin: Nark::Plugin.currently_defining.to_s }
+        Nark::Plugin.add_trigger event_trigger
       end
 
       #
