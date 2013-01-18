@@ -16,21 +16,6 @@ describe Nark::Middleware do
     end
   end
 
-  describe "#events" do
-    it "stores a list of events to listen out for" do
-      Nark::Middleware.events.should be_an Array
-    end
-
-    it "stores a plugin's event handler" do
-      Nark::Plugin.define :random_plugin do |plugin|
-        plugin.add_hook :before_call do |env|
-          puts 'some before hook'
-        end
-      end
-      Nark::Middleware.events.first[:plugin].should eql 'random_plugin'
-    end
-  end
-
   describe "#before_call" do
     it "takes the responses environment"
   end

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Nark::Macros do
   describe "#add_hook" do
     it "adds the hook to the middlewares events" do
-      Nark::Middleware.events.should_receive :<<
+      Nark::EventHandler.events.should_receive :<<
       Nark::Plugin.define :requests do |plugin|
         plugin.variables :last_request_time => nil
 

@@ -68,9 +68,9 @@ describe Nark::Plugin::DSL do
           puts 'some before hook'
         end
       end
-      Nark::Middleware.events.should_not be_empty
+      Nark::EventHandler.events.should_not be_empty
       Nark::Plugin.undefine :random_plugin
-      Nark::Middleware.events.should be_empty
+      Nark::EventHandler.events.should be_empty
     end
 
     it "doesn't try to undefine class methods when there aren't any" do
@@ -94,7 +94,7 @@ describe Nark::Plugin::DSL do
         end
       end
       Nark::Plugin.undefine :random_plugin
-      Nark::Middleware.events.count.should eql 1
+      Nark::EventHandler.events.count.should eql 1
     end
   end
 
