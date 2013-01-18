@@ -23,4 +23,4 @@ Feature: Undefining a plugin
 
     When I undefine the "status_codes" plugin
     Then I should not be able to access "status_codes"
-    And the hook should also be removed
+    And there should be no event handlers
