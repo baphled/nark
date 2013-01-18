@@ -13,6 +13,12 @@ module Nark
     # Also make it easier to handle our changes
     #
     attr_accessor :event_handler
+
+    #
+    # Stores the application that the middle ware will call
+    #
+    attr_accessor :app
+
     #
     # Set the application to an instance variable.
     #
@@ -34,7 +40,7 @@ module Nark
     #
     def call env
       event_handler.trigger :before_call, env
-      status, header, body = @app.call env
+      status, header, body = app.call env
       event_handler.trigger :after_call, [status, header, body, env]
       [status, header, body]
     end
