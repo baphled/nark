@@ -38,10 +38,10 @@ module Nark
     # triggered.
     #
     def trigger_hook hook, env
-      before_hooks = self.class.events.select do |listener|
+      event_hooks = self.class.events.select do |listener|
         listener[:hook].to_sym == hook.to_sym
       end
-      before_hooks.each do |before_hook|
+      event_hooks.each do |before_hook|
         Nark.class_eval 'before_hook[:plugin_method].call env'
       end
     end
