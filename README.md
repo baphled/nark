@@ -43,7 +43,6 @@ Event Handlers
 
 Nark at present has 3 events handles:
   * before_call
-  * after_response
   * after_call
 
 `before_call` is typically used to setup something before a request is
