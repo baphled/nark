@@ -80,6 +80,22 @@ describe Nark::Plugin::DSL do
         Nark::Plugin.undefine :random_plugin
       }.to_not raise_error NameError
     end
+
+    it "only remove events relating to the plugin we're Undefining" do
+      Nark::Plugin.define :second_plugin do |plugin|
+        plugin.add_hook :before_call do |env|
+          puts 'some other before hook'
+        end
+      end
+
+      Nark::Plugin.define :random_plugin do |plugin|
+        plugin.add_hook :before_call do |env|
+          puts 'some before hook'
+        end
+      end
+      Nark::Plugin.undefine :random_plugin
+      Nark::Middleware.events.count.should eql 1
+    end
   end
 
   describe "#currently_defining" do

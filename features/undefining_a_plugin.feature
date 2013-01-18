@@ -25,8 +25,6 @@ Feature: Undefining a plugin
     Then I should not be able to access "status_codes"
     And there should be no event handlers
 
-
-  @wip
   Scenario: Undefining a plugin should not nuke all event handlers
     Given I have a application I want to track
     When I created the following plugin
