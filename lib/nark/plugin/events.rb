@@ -1,6 +1,21 @@
 module Nark
-  module EventHandler
+  module Events
     module InstanceMethods
+    end
+
+    module ClassMethods
+      #
+      # Keeps tracks of the events to be triggered.
+      #
+      @@events = []
+
+      #
+      # Accessor for the events class instance
+      #
+      def events
+        @@events
+      end
+
       #
       # Triggers an event.
       #
@@ -16,23 +31,9 @@ module Nark
       protected
 
       def triggered event
-        self.class.events.select do |event_hook|
+        events.select do |event_hook|
           event_hook[:hook].to_sym == event.to_sym
         end
-      end
-    end
-
-    module ClassMethods
-      #
-      # Keeps tracks of the events to be triggered.
-      #
-      @@events = []
-
-      #
-      # Accessor for the events class instance
-      #
-      def events
-        @@events
       end
     end
 

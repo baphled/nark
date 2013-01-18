@@ -21,7 +21,7 @@ module Nark
       #   :after_call
       #
       def add_hook hook, &block
-        Nark::Middleware.events << {hook: hook, plugin_method: block, plugin: Nark::Plugin.currently_defining.to_s }
+        Nark::Plugin.events << {hook: hook, plugin_method: block, plugin: Nark::Plugin.currently_defining.to_s }
       end
 
       #

@@ -7,7 +7,6 @@ require_relative 'plugin/events'
 #
 module Nark
   class Middleware
-    include EventHandler
     #
     # Set the application to an instance variable.
     #
@@ -27,9 +26,9 @@ module Nark
     # plugin.
     #
     def call env
-      trigger :before_call, env
+      Nark::Plugin.trigger :before_call, env
       status, header, body = @app.call env
-      trigger :after_call, [status, header, body, env]
+      Nark::Plugin.trigger :after_call, [status, header, body, env]
       [status, header, body]
     end
   end

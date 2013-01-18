@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Nark::EventHandler do
+describe Nark::Events do
   class Wrapper
-    include Nark::EventHandler
+    include Nark::Events
   end
 
   describe "#trigger_hook" do

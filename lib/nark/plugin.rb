@@ -14,6 +14,7 @@ module Nark
   module Plugin
     include DSL
     include CLI
+    include Events
 
     module ClassMethods
       #
