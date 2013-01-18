@@ -39,8 +39,29 @@ describe Nark::Plugin::DSL do
       Nark::Plugin.constants.should_not include :RandomPlugin
     end
 
-    it "removes all of the relating class methods"
-    it "removes all of the relating class variables"
+    it "removes all of the relating class variables" do
+      Nark::Plugin.define :random_plugin do |plugin|
+        plugin.variables :bar => 1
+      end
+      Nark::Plugin::RandomPlugin::ClassMethods.class_variables.should eql [:@@bar]
+      Nark.should respond_to :bar
+      Nark.should respond_to :bar=
+      Nark::Plugin.undefine :random_plugin
+      Nark.should_not respond_to :bar
+      Nark.should_not respond_to :bar=
+    end
+
+    it "removes all of the relating class methods" do
+      Nark::Plugin.define :random_plugin do |plugin|
+        plugin.method :cool do
+          2 + 2
+        end
+      end
+      Nark.should respond_to :cool
+      Nark::Plugin.undefine :random_plugin
+      Nark.should_not respond_to :cool
+    end
+
     it "removes the plugin events"
   end
 

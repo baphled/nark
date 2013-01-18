@@ -40,6 +40,9 @@ module Nark
         end
 
         def undefine plugin_name
+          plugin_class_methods = eval "Nark::Plugin::#{plugin_name.to_s.camelize}::ClassMethods"
+          instance_methods = plugin_class_methods.instance_methods
+          instance_methods.each { |method| plugin_class_methods.send :remove_method, method.to_sym }
           Nark::Plugin.send :remove_const, plugin_name.to_s.camelize.to_sym
         end
 
