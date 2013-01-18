@@ -40,14 +40,9 @@ module Nark
         end
 
         def undefine plugin_name
-          plugin_module = eval "Nark::Plugin::#{plugin_name.to_s.camelize}"
-          if plugin_module.constants.include? :ClassMethods
-            plugin_class_methods = eval "#{plugin_module}::ClassMethods"
-            instance_methods = plugin_class_methods.instance_methods
-            instance_methods.each { |method| plugin_class_methods.send :remove_method, method.to_sym }
-          end
-          Nark::Middleware.events.reject! { |event| event[:plugin] == plugin_name.to_s }
+          undefine_plugin_class_methods plugin_name
           Nark::Plugin.send :remove_const, plugin_name.to_s.camelize.to_sym
+          undefine_events plugin_name
         end
 
         #
@@ -69,6 +64,19 @@ module Nark
         end
 
         protected
+
+        def undefine_plugin_class_methods plugin_name
+          plugin_module = eval "Nark::Plugin::#{plugin_name.to_s.camelize}"
+          if plugin_module.constants.include? :ClassMethods
+            plugin_class_methods = eval "#{plugin_module}::ClassMethods"
+            instance_methods = plugin_class_methods.instance_methods
+            instance_methods.each { |method| plugin_class_methods.send :remove_method, method.to_sym }
+          end
+        end
+
+        def undefine_events plugin_name
+          Nark::Middleware.events.reject! { |event| event[:plugin] == plugin_name.to_s }
+        end
 
         def define_plugin_module plugin_name
           """
