@@ -26,6 +26,31 @@ Feature: Expose plugin functionality via HTTP
     }
     """
 
+  @reporting-api
+  Scenario: Should be able to able to access a plugin variable via the reporter
+    Given I have a application I want to track
+    When I created the following plugin
+    """
+    Nark::Plugin.define :status_codes do |plugin|
+      plugin.variables :status_codes => []
+
+      plugin.add_hook :after_call do |status_code, header, body, env|
+        plugin.status_codes << {:status => status_code, :path => env['PATH_INFO']}
+      end
+    end
+    """
+    When I visit "/"
+    When I visit "/nark/status_codes"
+    Then the response should be
+    """
+    [
+      {
+        "status": 200,
+        "path": "/"
+      }
+    ]
+    """
+
   @wip @reporting-api
   Scenario: The API service should start along with the middleware
     Given I have a application I want to track
