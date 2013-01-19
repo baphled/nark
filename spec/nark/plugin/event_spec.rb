@@ -35,7 +35,5 @@ describe Nark::Plugin::Event do
       event = Nark::Plugin::Event.new params
       event.plugin.should eql :some_plugin
     end
-
-    it "stores the plugin as a string"
   end
 end
