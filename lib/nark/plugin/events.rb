@@ -1,3 +1,5 @@
+require_relative 'event'
+
 module Nark
   module Events
     module InstanceMethods
@@ -32,7 +34,7 @@ module Nark
       # This is primarily used when a plugin is undefined
       #
       def remove_trigger plugin_name
-        events.reject! { |event| event[:plugin] == plugin_name.to_s }
+        events.reject! { |event| event.plugin == plugin_name.to_s }
       end
 
       #
@@ -43,7 +45,7 @@ module Nark
       #
       def trigger event, env
         triggered(event).each do |triggered_event|
-          Nark.class_eval 'triggered_event[:plugin_method].call env'
+          Nark.class_eval 'triggered_event.method_block.call env'
         end
       end
 
@@ -63,7 +65,7 @@ module Nark
       #
       def triggered event
         events.select do |event_hook|
-          event_hook[:hook].to_sym == event.to_sym
+          event_hook.type.to_sym == event.to_sym
         end
       end
     end

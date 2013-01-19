@@ -20,7 +20,7 @@ module Nark
       #   :after_call
       #
       def add_hook hook, &block
-        event_trigger = { hook: hook, plugin_method: block, plugin: Nark::Plugin.currently_defining.to_s }
+        event_trigger = Nark::Plugin::Event.new type: hook, method_block: block, plugin: Nark::Plugin.currently_defining.to_s
         Nark::Plugin.add_trigger event_trigger
       end
 

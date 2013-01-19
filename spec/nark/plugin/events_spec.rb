@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Nark::Events do
-  let(:event_hook) { { hook: :before_call, plugin_method: Proc.new {}, plugin: 'new_plugin' } }
+  let(:event_hook) { Nark::Event.new type: :before_call, method_block: Proc.new {}, plugin: 'new_plugin' }
 
   class Wrapper
     include Nark::Events
@@ -13,7 +13,13 @@ describe Nark::Events do
     end
 
     it "takes a hash" do
-      Wrapper.events << {hook: :before_call, plugin_method: Proc.new {}, plugin: 'new_plugin'}
+      Wrapper.events << event_hook
+    end
+
+    it "takes a Nark event" do
+      params = {hook: :before_call, plugin_method: Proc.new {}, plugin: 'new_plugin'}
+      event = Nark::Plugin::Event.new params
+      Wrapper.add_trigger event
     end
   end
 

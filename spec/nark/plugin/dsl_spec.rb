@@ -70,7 +70,7 @@ describe Nark::Plugin::DSL do
       end
       Nark::Plugin.events.should_not be_empty
       Nark::Plugin.undefine :random_plugin
-      Nark::Plugin.events.collect{ |event| event[:plugin] }.should_not include :random_plugin
+      Nark::Plugin.events.collect{ |event| event.plugin }.should_not include 'random_plugin'
     end
 
     it "doesn't try to undefine class methods when there aren't any" do
@@ -94,7 +94,7 @@ describe Nark::Plugin::DSL do
         end
       end
       Nark::Plugin.undefine :random_plugin
-      Nark::Plugin.events.collect{ |event| event[:plugin] }.should_not include :random_plugin
+      Nark::Plugin.events.collect{ |event| event.plugin }.should_not include 'random_plugin'
     end
   end
 
