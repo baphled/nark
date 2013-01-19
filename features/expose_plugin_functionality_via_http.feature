@@ -51,6 +51,12 @@ Feature: Expose plugin functionality via HTTP
     ]
     """
 
+  @reporting-api
+  Scenario: An endpoint will not be exposed if it is not added via a plugin
+    Given I have a application I want to track
+    When I visit "/nark/status_codes"
+    Then the endpoint will not be available
+
   @wip @reporting-api
   Scenario: The API service should start along with the middleware
     Given I have a application I want to track
