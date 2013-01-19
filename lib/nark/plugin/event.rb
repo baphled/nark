@@ -1,10 +1,10 @@
 module Nark
   module Plugin
     class Event
-      attr_accessor :hook
+      attr_accessor :trigger_type
 
       def initialize params
-        @hook = params[:hook]
+        @trigger_type = params[:trigger_type]
       end
     end
   end
