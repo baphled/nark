@@ -1,3 +1,5 @@
+require_relative 'events'
+
 module Nark
   module Plugin
     class Event
@@ -12,6 +14,10 @@ module Nark
         @type = params[:type]
         @method_block = params[:method_block]
         @plugin = params[:plugin]
+      end
+
+      def exists?
+        Nark::Plugin.events.find { |event| method_block == event.method_block  }
       end
 
       def to_hash

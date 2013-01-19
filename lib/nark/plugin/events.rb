@@ -27,7 +27,7 @@ module Nark
       def add_trigger event
         if event.class != Nark::Plugin::Event
           raise Nark::Exceptions::InvalidEventType
-        elsif is_duplicate?(event)
+        elsif event.exists?
           raise Nark::Exceptions::DuplicateEvent
         else
           events << event

@@ -49,4 +49,33 @@ describe Nark::Plugin::Event do
       event.to_hash.should eql params
     end
   end
+
+  describe "#exists?" do
+    let(:plugin_method_block) { Proc.new {|p| p } }
+    let(:params) {
+      { :plugin => :some_plugin, :type => 'before_call', :method_block => plugin_method_block }
+    }
+
+    before :each do
+      class EventsWrapper
+        include Nark::Events
+      end
+    end
+
+    after :each do
+      Object.send :remove_const, :EventsWrapper
+    end
+
+    it "returns false if it does not exist" do
+      first_event = Nark::Plugin::Event.new params
+      new_event = Nark::Plugin::Event.new params
+      EventsWrapper.add_trigger first_event
+      new_event.should exist
+    end
+
+    it "returns true if it does exist" do
+      event = Nark::Plugin::Event.new params
+      event.should_not exist
+    end
+  end
 end
