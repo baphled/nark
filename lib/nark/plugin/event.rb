@@ -3,24 +3,49 @@ require_relative 'events'
 module Nark
   module Plugin
     #
-    # Essentially this is a value object used to store a plugins event block
-    # which is then used by the middleware to trigger at the right time.
+    # An event based value object allowing use to easily deal with event based functionality.
+    #
+    # Used to keep track and interact with a plugin's triggers.
+    #
+    # Essentially this is a value object used to store a plugins event block which is then used by the middleware to
+    # trigger at the right time.
     #
     class Event
-      attr_reader :type
-      attr_reader :method_block
-      attr_reader :plugin
-      attr_reader :attributes
+      #
+      # Only allow the object to change the state of the event
+      #
+      private
 
-      protected
-
+      #
+      # Protect the the object from being changed externally
+      #
       attr_writer :type
       attr_writer :method_block
       attr_writer :plugin
-      attr_writer :attributes
 
-      public
+      #
+      # Used to simplify the way parameters are returned and stored
+      #
+      attr_accessor :attributes
 
+      #
+      # Stores the type of event
+      #
+      attr_reader :type
+
+      #
+      # Stores the event block to be triggered
+      #
+      attr_reader :method_block
+
+      #
+      # Stores the name of the plugin that the event belongs to
+      #
+      attr_reader :plugin
+
+      #
+      # Initialise the new Event
+      #
       def initialize params
         @attributes = params
         @type = params[:type]
@@ -28,10 +53,16 @@ module Nark
         @plugin = params[:plugin]
       end
 
+      #
+      # Checks the exists of the plugin in the events collection
+      #
       def exists?
         Nark::Plugin.events.find { |event| method_block == event.method_block  }
       end
 
+      #
+      # Returns a hash of the events attributes
+      #
       def to_hash
         attributes
       end
