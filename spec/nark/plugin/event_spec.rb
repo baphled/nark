@@ -23,9 +23,19 @@ describe Nark::Plugin::Event do
       event = Nark::Plugin::Event.new params
       event.method_block.should eql plugin_method_block
     end
+
+    it "throws an exception if a block is not passed"
   end
 
   describe "#plugin" do
-    it "stores the plugin as a symbol"
+    it "stores the plugin's name" do
+      params = {
+        :plugin => :some_plugin,
+      }
+      event = Nark::Plugin::Event.new params
+      event.plugin.should eql :some_plugin
+    end
+
+    it "stores the plugin as a string"
   end
 end
