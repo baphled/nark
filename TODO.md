@@ -60,12 +60,11 @@ TODO
      * This will be useful internally also as it will help to keep the gemspec up to date 
 
  * Architecture
-	 * Plugin methods should be attached to a module that is include by Nark
-		 * This way we can easily find out what methods are plugin based and do cool things with the information
+   * Plugin methods should be attached to a module that is include by Nark
+     * This way we can easily find out what methods are plugin based and do cool things with the information
    * Think about making components more pluggable.
      * Would be nice is people to easily pick and mix components to do things not originally conceived of
 
  * Eating my own dog food
    * Come up with use cases for using Nark
    * Put it through it's paces
- 
