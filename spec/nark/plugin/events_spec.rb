@@ -7,16 +7,6 @@ describe Nark::Events do
     include Nark::Events
   end
 
-  describe "#trigger_hook" do
-    it "triggers before and after hooks at least twice" do
-      env = {}
-      wrapper = Wrapper.new
-      Wrapper.add_trigger event_hook
-      wrapper.should_receive(:trigger_hook)
-      wrapper.trigger_hook :before_call, env
-    end
-  end
-
   describe "#events" do
     it "stores a list of events" do
       Wrapper.events.should be_an Array
