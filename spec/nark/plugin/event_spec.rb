@@ -36,4 +36,17 @@ describe Nark::Plugin::Event do
       event.plugin.should eql :some_plugin
     end
   end
+
+  describe "#to_hash" do
+    it "returns the attributes as a Hash" do
+      plugin_method_block = Proc.new {|p| p }
+      params = {
+        :plugin => :some_plugin,
+        :type => 'before_call',
+        :method_block => plugin_method_block
+      }
+      event = Nark::Plugin::Event.new params
+      event.to_hash.should eql params
+    end
+  end
 end
