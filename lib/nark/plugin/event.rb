@@ -28,6 +28,8 @@ module Nark
       #
       attr_accessor :attributes
 
+      public
+
       #
       # Stores the type of event
       #
