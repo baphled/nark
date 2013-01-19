@@ -1,18 +1,22 @@
 require 'rack/test'
 require "sinatra"
 
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
+
+require 'nark/reporter/http'
+
 class DummyApp < Sinatra::Base
   get '/' do
     'the best response eva!'
   end
 end
 
-require 'rack/test'
 module AppHelper
   # Rack-Test expects the app method to return a Rack application
   def app
     Rack::Builder.new do
       use Nark::Middleware
+      use Nark::Reporter::HTTP
       run DummyApp
     end
   end
