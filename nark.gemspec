@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     ".rvmrc",
+    ".simplecov",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -105,6 +106,16 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rack-test>, [">= 0"])
       s.add_development_dependency(%q<pry>, [">= 0"])
       s.add_development_dependency(%q<sinatra>, [">= 0"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
+      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_development_dependency(%q<fakefs>, [">= 0"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<aruba>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
+      s.add_development_dependency(%q<rack-test>, [">= 0"])
+      s.add_development_dependency(%q<pry>, [">= 0"])
+      s.add_development_dependency(%q<sinatra>, [">= 0"])
     else
       s.add_dependency(%q<nark>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
@@ -117,6 +128,16 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rack-test>, [">= 0"])
       s.add_dependency(%q<pry>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+      s.add_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_dependency(%q<fakefs>, [">= 0"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<aruba>, [">= 0"])
+      s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
+      s.add_dependency(%q<rack-test>, [">= 0"])
+      s.add_dependency(%q<pry>, [">= 0"])
+      s.add_dependency(%q<sinatra>, [">= 0"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<fakefs>, [">= 0"])
@@ -139,6 +160,16 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rack-test>, [">= 0"])
     s.add_dependency(%q<pry>, [">= 0"])
     s.add_dependency(%q<sinatra>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+    s.add_dependency(%q<rdoc>, ["~> 3.12"])
+    s.add_dependency(%q<fakefs>, [">= 0"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<aruba>, [">= 0"])
+    s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
+    s.add_dependency(%q<rack-test>, [">= 0"])
+    s.add_dependency(%q<pry>, [">= 0"])
+    s.add_dependency(%q<sinatra>, [">= 0"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<fakefs>, [">= 0"])
