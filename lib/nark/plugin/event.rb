@@ -2,12 +2,24 @@ require_relative 'events'
 
 module Nark
   module Plugin
+    #
+    # Essentially this is a value object used to store a plugins event block
+    # which is then used by the middleware to trigger at the right time.
+    #
     class Event
-      attr_accessor :type
-      attr_accessor :method_block
-      attr_accessor :plugin
+      attr_reader :type
+      attr_reader :method_block
+      attr_reader :plugin
+      attr_reader :attributes
 
-      attr_accessor :attributes
+      protected
+
+      attr_writer :type
+      attr_writer :method_block
+      attr_writer :plugin
+      attr_writer :attributes
+
+      public
 
       def initialize params
         @attributes = params

@@ -78,4 +78,43 @@ describe Nark::Plugin::Event do
       event.should exist
     end
   end
+
+  describe "instance variables" do
+    let(:plugin_method_block) { Proc.new {|p| p } }
+    let(:params) {
+      { :plugin => :some_plugin, :type => 'before_call', :method_block => plugin_method_block }
+    }
+    let(:event) { Nark::Plugin::Event.new params }
+
+    describe "mutability" do
+      context "external manipulation" do
+        it "restricts the type" do
+          expect {
+            event.type = 'foo'
+          }.to raise_error NoMethodError
+        end
+
+        it "restricts the method_block" do
+          event = Nark::Plugin::Event.new params
+          expect {
+            event.method_block = 'foo'
+          }.to raise_error NoMethodError
+        end
+
+        it "restricts the plugin" do
+          event = Nark::Plugin::Event.new params
+          expect {
+            event.plugin = 'foo'
+          }.to raise_error NoMethodError
+        end
+
+        it "restricts the attributes" do
+          event = Nark::Plugin::Event.new params
+          expect {
+            event.attributes = {}
+          }.to raise_error NoMethodError
+        end
+      end
+    end
+  end
 end
