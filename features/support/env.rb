@@ -7,11 +7,12 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
-require 'nark'
-
 require 'rspec/expectations'
 require "aruba/cucumber"
+
+$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
+
+require 'nark'
 
 After("@plugin-dsl") do
   Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin }
