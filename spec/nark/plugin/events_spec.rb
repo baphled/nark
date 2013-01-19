@@ -28,6 +28,13 @@ describe Nark::Events do
       Wrapper.events.should_receive(:<<).and_return event_hook
       Wrapper.add_trigger event_hook
     end
+
+    it "should only take event objects" do
+      event = {}
+      expect {
+        Wrapper.add_trigger event
+      }.to raise_error Nark::Exceptions::InvalidEventType
+    end
   end
 
   describe "#remove_trigger" do

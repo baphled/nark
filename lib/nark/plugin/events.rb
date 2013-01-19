@@ -25,7 +25,12 @@ module Nark
       # This is used to fire off custom messages when Nark is running.
       #
       def add_trigger event
-        events << event
+        puts event.class
+        if event.class != Nark::Plugin::Event
+          raise Nark::Exceptions::InvalidEventType
+        else
+          events << event
+        end
       end
 
       #
