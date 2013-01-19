@@ -1,10 +1,10 @@
 require_relative 'event'
 
 module Nark
+  #
+  # Used to manage the events that a the middleware should track
+  #
   module Events
-    module InstanceMethods
-    end
-
     module ClassMethods
 
       protected
@@ -71,7 +71,6 @@ module Nark
     end
 
     def self.included(receiver)
-      receiver.send :include, InstanceMethods
       receiver.extend         ClassMethods
     end
   end
