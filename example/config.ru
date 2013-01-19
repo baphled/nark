@@ -1,4 +1,5 @@
 require 'nark'
+require 'nark/reporter/http'
 
 require './dummy_app'
 
@@ -8,4 +9,5 @@ Nark.configure do |config|
 end
 
 use Nark::Middleware
+use Nark::Reporter::HTTP
 run DummyApp
