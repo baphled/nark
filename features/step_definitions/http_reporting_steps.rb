@@ -22,6 +22,10 @@ Then /^the response should be$/ do |string|
   last_response.body.should eql string.chomp
 end
 
+Then /^the response should not be$/ do |string|
+  last_response.body.should_not eql string.chomp
+end
+
 Then /^the endpoint will not be available$/ do
   last_response.status.should eql 404
 end

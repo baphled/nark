@@ -37,7 +37,7 @@ module Nark
       #
       get "/nark/:plugin_method" do
         if Nark::Plugin.defined_methods.include? params[:plugin_method].to_sym
-          JSON.pretty_generate Nark.public_send params[:plugin_method]
+          JSON.pretty_generate params[:plugin_method].to_sym => Nark.public_send(params[:plugin_method])
         else
           status 404
         end
