@@ -1,11 +1,7 @@
 Nark
 ====
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/baphled/nark)
-
-[![Dependency Status](https://gemnasium.com/baphled/nark.png)](https://gemnasium.com/baphled/nark)
-
-[![Build Status](https://travis-ci.org/baphled/nark.png)](undefined)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/baphled/nark) [![Dependency Status](https://gemnasium.com/baphled/nark.png)](https://gemnasium.com/baphled/nark) [![Build Status](https://travis-ci.org/baphled/nark.png)](undefined)
 
 Rack middleware that allows you to easily track and handle rack information of your own choosing.
 
@@ -41,28 +37,26 @@ Where YourApplication is the web service want to nark on.
 Event Handlers
 --------------
 
-Nark at present has 3 events handles:
+Nark at present has 2 events handles:
   * before_call
   * after_call
 
-`before_call` is typically used to setup something before a request is
-made. Such as request start times or request ip and browser type.
+These are used to intercept the request before a request is made and just after a response has been made.
 
-`after_call` takes the responses status, header, body and
-environment. Allowing your to manipulate response data as well as have
-access to the request environment.
+`before_call` is typically used to setup something before a request is made. Such as request start times or request ip
+and browser type.
+
+`after_call` takes the responses status, header, body and environment. Allowing your to manipulate response data as
+well as have access to the request environment.
 
 Plugin DSL
 ----------
 
-The grand idea is to allow you to describe request plugins in a
-simplicist way. Leaving most of the construction to be dealt with in the
-background and let you focus on the on things you really want to do.
-Build cool plugins.
+The grand idea is to allow you to describe request plugins in a simplicist way. Leaving most of the construction to be
+dealt with in the background and let you focus on the on things you really want to do.  Build cool plugins.
 
-For this a DSL is needed, this is by no means the end product but simply
-an the curreny idea for the DSL, I really have no idea how this is
-eventually end up.
+For this a DSL is needed, this is by no means the end product but simply an the curreny idea for the DSL, I really
+have no idea how this is eventually end up.
 
 ```
   Nark::Plugin.define :request_times do |plugin|
@@ -79,9 +73,8 @@ eventually end up.
   end
 ```
  
-The project is far from perfect but I'm working on improving the way it hook
-works and its flexibility and welcome any critism (good or bad) and welcome any
-contributions.
+The project is far from perfect but I'm working on improving the way it hook works and its flexibility and welcome any
+critism (good or bad) and welcome any contributions.
 
 Contributing to Nark
 ----------------------------
@@ -93,7 +86,8 @@ Contributing to Nark
 * Start a feature/bugfix branch.
 * Commit and push until you are happy with your contribution.
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise 
+  necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 Copyright
 ---------
