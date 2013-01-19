@@ -43,8 +43,9 @@ module Nark
       # Exposes the plugins class method and returns the data.
       #
       get "/nark/:plugin_method" do
-        if Nark::Plugin.defined_methods.include? params[:plugin_method].to_sym
-          JSON.pretty_generate params[:plugin_method].to_sym => Nark.public_send(params[:plugin_method])
+        plugin_method = params[:plugin_method]
+        if Nark::Plugin.defined_methods.include? plugin_method.to_sym
+          JSON.pretty_generate plugin_method.to_sym => Nark.public_send(plugin_method)
         else
           status 404
         end
