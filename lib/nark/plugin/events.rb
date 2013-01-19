@@ -34,10 +34,6 @@ module Nark
         end
       end
 
-      def is_duplicate? new_event
-        events.find { |event| event.method_block == new_event.method_block  }
-      end
-
       #
       # Remove all hooks relating to a given plugin
       #

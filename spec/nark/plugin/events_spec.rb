@@ -45,13 +45,6 @@ describe Nark::Events do
     end
   end
 
-  describe "#is_duplicate?" do
-    it "is true when the trigger already exists" do
-      Wrapper.add_trigger event_hook
-      Wrapper.is_duplicate?(event_hook).should be_true
-    end
-  end
-
   describe "#remove_trigger" do
     it "can remove a plugin event" do
       Wrapper.events.should_receive(:reject!).and_return event_hook
