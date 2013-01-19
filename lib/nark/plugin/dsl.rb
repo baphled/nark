@@ -96,6 +96,12 @@ module Nark
           plugin_module = eval "Nark::Plugin::#{plugin_name.to_s.camelize}"
           if plugin_module.constants.include? :ClassMethods
             remove_plugin_class_methods plugin_module
+            plugin_class_methods = eval "#{plugin_module}::ClassMethods"
+            instance_methods = plugin_class_methods.instance_methods
+            instance_methods.each do |method|
+              plugin_class_methods.send :remove_method, method.to_sym
+              Nark::Plugin.defined_methods.reject! { |defined| defined.to_sym == method.to_sym }
+            end
           end
         end
 

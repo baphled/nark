@@ -36,6 +36,14 @@ module Nark
     #
     # TODO: Review this functionality, It may make more sense to make these class methods of the plugin module.
     #
+    class << self
+      @@defined_methods = []
+
+      def defined_methods
+        @@defined_methods
+      end
+    end
+
     module ClassMethods
       protected
 

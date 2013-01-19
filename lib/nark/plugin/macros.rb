@@ -44,8 +44,8 @@ module Nark
                 receiver.extend ClassMethods
               end
             end
-                """
-                eval plugin_method_code
+          """
+          eval plugin_method_code
       end
 
       #
@@ -75,8 +75,9 @@ module Nark
                   receiver.extend ClassMethods
                 end
               end
-                    """
-                    eval plugin_class_methods
+          """
+          eval plugin_class_methods
+          Nark::Plugin.defined_methods << variable
         end
       end
     end

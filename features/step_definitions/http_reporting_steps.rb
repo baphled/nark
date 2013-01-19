@@ -25,3 +25,7 @@ end
 Then /^the endpoint will not be available$/ do
   last_response.status.should eql 404
 end
+
+Then /^the endpoint will be available$/ do
+  last_response.status.should eql 200
+end

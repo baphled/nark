@@ -57,6 +57,31 @@ Feature: Expose plugin functionality via HTTP
     When I visit "/nark/status_codes"
     Then the endpoint will not be available
 
+  @reporting-api
+  Scenario: Endpoints are dynamically created
+    Given I have a application I want to track
+    When I created the following plugin
+    """
+    Nark::Plugin.define :tracker do |plugin|
+      plugin.variables :tracker => []
+
+      plugin.add_hook :after_call do |status_code, header, body, env|
+        plugin.tracker << {:status => status_code, :path => env['PATH_INFO']}
+      end
+    end
+    """
+    When I visit "/"
+    And I visit "/nark/tracker"
+    Then the response should be
+    """
+    [
+      {
+        "status": 200,
+        "path": "/"
+      }
+    ]
+    """
+
   @wip @reporting-api
   Scenario: The API service should start along with the middleware
     Given I have a application I want to track

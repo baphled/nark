@@ -9,9 +9,11 @@ module Nark
         JSON.pretty_generate :plugins => Nark.available_plugins
       end
 
-      if Nark.respond_to? :status_codes
-        get "/nark/status_codes" do
-          JSON.pretty_generate Nark.status_codes
+      get "/nark/:plugin_method" do
+        if Nark::Plugin.defined_methods.include? params[:plugin_method].to_sym
+          JSON.pretty_generate Nark.public_send params[:plugin_method]
+        else
+          status 404
         end
       end
     end
