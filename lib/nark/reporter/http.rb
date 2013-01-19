@@ -12,6 +12,15 @@ module Nark
     #
     class HTTP < Sinatra::Base
 
+      get '/nark' do
+        endpoints = Nark::Plugin.defined_methods.collect do |endpoint|
+          { :url => "/nark/#{endpoint}", :rel => "plugin_method" }
+        end
+        endpoints << { :url => "/nark", :rel => "self" }
+        response = { :endpoints => endpoints }
+        JSON.pretty_generate response
+      end
+
       #
       # GET /nark/available_plugins
       #

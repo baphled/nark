@@ -74,14 +74,7 @@ Feature: Expose plugin functionality via HTTP
     ]
     """
 
-  @wip @reporting-api
-  Scenario: The API service should start along with the middleware
-    Given I have a application I want to track
-    And I am using the API service
-    When I start my application
-    Then the API service should be available
-
-  @wip @reporting-api
+  @reporting-api
   Scenario: The root end point lists all resources
     Given I have a application I want to track
     When I created the following plugin
@@ -94,8 +87,22 @@ Feature: Expose plugin functionality via HTTP
       end
     end
     """
-    When the API is started
-    Then I should be able to access "http:://example.com:2309"
+    Then I visit "/nark"
+    And the response should be
+    """
+    {
+      "endpoints": [
+        {
+          "url": "/nark/status_codes",
+          "rel": "plugin_method"
+        },
+        {
+          "url": "/nark",
+          "rel": "self"
+        }
+      ]
+    }
+    """
 
   @wip @reporting-api
   Scenario: I should be able to add a plugin and can access to its own method
