@@ -7,28 +7,39 @@ Feature: Command line interaction
   Scenario: I should be informed if I give an invalid command
     Given I have installed the plugin
     When I successfully run `bundle exec nark foo`
-    Then the output should contain:
-    """Usage: nark help
+    Then the output should contain exactly:
+    """
 
-    Displays this message."""
+            Usage: nark help
+
+            Displays this message.
+            
+
+    """
 
   @CLI
   Scenario: I should get the help import if the command is invalid
     Given I have installed the plugin
     When I successfully run `bundle exec nark help example`
-    Then the output should contain:
-    """Usage: nark example requests
+    Then the output should contain exactly:
+    """
 
-    Creates an example plugin."""
+            Usage: nark example requests
+
+            Creates an example plugin.
+            
+
+    """
 
   @CLI
   Scenario: I should be able to get a list of plugins
     Given I have installed the plugin
     When I successfully run `bundle exec nark list plugins`
-    Then the output should contain:
+    Then the output should contain exactly:
     """
     requests             - Tracks the number of requests made to your application
     request_times        - Keeps track of the amount of time each request takes
     revisions            - Outputs the git revision
+
     """
 
