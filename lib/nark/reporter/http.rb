@@ -13,7 +13,7 @@ module Nark
     class HTTP < Sinatra::Base
 
       get '/nark' do
-        endpoints = Nark::Plugin.defined_methods.collect do |endpoint|
+        endpoints = manipulate_defined_methods do |endpoint|
           { :url => "/nark/#{endpoint}", :rel => "plugin_method" }
         end
         endpoints << { :url => "/nark", :rel => "self" }
@@ -31,7 +31,7 @@ module Nark
       end
 
       get '/nark/plugin/stats' do
-        stats = Nark::Plugin.defined_methods.collect do |endpoint|
+        stats = manipulate_defined_methods do |endpoint|
           { endpoint.to_sym => Nark.public_send(endpoint) }
         end
         JSON.pretty_generate :stats => stats
@@ -47,6 +47,14 @@ module Nark
           JSON.pretty_generate params[:plugin_method].to_sym => Nark.public_send(params[:plugin_method])
         else
           status 404
+        end
+      end
+
+      protected
+
+      def manipulate_defined_methods &block
+        Nark::Plugin.defined_methods.collect do |endpoint|
+          yield endpoint
         end
       end
     end
