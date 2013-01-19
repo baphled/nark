@@ -11,6 +11,7 @@ module Nark
     # part of the tracker once they have been successfully defined.
     #
     # TODO: Find a better way of keeping track of the plugin we are currently defining
+    # TODO: Create a plugin abstraction layer where all plugin functionality will live
     #
     module DSL
       include Nark::Macros
@@ -114,6 +115,11 @@ module Nark
           eval "#{plugin_module}::ClassMethods"
         end
 
+        #
+        # initialize the plugin module before doing anything else
+        #
+        # TODO: Determine whether this is actually needed
+        #
         def define_plugin_module plugin_name
           """
               module Nark::Plugin::#{plugin_name.to_s.camelize}
