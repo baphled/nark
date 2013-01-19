@@ -30,6 +30,13 @@ module Nark
         JSON.pretty_generate :plugins => Nark.available_plugins
       end
 
+      get '/nark/plugin/stats' do
+        stats = Nark::Plugin.defined_methods.collect do |endpoint|
+          { endpoint.to_sym => Nark.public_send(endpoint) }
+        end
+        JSON.pretty_generate :stats => stats
+      end
+
       #
       # GET /nark/:plugin_method
       #

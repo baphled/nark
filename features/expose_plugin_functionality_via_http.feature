@@ -126,3 +126,43 @@ Feature: Expose plugin functionality via HTTP
       "status_codes": []
     }
     """
+
+  @reporting-api
+  Scenario: Can return all of the plugin information in one go
+    Given I have a application I want to track
+    When I created the following plugin
+    """
+    Nark::Plugin.define :status_codes do |plugin|
+      plugin.variables :status_codes => []
+
+      plugin.add_hook :after_call do |status_code, header, body, env|
+        plugin.status_codes << {:status => status_code, :path => env['PATH_INFO']}
+      end
+    end
+    """
+    And I created the following plugin
+    """
+    Nark::Plugin.define :requests do |plugin|
+      plugin.variables :total_requests => 0
+
+      plugin.add_hook :before_call do |env|
+        plugin.total_requests += 1
+      end
+    end
+    """
+    And I visit "/nark/plugin/stats"
+    Then the response should be
+    """
+    {
+      "stats": [
+        {
+          "status_codes": [
+  
+          ]
+        },
+        {
+          "total_requests": 1
+        }
+      ]
+    }
+    """
