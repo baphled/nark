@@ -18,8 +18,7 @@ describe Nark::Events do
 
     it "takes a Nark event" do
       params = {hook: :before_call, plugin_method: Proc.new {}, plugin: 'new_plugin'}
-      event = Nark::Plugin::Event.new params
-      Wrapper.add_trigger event
+      Wrapper.add_trigger event_hook
     end
   end
 
@@ -34,6 +33,22 @@ describe Nark::Events do
       expect {
         Wrapper.add_trigger event
       }.to raise_error Nark::Exceptions::InvalidEventType
+    end
+
+    describe "a duplication event" do
+      it "shares the same method block" do
+        Wrapper.add_trigger event_hook
+        expect {
+          Wrapper.add_trigger event_hook
+        }.to raise_error Nark::Exceptions::DuplicateEvent
+      end
+    end
+  end
+
+  describe "#is_duplicate?" do
+    it "is true when the trigger already exists" do
+      Wrapper.add_trigger event_hook
+      Wrapper.is_duplicate?(event_hook).should be_true
     end
   end
 
