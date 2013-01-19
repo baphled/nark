@@ -13,8 +13,16 @@ describe Nark::Plugin::Event do
     end
   end
 
-  describe "#plugin_method" do
-    it "stores a block"
+  describe "#method_block" do
+    it "stores a block" do
+      plugin_method_block = Proc.new {|p| p }
+      params = {
+        :trigger_type => 'before_call',
+        :method_block => plugin_method_block
+      }
+      event = Nark::Plugin::Event.new params
+      event.method_block.should eql plugin_method_block
+    end
   end
 
   describe "#plugin" do
