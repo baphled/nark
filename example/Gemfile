@@ -3,3 +3,4 @@ gem 'nark', :path => '..'
 
 gem 'sinatra'
 gem 'rack'
+gem 'shotgun'
