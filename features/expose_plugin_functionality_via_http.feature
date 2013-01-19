@@ -41,15 +41,7 @@ Feature: Expose plugin functionality via HTTP
     """
     When I visit "/"
     When I visit "/nark/status_codes"
-    Then the response should be
-    """
-    [
-      {
-        "status": 200,
-        "path": "/"
-      }
-    ]
-    """
+    Then the endpoint will be available
 
   @reporting-api
   Scenario: An endpoint will not be exposed if it is not added via a plugin
