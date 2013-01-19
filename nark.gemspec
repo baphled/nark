@@ -40,9 +40,11 @@ Gem::Specification.new do |s|
     "example/plugins/requests.rb",
     "example/plugins/status_report.rb",
     "features/command_line_interaction.feature",
+    "features/expose_plugin_functionality_via_http.feature",
     "features/generating_a_plugin.feature",
     "features/nark.feature",
     "features/nark_middleware.feature",
+    "features/step_definitions/http_reporting_steps.rb",
     "features/step_definitions/nark_steps.rb",
     "features/step_definitions/undefine_plugin_steps.rb",
     "features/support/env.rb",
@@ -57,6 +59,7 @@ Gem::Specification.new do |s|
     "lib/nark/plugin/event.rb",
     "lib/nark/plugin/events.rb",
     "lib/nark/plugin/macros.rb",
+    "lib/nark/reporter/http.rb",
     "nark.gemspec",
     "plugins/request_times.rb",
     "plugins/requests.rb",
@@ -97,6 +100,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rack-test>, [">= 0"])
       s.add_development_dependency(%q<pry>, [">= 0"])
       s.add_development_dependency(%q<sinatra>, [">= 0"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<fakefs>, [">= 0"])
@@ -128,6 +132,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rack-test>, [">= 0"])
       s.add_dependency(%q<pry>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<fakefs>, [">= 0"])
@@ -160,6 +165,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rack-test>, [">= 0"])
     s.add_dependency(%q<pry>, [">= 0"])
     s.add_dependency(%q<sinatra>, [">= 0"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<fakefs>, [">= 0"])
