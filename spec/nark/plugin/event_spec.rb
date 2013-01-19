@@ -67,15 +67,15 @@ describe Nark::Plugin::Event do
     end
 
     it "returns false if it does not exist" do
-      first_event = Nark::Plugin::Event.new params
-      new_event = Nark::Plugin::Event.new params
-      EventsWrapper.add_trigger first_event
-      new_event.should exist
+      event = Nark::Plugin::Event.new params
+      Nark::Plugin.events.stub(:find).and_return false
+      event.should_not exist
     end
 
     it "returns true if it does exist" do
       event = Nark::Plugin::Event.new params
-      event.should_not exist
+      Nark::Plugin.events.stub(:find).and_return true
+      event.should exist
     end
   end
 end
