@@ -34,7 +34,6 @@ TODO
      * RPC (though this won't be my primary focus)
 
  * Usability
-   * Can not have duplicate events
    * when trying to create a plugin with the same name as one already included
    * when a plugin variable or method is already in use
    * Let the user know how event hooks are available.
