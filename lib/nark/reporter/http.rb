@@ -30,6 +30,12 @@ module Nark
         JSON.pretty_generate :plugins => Nark.available_plugins
       end
 
+      #
+      # GET /nark/plugin/stats
+      #
+      # Returns a collection of statistics gathered from the plugins currently
+      # bound to Nark.
+      #
       get '/nark/plugin/stats' do
         stats = manipulate_defined_methods do |endpoint|
           { endpoint.to_sym => Nark.public_send(endpoint) }
@@ -53,6 +59,12 @@ module Nark
 
       protected
 
+      #
+      # Does something with the list of plugin methods currently available
+      #
+      # By passing in a block this allows you to get creative when interacting
+      # with defined plugin methods
+      #
       def manipulate_defined_methods &block
         Nark::Plugin.defined_methods.collect do |endpoint|
           yield endpoint
