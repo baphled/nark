@@ -11,13 +11,13 @@ Feature: API accessible
     Nark::Plugin.define :status_codes do |plugin|
       plugin.variables :status_codes => []
 
-      plugin.add_hook :after_response do |status_code, header, body, env|
+      plugin.add_hook :after_call do |status_code, header, body, env|
         plugin.status_codes << {:status => status_code, :path => env['PATH_INFO']}
       end
     end
     """
     When the API is started
-    Then I should be able to access "/status_codes"
+    Then I should be able to access "/nark/status_codes"
 
   @wip
   Scenario: The API service does not affect the main application
@@ -27,7 +27,7 @@ Feature: API accessible
     Nark::Plugin.define :status_codes do |plugin|
       plugin.variables :status_codes => []
 
-      plugin.add_hook :after_response do |status_code, header, body, env|
+      plugin.add_hook :after_call do |status_code, header, body, env|
         plugin.status_codes << {:status => status_code, :path => env['PATH_INFO']}
       end
     end
