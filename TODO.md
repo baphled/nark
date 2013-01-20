@@ -1,4 +1,4 @@
-TODO
+[[TODO]]
 ----
 
  General things that I'd like to see or consider in the project.
@@ -17,7 +17,7 @@ TODO
      * How much time has it added to requests 
      * How much memory is Nark and/or a plugin taking up?
    * Create cucumber lib to help build and test plugins
-     * This can be done by stealing the cuke and rspec tests I run to create my own plugins
+     * This can be done by stealing the cucumber and rspec tests I run to create my own plugins
      * Should include debugging steps to help with development issue
      * How much time does the plugin add to requests
      * When creating plugins or interfaces.
@@ -28,14 +28,15 @@ TODO
 
  * Reporting engine
    * Allows you to log/store the data retrieved from Nark
-     * syslod interface
-     * system bus (supports stomp and other common protocols, include TCP/IP)
+     * Syslog interface
+     * System Bus (supports stomp and other common protocols, include TCP/IP)
+     * Socket
      * HTTP
      * RPC (though this won't be my primary focus)
 
  * Usability
-   * when trying to create a plugin with the same name as one already included
-   * when a plugin variable or method is already in use
+   * When trying to create a plugin with the same name as one already included
+   * When a plugin variable or method is already in use
    * Let the user know how event hooks are available.
 
  * Plugins
@@ -45,21 +46,21 @@ TODO
      metadata.
    * Improve the way plugins are created. It's quite hacky at the moment.
    * Fix issue with plugin method blocks not executing at the right time
-     * they seems to be executing when executing the block within the plugin definition 
+     * They seems to be executing when executing the block within the plugin definition 
    * Have a easy way to include plugins.
      * Would be nice to have a format akin to bundle and librarian-puppet
 
  * CLI
    * Be able to get a list of currently attached plugins via the CLI
-   * Improve the CLI in general, it's very experimental atm.
+   * Improve the CLI in general, it's very experimental ATM.
    * All user to include a plugin via a URL (gists come to mind)
      * This is also a nice way to get others to play with the project and help improve the way it works.
    * Run example application
-     * Could then tie this into rake so that I can make sure everything works before releasign a gem
+     * Could then tie this into rake so that I can make sure everything works before releasing a gem
      * This will be useful internally also as it will help to keep the gemspec up to date 
 
  * Architecture
-   * Plugin methods should be attached to a module that is include by Nark
+   * Plugin methods should be attached to a module that is included by Nark
      * This way we can easily find out what methods are plugin based and do cool things with the information
    * Think about making components more pluggable.
      * Would be nice is people to easily pick and mix components to do things not originally conceived of

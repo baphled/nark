@@ -32,16 +32,18 @@ use Nark::Middleware
 run YourApplication
 ```
 
-Where YourApplication is the web service want to nark on.
+Where `YourApplication` is the web service want to nark on.
 
-Event Handlers
+Event Triggers
 --------------
 
-Nark at present has 2 events handles:
+Event triggers are used to intercept request and responses when your application is running. The idea here is that you
+create your own plugin that uses both or either of these hooks to gather specific information about your application
+and it's state.
+
+Nark, at present, has 2 events handles:
   * before_call
   * after_call
-
-These are used to intercept the request before a request is made and just after a response has been made.
 
 `before_call` is typically used to setup something before a request is made. Such as request start times or request ip
 and browser type.
@@ -52,11 +54,10 @@ well as have access to the request environment.
 Plugin DSL
 ----------
 
-The grand idea is to allow you to describe request plugins in a simplicist way. Leaving most of the construction to be
+The grand idea is to allow you to describe request plugins in a simplicity way. Leaving most of the construction to be
 dealt with in the background and let you focus on the on things you really want to do.  Build cool plugins.
 
-For this a DSL is needed, this is by no means the end product but simply an the curreny idea for the DSL, I really
-have no idea how this is eventually end up.
+For this a DSL is needed.
 
 ```
   Nark::Plugin.define :request_times do |plugin|
@@ -73,13 +74,27 @@ have no idea how this is eventually end up.
   end
 ```
  
-The project is far from perfect but I'm working on improving the way it hook works and its flexibility and welcome any
-critism (good or bad) and welcome any contributions.
+Upcoming features
+-----------------
+
+  * Reporter
+    * A configurable interface that allows you to easily plug into Nark and retrieve information that it has received
+  * Configuration
+    * Easily configure the setup of Nark
+      * Reporter
+        * What's is Setup
+        * Component settings
+      * Plugins
+      * Where to look
+      * Where to save
+      * Custom settings
+  * Automatically include custom plugins
+    * Defined by plugin path
 
 Contributing to Nark
 ----------------------------
  
-* Check out the TODO.md and TECHDEBT.md
+* Check out the [[TODO]] and [[TECHDEBT]]
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
