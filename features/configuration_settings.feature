@@ -13,3 +13,14 @@ Feature: Configuration settings
     end
     """
     Then the "plugins_paths" should be "fixtures/plugins"
+
+  @configuration
+  Scenario: I should be able to configure whether plugins should be loaded when the middleware is started
+    Given I have installed the plugin
+    When I setup Nark with the following
+    """
+    Nark.configure do |config|
+      config.load_plugins
+    end
+    """
+    Then 4 plugins should be loaded

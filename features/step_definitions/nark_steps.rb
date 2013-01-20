@@ -47,3 +47,7 @@ end
 Then /^the "(.*?)" should be "(.*?)"$/ do |method, value|
   Nark.send(method.to_sym).should eql value
 end
+
+Then /^(\d+) plugins should be loaded$/ do |amount|
+  Nark.available_plugins.count.should eql amount.to_i
+end
