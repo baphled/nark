@@ -36,3 +36,24 @@ Feature: Configuration settings
     end
     """
     Then 1 plugins should be loaded
+
+  @wip @configuration @CLI
+  Scenario: The plugin path I supply should be used when create a new plugin
+    Given I have installed the plugin
+    When I setup Nark with the following
+    """
+    Nark.configure do |config|
+      config.plugins_paths = 'spec/fixtures/plugins'
+    end
+    """
+    And I successfully run `bundle exec nark example revisions`
+    Then the "plugins_paths" should be "spec/fixtures/plugins"
+    Then a file named "spec/fixtures/plugins/revisions.rb" should exist
+    And the file "spec/fixtures/plugins/revisions.rb" should contain exactly:
+    """
+    Nark::Plugin.define :revisions do |plugin|
+      plugin.method :revision do
+        %x[cat .git/refs/heads/master| cut -f 1].chomp
+      end
+    end
+    """

@@ -61,6 +61,8 @@ module Nark
       #
       # This is used to resolve the issue of having to rely on the user to require the plugin manually.
       #
+      # TODO: Refactor so that we can iterate of more than one path
+      #
       def load_plugins
         Dir["#{defined_plugin_path}/*.rb"].each { |plugin| eval File.read(plugin) }
       end
@@ -68,20 +70,39 @@ module Nark
       #
       # Stores the path of the plugins
       #
-      # TODO: Allow the user to set this path thier selves
+      # TODO: Refactor so that it takes a single path and checks to see if it is valid
       #
       def defined_plugin_path
-        File.absolute_path File.join File.dirname(__FILE__), "..", "..", 'plugins'
+        File.absolute_path File.join File.dirname(__FILE__), "..", "..", @@plugins_paths
       end
 
       protected
 
+      #
+      # This is a helper method that returns a list of plugin modules
+      #
+      # Determines which objects are actually plugin modules are what are not.
+      #
+      # There are a few modules that we don't want to return that are part of
+      # Narks architecture. These are checked for and removed from the list if
+      # found.
+      #
+      # All Nark plugins are modules, so that is the easy part, we check to
+      # make sure that the object we currently have is a module.
+      #
       def filter_modules found_modules
         found_modules.delete_if do |plugin|
           eval("Nark::Plugin::#{plugin}").is_a? Class or ignored_modules.include? plugin.to_s.camelize
         end
       end
 
+      #
+      # Returns a list of modules that we don't want to include when we are
+      # filtering our modules.
+      #
+      # TODO: Improve upon this so that we don't have to add to this every time
+      # we add a mixin to the Plugin module.
+      #
       def ignored_modules
         ['ClassMethods','InstanceMethods','DSL']
       end
