@@ -24,3 +24,15 @@ Feature: Configuration settings
     end
     """
     Then 4 plugins should be loaded
+
+  @configuration
+  Scenario: I should autoload plugins from the custom path
+    Given I have installed the plugin
+    When I setup Nark with the following
+    """
+    Nark.configure do |config|
+      config.plugins_paths = 'spec/fixtures/plugins'
+      config.load_plugins
+    end
+    """
+    Then 1 plugins should be loaded
