@@ -20,6 +20,7 @@ Feature: Configuration settings
     When I setup Nark with the following
     """
     Nark.configure do |config|
+      config.plugins_paths = 'plugins'
       config.load_plugins
     end
     """
