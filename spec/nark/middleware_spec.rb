@@ -9,12 +9,10 @@ describe Nark::Middleware do
 
   describe "#new" do
     it "stores the application" do
-      middleware = Nark::Middleware.new target_app
       middleware.app.should eql target_app
     end
 
     it "stores the event handler" do
-      middleware = Nark::Middleware.new target_app, event_handler
       middleware.event_handler.should eql event_handler
     end
   end
