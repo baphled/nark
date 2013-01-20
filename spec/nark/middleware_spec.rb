@@ -1,13 +1,11 @@
 require "spec_helper"
 
 describe Nark::Middleware do
-  include Rack::Test::Methods
-  let(:target_app) { mock('The target application') }
-
-  def app
-    target_app.stub(:call).and_return([200, {}, "Target application"])
-    Nark::Middleware.new(target_app)
-  end
+  let(:response_body) { [ 200, {}, {} ] }
+  let(:target_app) { mock('The target application', call: response_body) }
+  let(:environment) { { 'PATH_INFO' => '/' } }
+  let(:event_handler) { stub(:CustomEventHandler, trigger: stub) }
+  let(:middleware) { Nark::Middleware.new target_app, event_handler }
 
   describe "#new" do
     it "stores the application" do
@@ -16,7 +14,6 @@ describe Nark::Middleware do
     end
 
     it "stores the event handler" do
-      event_handler = stub(:CustomEventHandler, trigger: stub)
       middleware = Nark::Middleware.new target_app, event_handler
       middleware.event_handler.should eql event_handler
     end
@@ -24,8 +21,18 @@ describe Nark::Middleware do
 
   describe "#call" do
     it "triggers before and after hooks at least twice" do
-      Nark::Plugin.should_receive(:trigger).at_least(:twice)
-      get '/'
+      middleware.event_handler.should_receive(:trigger).at_least(:twice)
+      middleware.call environment
+    end
+
+    it "calls the application" do
+      middleware.app.should_receive(:call).with environment
+      middleware.call environment
+    end
+
+    it "returns the applications response" do
+      response = middleware.call environment
+      response.should eql [ 200, {}, { } ]
     end
   end
 
