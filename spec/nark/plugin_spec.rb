@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe Nark::Plugin do
 
+  it "stores the defauly plugin path" do
+    Nark.plugins_paths.should eql 'plugins'
+  end
+
   it "stores an array of plugin available" do
     Nark::Middleware.new stub(:app, :call => 'foo')
     Nark.available_plugins.should be_an Array

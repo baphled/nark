@@ -22,6 +22,29 @@ module Nark
     # TODO: Review this functionality, It may make more sense to make these class methods of the plugin module.
     #
     module ClassMethods
+      protected
+
+      #
+      # Keeps track of the paths to that we can find plugins in
+      #
+      @@plugins_paths = 'plugins'
+
+      public
+
+      #
+      # Returns paths to find all the plugins
+      #
+      def plugins_paths
+        @@plugins_paths
+      end
+
+      #
+      # Set the paths of the plugins
+      #
+      def plugins_paths= path
+        @@plugins_paths = path
+      end
+
       #
       # Returns a list of plugins that are currently attached
       #
