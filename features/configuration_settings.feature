@@ -1,0 +1,15 @@
+Feature: Configuration settings
+  In order to customise Nark
+  As a user
+  I want to be able to easily configure and setup Nark
+
+  @configuration
+  Scenario: I should be able to set the default plugin path
+    Given I have installed the plugin
+    When I setup Nark with the following
+    """
+    Nark.configure do |config|
+      config.plugins_paths = 'fixtures/plugins'
+    end
+    """
+    Then the "plugins_paths" should be "fixtures/plugins"

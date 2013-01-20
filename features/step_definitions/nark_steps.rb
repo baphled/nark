@@ -39,3 +39,11 @@ end
 Then /^the "(.*?)" should be$/ do |method, string|
   Nark.send(method.to_sym).should eql eval(string)
 end
+
+When /^I setup Nark with the following$/ do |string|
+  eval string
+end
+
+Then /^the "(.*?)" should be "(.*?)"$/ do |method, value|
+  Nark.send(method.to_sym).should eql value
+end

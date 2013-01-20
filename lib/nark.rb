@@ -12,4 +12,19 @@ require 'nark/plugin'
 #
 module Nark
   include Nark::Plugin
+
+  #
+  # All Rack::Tracker class variables are settable via this configuration method.
+  #
+  # This means that configuration settings are dynamically added dependant on
+  # what variables you expose via your plugins to Rack::Tracker.
+  #
+  # TODO: Refactor so only specific class variables, possibly only setters, are exposed via our plugins.
+  #
+  class << self
+    def configure
+      yield self
+      true
+    end
+  end
 end
