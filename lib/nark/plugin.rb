@@ -16,6 +16,11 @@ module Nark
     include CLI
     include Events
 
+    #
+    # All of these methods are mixed into the Nark module and made part of it's public API.
+    #
+    # TODO: Review this functionality, It may make more sense to make these class methods of the plugin module.
+    #
     module ClassMethods
       #
       # Returns a list of plugins that are currently attached
