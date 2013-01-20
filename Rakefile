@@ -2,6 +2,11 @@
 
 require 'rubygems'
 require 'bundler'
+require 'rake/clean'
+require 'rubygems/package_task'
+require 'rdoc/task'
+require 'cucumber'
+require 'cucumber/rake/task'
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -31,16 +36,6 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
 
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-end
-
-require 'cucumber/rake/task'
-Cucumber::Rake::Task.new(:features)
-
-task :default => :spec
-
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
@@ -50,3 +45,34 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+Rake::RDocTask.new do |rd|
+  rd.main = "README.rdoc"
+  rd.rdoc_files.include("README.rdoc","lib/**/*.rb","bin/**/*")
+  rd.title = 'Nark'
+end
+
+spec = eval(File.read('nark.gemspec'))
+
+Gem::PackageTask.new(spec) do |pkg|
+end
+CUKE_RESULTS = 'coverage/cucumber_features.html'
+CLEAN << CUKE_RESULTS
+desc 'Run features'
+Cucumber::Rake::Task.new(:features) do |t|
+  opts = "features --format html -o #{CUKE_RESULTS} --format progress -x"
+  opts += " --tags #{ENV['TAGS']}" if ENV['TAGS']
+  t.cucumber_opts =  opts
+  t.fork = false
+end
+
+desc 'Run features tagged as work-in-progress (@wip)'
+Cucumber::Rake::Task.new('features:wip') do |t|
+  tag_opts = ' --tags ~@pending'
+  tag_opts = ' --tags @wip'
+  t.cucumber_opts = "features --format html -o #{CUKE_RESULTS} --format pretty -x -s#{tag_opts}"
+  t.fork = false
+end
+
+task :cucumber => :features
+task :wip => 'features:wip'
+task :default => [:spec,:features]
