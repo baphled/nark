@@ -1,6 +1,4 @@
 Nark::Plugin.define :status_report do |plugin|
-  plugin.description 'Tracks each request and its responding status code'
-
   plugin.variables :statues => []
 
   plugin.add_hook :after_call do |status_code, header, body, env|

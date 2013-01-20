@@ -25,7 +25,7 @@ Feature: Generating a plugin
     Then The "request_times" plugin should be created
     And the file "lib/nark/plugin/request_times.rb" should contain exactly:
     """
-    Nark::Plugin.define :requests do |plugin|
+    Nark::Plugin.define :request_times do |plugin|
       plugin.variables :last_request_time => nil
 
       plugin.add_hook :before_call do |env|

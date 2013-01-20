@@ -1,4 +1,4 @@
-Nark::Plugin.define :requests do |plugin|
+Nark::Plugin.define :request_times do |plugin|
   plugin.variables :last_request_time => nil
 
   plugin.add_hook :before_call do |env|
