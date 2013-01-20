@@ -4,7 +4,6 @@
  General things that I'd like to see or consider in the project.
 
  * Integration
-   * Automatically include plugins if in default path 
    * Should have a configurable path that plugins can be found in
      * These will be automatically loaded 
    * Improve the examples of using Nark with a service
