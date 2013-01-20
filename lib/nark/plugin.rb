@@ -28,6 +28,14 @@ module Nark
         modules.collect { |plugin| plugin.to_s.underscore }.sort
       end
 
+      def load_plugins
+        Dir["#{defined_plugin_path}/*.rb"].each { |plugin| eval File.read(plugin) }
+      end
+
+      def defined_plugin_path
+        File.absolute_path File.join File.dirname(__FILE__), "..", "..", 'plugins'
+      end
+
       protected
 
       def filter_modules found_modules

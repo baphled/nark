@@ -5,7 +5,7 @@ describe Nark::Middleware do
   let(:target_app) { mock('The target application', call: response_body) }
   let(:environment) { { 'PATH_INFO' => '/' } }
   let(:event_handler) { stub(:CustomEventHandler, trigger: stub) }
-  let(:middleware) { Nark::Middleware.new target_app, event_handler }
+  let(:middleware) { Nark::Middleware.new target_app, event_handler: event_handler }
 
   describe "#new" do
     it "stores the application" do
@@ -14,6 +14,16 @@ describe Nark::Middleware do
 
     it "stores the event handler" do
       middleware.event_handler.should eql event_handler
+    end
+
+    it "loads all plugins" do
+      Nark.should_receive(:load_plugins)
+      Nark::Middleware.new target_app, event_handler: Nark::Plugin, load_plugins: true
+    end
+
+    it "can be set to not load all plugins" do
+      Nark.should_not_receive(:load_plugins)
+      Nark::Middleware.new target_app
     end
   end
 

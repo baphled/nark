@@ -25,9 +25,12 @@ module Nark
     # This is needed to allow Rack to call our middleware simply by
     # use the module.
     #
-    def initialize app, event_handler = Nark::Plugin
+    def initialize app, options = {}
+      defaults = { event_handler: Nark::Plugin, load_plugins: false }
+      options = defaults.merge options
       @app = app
-      @event_handler = event_handler
+      @event_handler = options[:event_handler]
+      Nark.load_plugins if options[:load_plugins]
     end
 
     #
