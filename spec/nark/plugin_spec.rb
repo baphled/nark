@@ -35,7 +35,7 @@ describe Nark::Plugin do
 
     it "requires all plugins found" do
       Nark.load_plugins
-      Nark.available_plugins.should eql ["request_times", "requests", "revisions", "status_report"]
+      Nark.available_plugins.count.should eql 4
     end
   end
 end
