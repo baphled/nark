@@ -1,5 +1,4 @@
 require "sinatra"
-require './plugins/requests'
 
 class DummyApp < Sinatra::Base
   get '/' do
