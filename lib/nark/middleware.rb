@@ -26,11 +26,10 @@ module Nark
     # use the module.
     #
     def initialize app, options = {}
-      defaults = { event_handler: Nark::Plugin, load_plugins: false }
+      defaults = { event_handler: Nark::Plugin }
       options = defaults.merge options
       @app = app
       @event_handler = options[:event_handler]
-      Nark.load_plugins if options[:load_plugins]
     end
 
     #
