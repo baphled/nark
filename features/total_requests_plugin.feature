@@ -9,7 +9,6 @@ Feature: Request times plugin
     And I created the following plugin
     """
       Nark::Plugin.define :request_times do |plugin|
-        plugin.variables :last_request_time => nil
         plugin.variables :request_times => []
 
         plugin.add_hook :before_call do |env|
@@ -18,7 +17,6 @@ Feature: Request times plugin
 
         plugin.add_hook :after_call do |status, header, body, env|
           plugin.request_times << { url: env['PATH_INFO'], total: (Time.now - @start_time) }
-          plugin.last_request_time = (Time.now - @start_time)
         end
       end
     """
