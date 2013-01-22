@@ -10,6 +10,8 @@ module Nark
     # Essentially this is a value object used to store a plugins event block which is then used by the middleware to
     # trigger at the right time.
     #
+    # TODO: Rename to Trigger
+    #
     class Event
       #
       # Only allow the object to change the state of the event

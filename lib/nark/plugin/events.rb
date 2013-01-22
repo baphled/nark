@@ -4,6 +4,8 @@ module Nark
   #
   # Used to manage the events that a the middleware should track
   #
+  # TODO: Rename to Triggers
+  #
   module Events
     module ClassMethods
 
