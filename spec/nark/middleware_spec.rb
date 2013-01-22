@@ -15,16 +15,6 @@ describe Nark::Middleware do
     it "stores the event handler" do
       middleware.event_handler.should eql event_handler
     end
-
-    it "loads all plugins" do
-      Nark.should_receive(:load_plugins)
-      Nark::Middleware.new target_app, event_handler: Nark::Plugin, load_plugins: true
-    end
-
-    it "can be set to not load all plugins" do
-      Nark.should_not_receive(:load_plugins)
-      Nark::Middleware.new target_app
-    end
   end
 
   describe "#call" do
