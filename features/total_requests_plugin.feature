@@ -1,9 +1,9 @@
 Feature: Request times plugin
   In order to have a plugin to play around with
-  As user
+  As a plugin developer
   I want to be able to collect the amount of time it is taking to make a given request
 
-  @wip @plugin
+  @plugin
   Scenario: I should be able to define a plugin that tracks the request times for each request
     Given I have a application I want to track
     And I created the following plugin
