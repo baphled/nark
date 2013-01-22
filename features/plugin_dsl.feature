@@ -1,8 +1,7 @@
-Feature: Defining a plugin
-  Move code around
-  In order to track useful information
-  A developer
-  I want to be able to easily create a plugin and interact with my plugin
+Feature: Plugin DSL
+  In order to track useful information on a given application
+  As a developer
+  I want to be able to easily create a plugin that I can interact
 
   @plugin-dsl
   Scenario: I should be able to create a basic plugin
