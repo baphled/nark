@@ -40,10 +40,13 @@
 
  * Plugins
    * Improve the way descriptions are handled
-     * When going down the road of maintain a Nark plugin repository
-     descriptions won't be needed as they can be taken from the
-     metadata.
+     * When going down the road of maintaining a Nark plugin repository
+     descriptions won't be needed as they can be taken from the metadata.
    * Improve the way plugins are created. It's quite hacky at the moment.
+     * Can reuse Cucumber and Rspec helpers so to help other developer plugins
+     * Users should be able to define where plugins get created
+       * For the moment this will be done via the configuration settings.
+       * Later this will also be possible via the CLI.
    * Fix issue with plugin method blocks not executing at the right time
      * They seems to be executing when executing the block within the plugin definition 
    * Have a easy way to include plugins.
@@ -52,11 +55,11 @@
  * CLI
    * Be able to get a list of currently attached plugins via the CLI
    * Improve the CLI in general, it's very experimental ATM.
-   * All user to include a plugin via a URL (gists come to mind)
+   * Allow users to include a plugin via a URL (gists come to mind)
      * This is also a nice way to get others to play with the project and help improve the way it works.
    * Run example application
      * Could then tie this into rake so that I can make sure everything works before releasing a gem
-     * This will be useful internally also as it will help to keep the gemspec up to date 
+       * This will be useful internally also as it will help to keep the gemspec up to date 
 
  * Architecture
    * Plugin methods should be attached to a module that is included by Nark
