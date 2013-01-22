@@ -24,10 +24,6 @@ end
 
 World(Rack::Test::Methods, AppHelper)
 
-Before do
-  Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin }
-end
-
 Before('@middleware') do
   #set the application and rack test methods
 end
