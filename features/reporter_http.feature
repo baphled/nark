@@ -166,3 +166,6 @@ Feature: Expose plugin functionality via HTTP
       ]
     }
     """
+
+  @wip @reporter
+  Scenario: Nark should not collect information from the HTTP reporter included
