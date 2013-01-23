@@ -23,6 +23,6 @@ Before('@app-call, @middleware, @reporting-api') do
   Capybara.app = Nark.app(DummyApp)
 end
 
-After('@app-call, @middleware, @reporting-api') do
+After('@app-call, @middleware, @reporting-api, @reporter') do
   Capybara.app = nil
 end

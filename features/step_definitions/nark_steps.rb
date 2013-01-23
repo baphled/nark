@@ -2,6 +2,10 @@ Given /^I have installed the plugin$/ do
   # Do nothing here
 end
 
+Given /^Nark is setup to monitor my application$/ do
+  Capybara.app = Nark.app(DummyApp)
+end
+
 Given /^I have a application I want to track$/ do
   # Do nothing here
 end
