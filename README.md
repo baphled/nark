@@ -17,8 +17,8 @@ We'll start off with some basic functionality:
 
 Each of these will be an individual component that plugins into Nark and is exposed via a simple interface.
 
-Setup
------
+Installation
+------------
 
 `gem install nark`
 
@@ -26,36 +26,74 @@ Then in your config.ru
 
 ```
 require 'nark'
-require Dir['/path/of/plugins'].each { |f| requure f }
 
-use Nark::Middleware
-run YourApplication
+run Nark.app DummyApp
 ```
 
 Where `YourApplication` is the web service want to nark on.
 
+Customising
+-----------
+
+Nark allows you to easily customise the middleware so that you can
+define which reporters to use along with where to find plugins and
+whether to load them automatically or not.
+
+The below code snippet provides an example of how you can do this.
+
+```
+  Nark.configure do |config|
+    config.plugins_paths = 'example/plugins'
+    config.reporters = [:HTTP]
+    config.load_plugins
+  end
+```
+
+NOTE: At present you need to set the plugin path before loading all plugins.
+
+Available Reporters
+-------------------
+
+  * HTTP
+
+At present this is the only reporter available. Having said that there
+will be more coming soon as well as a way to easily integrate your own
+reporter.
+
+### HTTP Reporter
+
+The HTTP reporter provides a basic HATEOAS interface.
+
+To determine which plugins are included and what end points to use to
+gather the collected data by accessing `http://localhost/nark/` This
+will list all available plugins as well as their associated endpoints.
+
 Event Triggers
 --------------
 
-Event triggers are used to intercept request and responses when your application is running. The idea here is that you
-create your own plugin that uses both or either of these hooks to gather specific information about your application
-and it's state.
+Event triggers are used to intercept request and responses when your
+application is running. The idea here is that you create your own plugin
+that uses both or either of these hooks to gather specific information
+about your application and it's state.
 
 Nark, at present, has 2 events handles:
   * before_call
   * after_call
 
-`before_call` is typically used to setup something before a request is made. Such as request start times or request ip
-and browser type.
+`before_call` is typically used to setup something before a request is
+made. Such as request start times or request ip and browser type.
 
-`after_call` takes the responses status, header, body and environment. Allowing your to manipulate response data as
-well as have access to the request environment.
+`after_call` takes the responses status, header, body and environment.
+Allowing your to manipulate response data as well as have access to the
+request environment.
 
-Plugin DSL
-----------
+Defining a plugin
+-----------------
 
-The grand idea is to allow you to describe request plugins in a simplicity way. Leaving most of the construction to be
-dealt with in the background and let you focus on the on things you really want to do.  Build cool plugins.
+The grand idea is to allow you to describe request plugins in a
+simplicity way. Leaving most of the construction to be dealt with in the
+background and let you focus on the on things you really want to do.
+Build cool plugins.
 
 For this a DSL is needed.
 
