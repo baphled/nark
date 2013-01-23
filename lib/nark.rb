@@ -26,5 +26,14 @@ module Nark
       yield self
       true
     end
+
+    def app app
+      Rack::Builder.new do
+        use Nark::Middleware
+        # TODO: Refactor so that reporters a returned via Nark's config block
+        use Nark::Reporter::HTTP
+        run app
+      end
+    end
   end
 end
