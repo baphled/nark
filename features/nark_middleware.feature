@@ -38,3 +38,5 @@ Feature: Nark Middleware
     [{:status => 200, :path => '/'}]
     """
 
+  @wip @plugin
+  Scenario: There should be a way to reset the plugin path
