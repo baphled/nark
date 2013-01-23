@@ -17,8 +17,13 @@ describe Nark do
     it "define the plugin destination path"
     it "overrides the event handler for the middleware"
 
-    context "HTTP reporter" do
-      it "define root path"
+    context "adding a reporter" do
+      it "has access to the reporter object" do
+        Nark.configure do |c|
+          c.reporters = [:HTTP]
+        end
+        Nark.reporters.should include Nark::Reporter::HTTP
+      end
     end
   end
 end
