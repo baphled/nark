@@ -12,23 +12,11 @@ class DummyApp < Sinatra::Base
   end
 end
 
-module AppHelper
-  # Rack-Test expects the app method to return a Rack application
-  def app
-    Rack::Builder.new do
-      use Nark::Middleware
-      use Nark::Reporter::HTTP
-      run DummyApp
-    end
-  end
+Before('@app-call, @middleware, @reporting-api') do
+  # TODO: Setup HTTP reporter
+  Capybara.app = Nark.app(DummyApp)
 end
 
-World(Rack::Test::Methods, AppHelper)
-
-Before('@middleware') do
-  #set the application and rack test methods
-end
-
-After('@middleware') do
-  #unset the application and rack test methods
+After('@app-call, @middleware, @reporting-api') do
+  Capybara.app = nil
 end

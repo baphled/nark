@@ -3,7 +3,7 @@ Feature: Undefining a plugin
   As a user
   I want to be able to quickly and easily remove a plugin and the added functionality they provide.
 
-  @plugin-dsl
+  @app-call
   Scenario: I should be able to easily remove a plugin that I have already defined
     Given I have a application I want to track
     When I created the following plugin
@@ -23,7 +23,7 @@ Feature: Undefining a plugin
     Then I should not be able to access "status_codes"
     And there should be no event handlers
 
-  @plugin-dsl
+  @app-call
   Scenario: Undefining a plugin should not nuke all event handlers
     Given I have a application I want to track
     When I created the following plugin

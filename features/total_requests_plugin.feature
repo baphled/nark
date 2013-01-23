@@ -3,7 +3,7 @@ Feature: Request times plugin
   As a plugin developer
   I want to create a plugin that tracks the amount of time each request is taking
 
-  @plugin
+  @app-call
   Scenario: I should be able to define a plugin that tracks the request times for each request
     Given I have a application I want to track
     And I created the following plugin
