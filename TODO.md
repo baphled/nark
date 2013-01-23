@@ -26,8 +26,8 @@
    * Detach a plugin from Nark whilst the middle ware is running
 
  * Reporting engine
-   * Make using reporters easier
    * Allows you to log/store the data retrieved from Nark
+     * statd
      * Syslog interface
      * System Bus (supports stomp and other common protocols, include TCP/IP)
      * Socket
