@@ -32,8 +32,9 @@ module Nark
     def app app
       Rack::Builder.new do
         use Nark::Middleware
-        # TODO: Refactor so that reporters a returned via Nark's config block
-        use Nark::Reporter::HTTP
+        Nark.reporters.each do |reporter|
+          use reporter
+        end
         run app
       end
     end

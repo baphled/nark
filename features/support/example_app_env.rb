@@ -12,6 +12,12 @@ class DummyApp < Sinatra::Base
   end
 end
 
+Before('@http-reporter') do
+  Nark.configure do |c|
+    c.reporters = [:HTTP]
+  end
+end
+
 Before('@app-call, @middleware, @reporting-api') do
   # TODO: Setup HTTP reporter
   Capybara.app = Nark.app(DummyApp)

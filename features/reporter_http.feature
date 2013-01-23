@@ -3,7 +3,7 @@ Feature: Expose plugin functionality via HTTP
   As a user of the applications statistics
   I want to be able to make API requests
 
-  @reporting-api
+  @http-reporter @reporting-api
   Scenario: Should be able to able to find out what plugins are setup
     Given I have a application I want to track
     When I created the following plugin
@@ -26,7 +26,7 @@ Feature: Expose plugin functionality via HTTP
     }
     """
 
-  @reporting-api
+  @http-reporter @reporting-api
   Scenario: Should be able to able to access a plugin variable via the reporter
     Given I have a application I want to track
     When I created the following plugin
