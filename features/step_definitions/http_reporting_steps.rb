@@ -3,7 +3,7 @@ When /^the API is started$/ do
 end
 
 When /^I visit "(.*?)"$/ do |url|
-  get url
+  visit url
 end
 
 Then /^the "(.*?)" should be \[\]$/ do |arg1|
@@ -19,17 +19,17 @@ When /^I should be able to access "(.*?)"$/ do |arg1|
 end
 
 Then /^the response should be$/ do |string|
-  last_response.body.should eql string.chomp
+  page.source.should eql string.chomp
 end
 
 Then /^the response should not be$/ do |string|
-  last_response.body.should_not eql string.chomp
+  page.source.should_not eql string.chomp
 end
 
 Then /^the endpoint will not be available$/ do
-  last_response.status.should eql 404
+  page.status_code.should eql 404
 end
 
 Then /^the endpoint will be available$/ do
-  last_response.status.should eql 200
+  page.status_code.should eql 200
 end

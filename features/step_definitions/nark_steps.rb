@@ -29,7 +29,7 @@ Then /^the "(.*?)" should be (\d+)$/ do |method, value|
 end
 
 When /^I request a page$/ do
-  get '/'
+  visit '/'
 end
 
 Then /^the total requests should be (\d+)$/ do |amount|

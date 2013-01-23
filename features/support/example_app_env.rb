@@ -1,5 +1,6 @@
-require 'rack/test'
+require "rack/test"
 require "sinatra"
+require 'capybara/cucumber'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
 
