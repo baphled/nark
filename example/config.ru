@@ -8,6 +8,4 @@ Nark.configure do |config|
   config.load_plugins
 end
 
-use Nark::Reporter::HTTP
-use Nark::Middleware
-run DummyApp
+run Nark.app DummyApp
