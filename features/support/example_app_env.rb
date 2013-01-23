@@ -15,7 +15,6 @@ Before('@http-reporter') do
 end
 
 Before('@app-call, @middleware, @reporting-api') do
-  # TODO: Setup HTTP reporter
   Capybara.app = Nark.app(DummyApp)
 end
 
