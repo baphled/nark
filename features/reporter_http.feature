@@ -127,7 +127,7 @@ Feature: Expose plugin functionality via HTTP
     }
     """
 
-  @reporting-api
+  @reporting-api @http-reporter
   Scenario: Can return all of the plugin information in one go
     Given I have a application I want to track
     When I created the following plugin
@@ -161,11 +161,55 @@ Feature: Expose plugin functionality via HTTP
           ]
         },
         {
+          "total_requests": 0
+        }
+      ]
+    }
+    """
+
+  @reporting-api @http-reporter
+  Scenario: I expect more than one plugin to work together
+    Given I have a application I want to track
+    And I created the following plugin
+    """
+    Nark::Plugin.define :status_codes do |plugin|
+      plugin.variables :status_codes => []
+
+      plugin.add_hook :after_call do |status_code, header, body, env|
+        plugin.status_codes << {:status => status_code, :path => env['PATH_INFO']}
+      end
+    end
+    """
+    And I created the following plugin
+    """
+    Nark::Plugin.define :requests do |plugin|
+      plugin.variables :total_requests => 0
+
+      plugin.add_hook :before_call do |env|
+        plugin.total_requests += 1
+      end
+    end
+    """
+    When I request a page
+    And I visit "/nark/plugin/stats"
+    Then the response should be
+    """
+    {
+      "stats": [
+        {
+          "status_codes": [
+            {
+              "status": 200,
+              "path": "/"
+            }
+          ]
+        },
+        {
           "total_requests": 1
         }
       ]
     }
     """
 
-  @wip @reporter
+  @wip @http-reporter  @reporting-api
   Scenario: Nark should not collect information from the HTTP reporter included

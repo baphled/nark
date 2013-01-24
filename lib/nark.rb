@@ -31,11 +31,11 @@ module Nark
 
     def app app
       Rack::Builder.new do
-        use Nark::Middleware
         # TODO: Determine whether this belongs here or not. Feels like part of the middlewares job.
         Nark.reporters.each do |reporter|
           use reporter
         end
+        use Nark::Middleware
         run app
       end
     end
