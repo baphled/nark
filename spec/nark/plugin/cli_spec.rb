@@ -67,9 +67,8 @@ end"""
     end
 
     it "can save plugins to a custom directory" do
-      pending
       Nark.configure do |config|
-        config.plugins_paths = 'spec/fixtures/plugins'
+        config.plugin_destination = 'spec/fixtures/plugins'
       end
       CliWrapper.create :foo_bar
       File.should exist 'spec/fixtures/plugins/foo_bar.rb'

@@ -52,6 +52,8 @@ module Nark
       #
       @@plugins_paths = 'plugins'
 
+      @@plugin_destination = 'lib/nark/plugin'
+
       public
 
       #
@@ -66,6 +68,14 @@ module Nark
       #
       def plugins_paths= path
         @@plugins_paths = path
+      end
+
+      def plugin_destination
+        @@plugin_destination
+      end
+
+      def plugin_destination= destination
+        @@plugin_destination = destination
       end
 
       #

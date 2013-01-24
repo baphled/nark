@@ -21,5 +21,9 @@ RSpec.configure do |config|
 
   config.before :each do
     Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin.to_sym }
+
+    # FIXME: Far from ideal that we have to reset the plugins path
+    Nark.plugin_destination = 'lib/nark/plugin'
+    Nark.plugins_paths = 'plugins'
   end
 end
