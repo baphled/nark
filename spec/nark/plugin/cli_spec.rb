@@ -66,6 +66,14 @@ end"""
       File.read('lib/nark/plugin/baz_bar.rb').should include expected
     end
 
+    it "can save plugins to a custom directory" do
+      pending
+      Nark.configure do |config|
+        config.plugins_paths = 'spec/fixtures/plugins'
+      end
+      CliWrapper.create :foo_bar
+      File.should exist 'spec/fixtures/plugins/foo_bar.rb'
+    end
   end
 
   describe "#list" do
