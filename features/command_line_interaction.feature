@@ -54,6 +54,7 @@ Feature: Command line interaction
     """
     And I successfully run `bundle exec nark example revisions`
     Then the "plugins_paths" should be "spec/fixtures/plugins"
+    Then a file named "lib/nark/plugins/revisions.rb" should not exist
     Then a file named "spec/fixtures/plugins/revisions.rb" should exist
     And the file "spec/fixtures/plugins/revisions.rb" should contain exactly:
     """
