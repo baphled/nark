@@ -63,8 +63,24 @@ Feature: Generating a plugin
     revisions            - Outputs the git revision
     """
 
-  @CLI
-  Scenario: I should be able to get a list of available plugin examples
+  @wip @CLI @announce
+  Scenario: The plugin path I supply should be used when create a new plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec nark list foo`
-    Then the output should contain "Invalid list type"
+    When I setup Nark with the following
+    """
+    Nark.configure do |config|
+      config.plugin_destination = 'spec/fixtures/plugins'
+    end
+    """
+    And I successfully run `bundle exec nark example revisions`
+    Then the "plugin_destination" should be "spec/fixtures/plugins"
+    Then a file named "lib/nark/plugin/revisions.rb" should not exist
+    Then a file named "spec/fixtures/plugins/revisions.rb" should exist
+    And the file "spec/fixtures/plugins/revisions.rb" should contain exactly:
+    """
+    Nark::Plugin.define :revisions do |plugin|
+      plugin.method :revision do
+        %x[cat .git/refs/heads/master| cut -f 1].chomp
+      end
+    end
+    """
