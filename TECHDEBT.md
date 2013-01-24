@@ -4,7 +4,6 @@ Technical Debt
 Cover the technical debt and consider the architecture and flexibility of the project.
 
   * Remove duplication from cucumber scenarios
-  * Clean up after myself when writing specs
   * Review architecture of defining and undefining a plugin
   * Refactor configuration settings so that they are accessible to all instances of Nark.
   * Contain plugin functionality instead of blindly injecting them into Nark
