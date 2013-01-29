@@ -46,5 +46,18 @@ module Nark
       event_handler.trigger :after_call, [status, header, body, env]
       [status, header, body]
     end
+
+    #
+    # Run the application with Nark and its reporters
+    #
+    def self.with app
+      Rack::Builder.new do
+        Nark.reporters.each do |reporter|
+          use reporter
+        end
+        use Nark::Middleware
+        run app
+      end
+    end
   end
 end

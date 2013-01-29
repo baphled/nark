@@ -3,7 +3,7 @@ Given /^I have installed the plugin$/ do
 end
 
 Given /^Nark is setup to monitor my application$/ do
-  Capybara.app = Nark.app(DummyApp)
+  Capybara.app = Nark::Middleware.with(DummyApp)
 end
 
 Given /^I have a application I want to track$/ do

@@ -9,4 +9,4 @@ Nark.configure do |config|
   config.reporters = [:HTTP]
 end
 
-run Nark.app DummyApp
+run Nark::Middleware.with DummyApp

@@ -15,7 +15,7 @@ Before('@http-reporter') do
 end
 
 Before('@app-call, @middleware, @reporting-api') do
-  Capybara.app = Nark.app(DummyApp)
+  Capybara.app = Nark::Middleware.with(DummyApp)
 end
 
 After('@app-call, @middleware, @reporting-api, @reporter') do

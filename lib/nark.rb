@@ -30,17 +30,6 @@ module Nark
       true
     end
 
-    def app app
-      Rack::Builder.new do
-        # TODO: Determine whether this belongs here or not. Feels like part of the middlewares job.
-        Nark.reporters.each do |reporter|
-          use reporter
-        end
-        use Nark::Middleware
-        run app
-      end
-    end
-
     #
     # Delegate missing methods so that configuration settings can still be
     # dynamically set using a config block
