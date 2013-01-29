@@ -12,11 +12,11 @@ module Nark
       #
       #        
       def plugins_paths
-        Nark.config.fetch('plugins_paths', PLUGIN_PATH)
+        settings.fetch('plugins_paths', PLUGIN_PATH)
       end
 
       def plugin_destination
-        Nark.config.fetch('plugin_destination', PLUGIN_DESTINATION)
+        settings.fetch('plugin_destination', PLUGIN_DESTINATION)
       end
 
       def settings
