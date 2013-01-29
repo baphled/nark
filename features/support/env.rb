@@ -16,4 +16,6 @@ require 'nark'
 
 After do
   Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin }
+  # FIXME: This stinks!
+  Nark.settings_path = 'config/nark.yml'
 end

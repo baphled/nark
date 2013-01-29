@@ -50,10 +50,6 @@ module Nark
       #
       # Keeps track of the paths to that we can find plugins in
       #
-      @@plugins_paths = 'plugins'
-
-      @@plugin_destination = 'lib/nark/plugin'
-
       @@settings_path = 'config/nark.yml'
 
       public
@@ -64,28 +60,6 @@ module Nark
 
       def settings_path= settings_path
         @@settings_path = settings_path
-      end
-
-      #
-      # Returns paths to find all the plugins
-      #
-      def plugins_paths
-        Nark.config.fetch('plugins_paths', @@plugins_paths)
-      end
-
-      #
-      # Set the paths of the plugins
-      #
-      def plugins_paths= path
-        @@plugins_paths = path
-      end
-
-      def plugin_destination
-        Nark.config.fetch('plugin_destination', @@plugin_destination)
-      end
-
-      def plugin_destination= destination
-        @@plugin_destination = destination
       end
 
       #
@@ -116,7 +90,7 @@ module Nark
       # TODO: Refactor so that it takes a single path and checks to see if it is valid
       #
       def defined_plugin_path
-        File.absolute_path File.join File.dirname(__FILE__), "..", "..", @@plugins_paths
+        File.absolute_path File.join File.dirname(__FILE__), "..", "..", Nark::Configuration.plugins_paths
       end
 
       protected

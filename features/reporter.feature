@@ -8,7 +8,6 @@ Feature: Nark Reporter
     Given I setup Nark with the following
     """
     Nark.configure do |config|
-      config.plugins_paths = 'plugins'
       config.load_plugins
       config.reporters = [:HTTP]
     end

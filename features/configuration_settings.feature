@@ -4,23 +4,11 @@ Feature: Configuration settings
   I want to be able to easily configure and setup Nark
 
   @configuration
-  Scenario: I should be able to set the default plugin path
-    Given I have installed the plugin
-    When I setup Nark with the following
-    """
-    Nark.configure do |config|
-      config.plugins_paths = 'fixtures/plugins'
-    end
-    """
-    Then the "plugins_paths" should be "fixtures/plugins"
-
-  @configuration
   Scenario: I should be able to configure whether plugins should be loaded when the middleware is started
     Given I have installed the plugin
     When I setup Nark with the following
     """
     Nark.configure do |config|
-      config.plugins_paths = 'plugins'
       config.load_plugins
     end
     """
@@ -32,9 +20,9 @@ Feature: Configuration settings
     When I setup Nark with the following
     """
     Nark.configure do |config|
-      config.plugins_paths = 'spec/fixtures/plugins'
+      config.settings_path = 'spec/fixtures/config/nark.yml'
       config.load_plugins
     end
     """
-    Then 1 plugins should be loaded
-
+    Then the plugin path should be set to "spec/fixtures/plugins"
+    And 1 plugins should be loaded
