@@ -11,7 +11,7 @@ elsif method == 'help'
   puts Nark::Plugin.help arguement
 else
   begin
-    Nark::Plugin.public_send method.to_sym, arguement
+    puts Nark::Plugin.public_send method.to_sym, arguement
   rescue Exception => e
     puts Nark::Plugin.help
   end
