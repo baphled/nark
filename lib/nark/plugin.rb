@@ -45,22 +45,6 @@ module Nark
     end
 
     module ClassMethods
-      protected
-
-      #
-      # Keeps track of the paths to that we can find plugins in
-      #
-      @@settings_path = 'config/nark.yml'
-
-      public
-
-      def settings_path
-        @@settings_path
-      end
-
-      def settings_path= settings_path
-        @@settings_path = settings_path
-      end
 
       #
       # Returns a list of plugins that are currently attached

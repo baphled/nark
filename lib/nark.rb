@@ -40,5 +40,15 @@ module Nark
         run app
       end
     end
+
+    #
+    # Delegate missing methods so that configuration settings can still be
+    # dynamically set using a config block
+    #
+    # TODO: Be nice when delegating
+    #
+    def method_missing method, *args, &block
+      Nark::Configuration.public_send method, *args, &block
+    end
   end
 end
