@@ -63,20 +63,17 @@ Feature: Generating a plugin
     revisions            - Outputs the git revision
     """
 
-  @wip @CLI @announce
+  @CLI
   Scenario: The plugin path I supply should be used when create a new plugin
     Given I have installed the plugin
-    When I setup Nark with the following
+    And I write to "config/nark.yml" with:
     """
-    Nark.configure do |config|
-      config.plugin_destination = 'spec/fixtures/plugins'
-    end
+    plugin_destination: 'nark/plugins'
     """
-    And I successfully run `bundle exec nark example revisions`
-    Then the "plugin_destination" should be "spec/fixtures/plugins"
+    When I successfully run `bundle exec nark example revisions`
     Then a file named "lib/nark/plugin/revisions.rb" should not exist
-    Then a file named "spec/fixtures/plugins/revisions.rb" should exist
-    And the file "spec/fixtures/plugins/revisions.rb" should contain exactly:
+    Then a file named "nark/plugins/revisions.rb" should exist
+    And the file "nark/plugins/revisions.rb" should contain exactly:
     """
     Nark::Plugin.define :revisions do |plugin|
       plugin.method :revision do

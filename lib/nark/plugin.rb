@@ -54,13 +54,23 @@ module Nark
 
       @@plugin_destination = 'lib/nark/plugin'
 
+      @@settings_path = 'config/nark.yml'
+
       public
+
+      def settings_path
+        @@settings_path
+      end
+
+      def settings_path= settings_path
+        @@settings_path = settings_path
+      end
 
       #
       # Returns paths to find all the plugins
       #
       def plugins_paths
-        @@plugins_paths
+        Nark.config.fetch('plugins_paths', @@plugins_paths)
       end
 
       #
@@ -71,7 +81,7 @@ module Nark
       end
 
       def plugin_destination
-        @@plugin_destination
+        Nark.config.fetch('plugin_destination', @@plugin_destination)
       end
 
       def plugin_destination= destination

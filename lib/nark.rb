@@ -1,5 +1,6 @@
 require "active_support/core_ext"
 
+require 'nark/configuration'
 require 'nark/middleware'
 require 'nark/exceptions'
 require 'nark/plugin'
@@ -24,6 +25,10 @@ module Nark
   # TODO: Refactor so only specific class variables, possibly only setters, are exposed via our plugins.
   #
   class << self
+    def config
+      Nark::Configuration.settings
+    end
+
     def configure
       yield self
       true
