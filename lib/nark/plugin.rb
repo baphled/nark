@@ -74,7 +74,7 @@ module Nark
       # TODO: Refactor so that it takes a single path and checks to see if it is valid
       #
       def defined_plugin_path
-        File.absolute_path File.join File.dirname(__FILE__), "..", "..", Nark::Configuration.plugins_paths
+        File.absolute_path File.join File.dirname(__FILE__), "..", "..", Nark.plugins_paths
       end
 
       protected

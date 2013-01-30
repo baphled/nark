@@ -113,7 +113,7 @@ module Nark
       # TODO:Allow users to customise this value.
       #
       def destination_path
-        Nark::Configuration.plugin_destination
+        Nark.plugin_destination
       end
 
       protected
