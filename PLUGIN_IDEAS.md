@@ -5,11 +5,10 @@ PLUGIN IDEAS
     * Makes decisions based on configuration information
   * Statsd interface
   * Feature testing
-    * Test new features based on past stats on data passed in a run time (via the CLI)
+    * Test new features based on past stats relating to data passed in a run time (via the CLI)
   * Interacts with Nagios
   * Dependency watchdog
-    * A lot your system preemptively that one of its dependencies has gone down 
-      * This could be integrated with another plugin that tells the service to make a change.
+    * Watch your system preemptively check when one of its dependencies has gone down 
   * HATEOAS response plugin
     * This way there is no need to pollute controllers or business logic with presentational data. 
   * Security watchdog, which alerts other systems when something dodgy appears to be going on 
