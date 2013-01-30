@@ -27,7 +27,7 @@ Then in your config.ru
 ```
 require 'nark'
 
-run Nark.app DummyApp
+run Nark.with DummyApp
 ```
 
 Where `YourApplication` is the web service want to nark on.
@@ -43,13 +43,22 @@ The below code snippet provides an example of how you can do this.
 
 ```
   Nark.configure do |config|
-    config.plugins_paths = 'example/plugins'
     config.reporters = [:HTTP]
     config.load_plugins
   end
 ```
 
 NOTE: At present you need to set the plugin path before loading all plugins.
+
+CLI
+---
+
+If you want to customise where plugins are found then you will need to add a configuration file.
+
+
+``` source:config/nark.yml
+plugins_paths: 'spec/fixtures/plugins'
+```
 
 Available Reporters
 -------------------
