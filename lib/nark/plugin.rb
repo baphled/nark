@@ -20,13 +20,6 @@ module Nark
     include DSL
 
     #
-    # The Command Line Interface for Nark
-    #
-    # TODO: This doesn't really belong here. Should move it to a better home.
-    #
-    include CLI
-
-    #
     # Handles the events that will be triggered
     #
     include Events

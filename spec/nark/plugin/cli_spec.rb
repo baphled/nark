@@ -2,9 +2,6 @@ require "spec_helper"
 
 describe Nark::CLI do
   include FakeFS::SpecHelpers
-  module CliWrapper
-    include Nark::CLI
-  end
 
   describe "#help" do
     it "describes how to use list" do
@@ -14,7 +11,7 @@ describe Nark::CLI do
 
         Lists all example plugins that you can generate.
         """
-        CliWrapper.help(:list).should eql help_output
+        Nark::CLI.help(:list).should eql help_output
     end
 
     it "describes how to use example" do
@@ -24,7 +21,7 @@ describe Nark::CLI do
 
         Creates an example plugin.
         """
-        CliWrapper.help(:example).should eql help_output
+        Nark::CLI.help(:example).should eql help_output
     end
 
     it "describes how to use create" do
@@ -35,7 +32,7 @@ describe Nark::CLI do
 
         Creates new plugin template called foo.
         """
-        CliWrapper.help(:example).should eql help_output
+        Nark::CLI.help(:example).should eql help_output
     end
 
     it "displays the help message by default" do
@@ -45,13 +42,13 @@ describe Nark::CLI do
 
         Displays this message.
         """
-        CliWrapper.help.should eql help_output
+        Nark::CLI.help.should eql help_output
     end
   end
 
   describe "#create" do
     it "create a skeleton file in the expected path" do
-      CliWrapper.create(:foo_bar)
+      Nark::CLI.create(:foo_bar)
       File.should exist 'lib/nark/plugin/foo_bar.rb'
     end
 
@@ -62,7 +59,7 @@ describe Nark::CLI do
     # Do something clever here.
   end
 end"""
-      CliWrapper.create :baz_bar
+      Nark::CLI.create :baz_bar
       File.read('lib/nark/plugin/baz_bar.rb').should include expected
     end
   end
@@ -75,12 +72,12 @@ end"""
           "request_times        - Keeps track of the amount of time each request takes",
           "revisions            - Outputs the git revision"
         ]
-        CliWrapper.list(:plugins).should eql example_list
+        Nark::CLI.list(:plugins).should eql example_list
       end
 
       context "list not found" do
         it "returns an error" do
-          CliWrapper.list(:foo).should eql 'Invalid list type'
+          Nark::CLI.list(:foo).should eql 'Invalid list type'
         end
       end
     end
@@ -89,7 +86,7 @@ end"""
   describe "#examples" do
     context "copying an example" do
       it "allows a user to create an example to the plugins directory" do
-        CliWrapper.example :requests
+        Nark::CLI.example :requests
         File.should exist 'lib/nark/plugin/requests.rb'
       end
 
@@ -102,7 +99,7 @@ end"""
     plugin.total_requests += 1
   end
 end"""
-        CliWrapper.example :requests
+        Nark::CLI.example :requests
         File.read('lib/nark/plugin/requests.rb').should include expected
       end
 
@@ -119,7 +116,7 @@ end"""
     plugin.last_request_time = (Time.now - @start_time)
   end
 end"""
-        CliWrapper.example :request_times
+        Nark::CLI.example :request_times
         File.read('lib/nark/plugin/request_times.rb').should include expected
       end
 
@@ -130,19 +127,19 @@ end"""
     %x[cat .git/refs/heads/master| cut -f 1].chomp
   end
 end"""
-        CliWrapper.example :revisions
+        Nark::CLI.example :revisions
         File.read('lib/nark/plugin/revisions.rb').should include expected
       end
 
       it "does not throw an exeception if the plugin template can not be found" do
         expect {
-          CliWrapper.example :foo
+          Nark::CLI.example :foo
         }.to_not raise_error Errno
       end
 
       it "displays an error if the plugin is not found" do
         expected = "Invalid plugin name. Try one of the following: requests, request_times, revisions"
-        CliWrapper.example(:foo).should eql expected
+        Nark::CLI.example(:foo).should eql expected
       end
     end
   end

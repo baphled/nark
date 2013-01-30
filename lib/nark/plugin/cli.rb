@@ -9,7 +9,7 @@ module Nark
   #
   #
   module CLI
-    module ClassMethods
+    class << self
       #
       # Output Narks help information
       #
@@ -110,8 +110,6 @@ module Nark
       #
       # Stores the location where plugins will be created
       #
-      # TODO:Allow users to customise this value.
-      #
       def destination_path
         Nark.plugin_destination
       end
@@ -133,10 +131,6 @@ module Nark
         end
       end
 
-    end
-
-    def self.included(receiver)
-      receiver.extend         ClassMethods
     end
   end
 end
