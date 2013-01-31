@@ -16,8 +16,6 @@ describe Nark::Plugin do
       Nark.available_plugins.should_not include 'instance_methods'
     end
 
-    it "provides a list of all available plugins"
-
     it "automatically includes a defined module" do
       Nark::Plugin.define :requests, &requests
       Nark.available_plugins.should include 'requests'
