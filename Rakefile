@@ -7,6 +7,7 @@ require 'rubygems/package_task'
 require 'rdoc/task'
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'rubygems/tasks'
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -29,6 +30,10 @@ Jeweler::Tasks.new do |gem|
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
+
+Gem::Tasks.new do |tasks|
+  tasks.console.command = 'pry'
+end
 
 require 'rspec/core'
 require 'rspec/core/rake_task'

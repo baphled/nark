@@ -5,6 +5,7 @@ source "http://rubygems.org"
 gemspec
 
 gem "activesupport"
+gem 'rubygems-tasks'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
