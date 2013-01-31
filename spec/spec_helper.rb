@@ -20,6 +20,7 @@ RSpec.configure do |config|
   config.include PluginMacro
 
   config.before :each do
+    Nark.settings_path = 'config/nark.yml'
     Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin.to_sym }
   end
 end
