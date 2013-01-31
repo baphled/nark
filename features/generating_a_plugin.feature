@@ -2,7 +2,7 @@ Feature: Generating a plugin
   As a developer
   I'd like to be able to generate a sample plugin to get me started
 
-  @CLI @announce
+  @CLI
   Scenario: I should be able to generate a "requests" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example requests`
