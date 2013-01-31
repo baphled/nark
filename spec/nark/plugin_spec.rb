@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe Nark::Plugin do
-
   it "stores the defauly plugin path" do
     Nark::Configuration.plugins_path.should eql 'plugins'
   end
@@ -40,6 +39,18 @@ describe Nark::Plugin do
     it "requires all plugins found" do
       Nark.load_plugins
       Nark.available_plugins.count.should eql 4
+    end
+  end
+
+  describe "#defined_methods" do
+    it "can track defined plugin messages" do
+      Nark::Plugin.defined_methods.should eql []
+    end
+
+    it "exposes only accessors" do
+      Nark.load_plugins
+      Nark::Plugin.defined_methods.should_not include :total_requests=
+      Nark::Plugin.defined_methods.should include :total_requests
     end
   end
 end
