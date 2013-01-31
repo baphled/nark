@@ -1,6 +1,7 @@
 module Nark
   module Configuration
     PLUGIN_PATH = 'plugins'.freeze
+    CONFIG_PATH = 'config/nark.yml'.freeze
 
     class << self
       #
@@ -32,7 +33,7 @@ module Nark
       # FIXME: Holds state
       #
       def settings_path
-        @settings_path.nil? ? 'config/nark.yml' : @settings_path
+        @settings_path.nil? ? CONFIG_PATH : @settings_path
       end
 
       def settings_path= path
