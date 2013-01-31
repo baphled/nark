@@ -32,7 +32,6 @@ module Nark
 
     def_delegators :'Nark::Configuration',
       :plugins_paths,
-      :plugins_path,
       :plugin_destination
 
     def configure
