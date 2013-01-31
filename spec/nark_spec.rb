@@ -1,7 +1,11 @@
 require "spec_helper"
 
 describe Nark do
-  it "sets event handler for the middleware"
+  it "can not define where plugins are stored" do
+    expect {
+      Nark.plugins_paths = 'custom_path'
+    }.to raise_error NoMethodError
+  end
 
   context "delegating to Nark::Configuration" do
     it "gives access to the settings path" do
@@ -19,12 +23,6 @@ describe Nark do
       Nark.settings_path.should eql 'nark.yml'
     end
 
-    it "can not define where plugins are stored" do
-      expect {
-        Nark.plugins_paths = 'custom_path'
-      }.to raise_error NoMethodError
-    end
-
     context "adding a reporter" do
       it "has access to the reporter object" do
         Nark.configure do |c|
@@ -33,5 +31,6 @@ describe Nark do
         Nark.reporters.should include Nark::Reporter::HTTP
       end
     end
+
   end
 end

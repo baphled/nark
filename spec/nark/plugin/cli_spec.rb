@@ -59,7 +59,7 @@ describe Nark::CLI do
   end
 end"""
       Nark::CLI.create :baz_bar
-      File.read('plugins/baz_bar.rb').should include expected
+      File.read('plugins/baz_bar.rb').should eql expected
     end
   end
 
@@ -99,7 +99,7 @@ end"""
   end
 end"""
         Nark::CLI.example :requests
-        File.read('plugins/requests.rb').should include expected
+        File.read('plugins/requests.rb').should eql expected
       end
 
       it "can create a request_times plugin" do
@@ -116,7 +116,7 @@ end"""
   end
 end"""
         Nark::CLI.example :request_times
-        File.read('plugins/request_times.rb').should include expected
+        File.read('plugins/request_times.rb').should eql expected
       end
 
       it "can create a revisions plugin" do
@@ -127,7 +127,7 @@ end"""
   end
 end"""
         Nark::CLI.example :revisions
-        File.read('plugins/revisions.rb').should include expected
+        File.read('plugins/revisions.rb').should eql expected
       end
 
       it "does not throw an exeception if the plugin template can not be found" do

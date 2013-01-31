@@ -17,7 +17,6 @@ describe Nark::Events do
     end
 
     it "takes a Nark event" do
-      params = {hook: :before_call, plugin_method: Proc.new {}, plugin: 'new_plugin'}
       Wrapper.add_trigger event_hook
     end
   end

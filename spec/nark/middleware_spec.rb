@@ -8,11 +8,11 @@ describe Nark::Middleware do
   let(:middleware) { Nark::Middleware.new target_app, event_handler: event_handler }
 
   describe "#new" do
-    it "stores the application" do
+    it "initialises the application" do
       middleware.app.should eql target_app
     end
 
-    it "stores the event handler" do
+    it "initialises the event handler" do
       middleware.event_handler.should eql event_handler
     end
   end
@@ -35,19 +35,17 @@ describe Nark::Middleware do
   end
 
   describe "#before_call" do
-    it "takes the responses environment"
+    it "takes the request environment" do
+      event_handler.should_receive(:trigger).once.with(:before_call, environment)
+      middleware.call environment
+    end
   end
 
   describe "#after_call" do
-    it "takes a response payload"
-
-    describe "response payload" do
-      it "has a status code"
-      it "has a response header"
-    end
-
-    describe "request environment" do
-      it "has the original request environment"
+    it "takes a response payload" do
+      response_body_and_env = [response_body, environment].flatten
+      event_handler.should_receive(:trigger).once.with(:after_call, response_body_and_env)
+      middleware.call environment
     end
   end
 end
