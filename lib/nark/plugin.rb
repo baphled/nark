@@ -24,16 +24,36 @@ module Nark
     #
     include Events
 
-    #
-    # All of these methods are mixed into the Nark module and made part of it's public API.
-    #
-    # TODO: Review this functionality, It may make more sense to make these class methods of the plugin module.
-    #
     class << self
-      @@defined_methods = []
-
+      #
+      # Returns a message with all the defined plugin accessors
+      #
+      # We intensionally ignore all assignment accessors as they are not needed to be tracked.
+      #
+      # @TODO: Refactor so that we rely on plugin accessors being added to Nark via an internal module
+      #
       def defined_methods
-        @@defined_methods
+        plugin_accessors.select { |method| not method.to_s.include? '='}.sort
+      end
+
+      #
+      # Helper methods used to help track which plugin accessors are available.
+      #
+      # Once we refactoring the architecture so that plugins live in their own namespace these methods will no longer
+      # be needed.
+      #
+      protected
+
+      def plugin_accessors
+        module_single_methods - module_class_methods
+      end
+
+      def module_single_methods
+        (Nark.singleton_methods - Nark::ReportBroker.singleton_methods - Nark::Configuration.singleton_methods)
+      end
+
+      def module_class_methods
+        Nark::Plugin::ClassMethods.instance_methods
       end
     end
 

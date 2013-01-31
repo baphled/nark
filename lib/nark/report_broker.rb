@@ -14,7 +14,7 @@ module Nark
   # reporters will be added to the middleware.
   #
   module ReportBroker
-    module ClassMethods
+    class << self
       @@reporters = []
       def reporters
         @@reporters
@@ -25,10 +25,6 @@ module Nark
           "Nark::Reporter::#{reporter.to_s}".constantize
         end
       end
-    end
-  
-    def self.included(receiver)
-      receiver.extend         ClassMethods
     end
   end
 end

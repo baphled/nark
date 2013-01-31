@@ -13,7 +13,6 @@ require 'nark/configuration'
 # valuable information on the service you are currently running.
 #
 module Nark
-  include Nark::ReportBroker
   include Nark::Plugin
 
   #
@@ -26,6 +25,9 @@ module Nark
   #
   class << self
     extend Forwardable
+
+    def_delegators :'Nark::ReportBroker',
+      :reporters, :reporters=
 
     def_delegators :'Nark::Configuration',
       :settings_path, :settings_path=
