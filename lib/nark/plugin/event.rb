@@ -51,6 +51,7 @@ module Nark
       # Initialise the new Event
       #
       def initialize params
+        throw ArgumentError.new('Must pass a block to :method_block') unless params[:method_block].is_a? Proc
         @attributes = params
         @type = params[:type]
         @method_block = params[:method_block]

@@ -1,14 +1,24 @@
 require "spec_helper"
 
 describe Nark::Plugin::Event do
+  let(:plugin_method_block) { Proc.new {|p| p } }
+
   describe "#type" do
     it "stores the trigger type" do
-      event = Nark::Plugin::Event.new :type => :before_call
+      params = {
+        :type => :before_call,
+        :method_block => plugin_method_block
+      }
+      event = Nark::Plugin::Event.new params
       event.type.should eql :before_call
     end
 
     it "can be a string" do
-      event = Nark::Plugin::Event.new :type => 'before_call'
+      params = {
+        :type => 'before_call',
+        :method_block => plugin_method_block
+      }
+      event = Nark::Plugin::Event.new params
       event.type.should eql 'before_call'
     end
   end
@@ -24,14 +34,16 @@ describe Nark::Plugin::Event do
       event.method_block.should eql plugin_method_block
     end
 
-    it "throws an exception if a block is not passed"
+    it "throws an exception if a block is not passed" do
+      expect {
+      event = Nark::Plugin::Event.new :type => :before_call, :method_block => 'foo'
+      }.to raise_error ArgumentError
+    end
   end
 
   describe "#plugin" do
     it "stores the plugin's name" do
-      params = {
-        :plugin => :some_plugin,
-      }
+      params = { :plugin => :some_plugin, :type => 'before_call', :method_block => plugin_method_block }
       event = Nark::Plugin::Event.new params
       event.plugin.should eql :some_plugin
     end
