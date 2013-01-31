@@ -54,6 +54,13 @@ module Nark
           {}
         end
       end
+
+      def configure
+        yield Nark
+        true
+      end
+
+      alias_method :config, :configure
     end
   end
 end

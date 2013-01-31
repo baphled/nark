@@ -33,9 +33,7 @@ module Nark
     def_delegators :'Nark::Configuration',
       :plugins_path
 
-    def configure
-      yield self
-      true
-    end
+    def_delegators :'Nark::Configuration',
+      :configure
   end
 end
