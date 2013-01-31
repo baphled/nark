@@ -56,6 +56,6 @@ Then /^(\d+) plugins should be loaded$/ do |amount|
   Nark.available_plugins.count.should eql amount.to_i
 end
 Then /^the plugin path should be set to "(.*?)"$/ do |value|
-  Nark::Configuration.plugins_paths.should eql value
+  Nark::Configuration.plugins_path.should eql value
 end
 

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Nark::Plugin do
 
   it "stores the defauly plugin path" do
-    Nark::Configuration.plugins_paths.should eql 'plugins'
+    Nark::Configuration.plugins_path.should eql 'plugins'
   end
 
   it "stores an array of plugin available" do

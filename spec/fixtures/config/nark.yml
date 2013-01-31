@@ -1,1 +1,1 @@
-plugins_paths: 'spec/fixtures/plugins'
+plugins_path: 'spec/fixtures/plugins'

@@ -13,7 +13,7 @@ describe Nark do
     end
 
     it "gives access to the plugins path" do
-      Nark.should respond_to :plugins_paths
+      Nark.should respond_to :plugins_path
     end
   end
 
