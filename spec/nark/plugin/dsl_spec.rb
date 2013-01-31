@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Nark::Plugin::DSL do
+describe Nark::DSL do
 
   describe "#define" do
     it "allows me to define a plugin" do
