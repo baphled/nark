@@ -31,6 +31,12 @@ module Nark
 
         Creates an example plugin.
         """
+        when :create
+        """
+        Usage: nark create foo
+
+        Creates new plugin template called foo.
+        """
         else
         """
         Usage: nark help

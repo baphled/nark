@@ -25,14 +25,13 @@ describe Nark::CLI do
     end
 
     it "describes how to use create" do
-      pending "Yet to implement actual functionality for this"
       help_output =
         """
         Usage: nark create foo
 
         Creates new plugin template called foo.
         """
-        Nark::CLI.help(:example).should eql help_output
+        Nark::CLI.help(:create).should eql help_output
     end
 
     it "displays the help message by default" do
