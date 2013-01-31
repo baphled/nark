@@ -13,7 +13,7 @@ module Nark
       # Configuration settings can be setting via a YAML file or a config block
       #
       attr_accessor :plugins_path
-     
+
       #
       # Can only be set via the config block to define the path of the config file
       #
@@ -22,7 +22,7 @@ module Nark
       #
       # Returns paths to find all the plugins
       #
-      #        
+      #
       def plugins_path
         settings.fetch('plugins_path', PLUGIN_PATH)
       end

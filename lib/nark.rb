@@ -16,12 +16,7 @@ module Nark
   include Nark::Plugin
 
   #
-  # All Nark class variables are settable via this configuration method.
-  #
-  # This means that configuration settings are dynamically added dependant on
-  # what variables you expose via your plugins to Nark.
-  #
-  # TODO: Refactor so only specific class variables, possibly only setters, are exposed via our plugins.
+  # Basic singleton class primarily used to configure and setup Nark.
   #
   class << self
     extend Forwardable
