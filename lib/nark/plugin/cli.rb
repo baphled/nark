@@ -111,7 +111,7 @@ module Nark
       # Stores the location where plugins will be created
       #
       def destination_path
-        Nark.plugin_destination
+        Nark.plugins_path
       end
 
       protected

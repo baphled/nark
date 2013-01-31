@@ -2,12 +2,12 @@ Feature: Generating a plugin
   As a developer
   I'd like to be able to generate a sample plugin to get me started
 
-  @CLI
+  @CLI @announce
   Scenario: I should be able to generate a "requests" plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example requests`
     Then The "requests" plugin should be created
-    And the file "lib/nark/plugin/requests.rb" should contain exactly:
+    And the file "plugins/requests.rb" should contain exactly:
     """
     Nark::Plugin.define :requests do |plugin|
       plugin.variables :total_requests => 0
@@ -23,7 +23,7 @@ Feature: Generating a plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example request_times`
     Then The "request_times" plugin should be created
-    And the file "lib/nark/plugin/request_times.rb" should contain exactly:
+    And the file "plugins/request_times.rb" should contain exactly:
     """
     Nark::Plugin.define :request_times do |plugin|
       plugin.variables :last_request_time => nil
@@ -43,7 +43,7 @@ Feature: Generating a plugin
     Given I have installed the plugin
     When I successfully run `bundle exec nark example revisions`
     Then The "revisions" plugin should be created
-    And the file "lib/nark/plugin/revisions.rb" should contain exactly:
+    And the file "plugins/revisions.rb" should contain exactly:
     """
     Nark::Plugin.define :revisions do |plugin|
       plugin.method :revision do
@@ -68,7 +68,7 @@ Feature: Generating a plugin
     Given I have installed the plugin
     And I write to "config/nark.yml" with:
     """
-    plugin_destination: 'nark/plugins'
+    plugins_path: 'nark/plugins'
     """
     When I successfully run `bundle exec nark example revisions`
     Then a file named "lib/nark/plugin/revisions.rb" should not exist

@@ -31,8 +31,7 @@ module Nark
       :settings_path, :settings_path=
 
     def_delegators :'Nark::Configuration',
-      :plugins_path,
-      :plugin_destination
+      :plugins_path
 
     def configure
       yield self

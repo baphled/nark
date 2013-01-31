@@ -8,10 +8,6 @@ describe Nark do
       Nark.should respond_to :settings_path
     end
 
-    it "gives access to the plugin destination" do
-      Nark.should respond_to :plugin_destination
-    end
-
     it "gives access to the plugins path" do
       Nark.should respond_to :plugins_path
     end

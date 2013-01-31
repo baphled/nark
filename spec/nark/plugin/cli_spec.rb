@@ -49,7 +49,7 @@ describe Nark::CLI do
   describe "#create" do
     it "create a skeleton file in the expected path" do
       Nark::CLI.create(:foo_bar)
-      File.should exist 'lib/nark/plugin/foo_bar.rb'
+      File.should exist 'plugins/foo_bar.rb'
     end
 
     it "creates the skeleton file with the plugin name" do
@@ -60,7 +60,7 @@ describe Nark::CLI do
   end
 end"""
       Nark::CLI.create :baz_bar
-      File.read('lib/nark/plugin/baz_bar.rb').should include expected
+      File.read('plugins/baz_bar.rb').should include expected
     end
   end
 
@@ -87,7 +87,7 @@ end"""
     context "copying an example" do
       it "allows a user to create an example to the plugins directory" do
         Nark::CLI.example :requests
-        File.should exist 'lib/nark/plugin/requests.rb'
+        File.should exist 'plugins/requests.rb'
       end
 
       it "can create a requests plugin" do
@@ -100,7 +100,7 @@ end"""
   end
 end"""
         Nark::CLI.example :requests
-        File.read('lib/nark/plugin/requests.rb').should include expected
+        File.read('plugins/requests.rb').should include expected
       end
 
       it "can create a request_times plugin" do
@@ -117,7 +117,7 @@ end"""
   end
 end"""
         Nark::CLI.example :request_times
-        File.read('lib/nark/plugin/request_times.rb').should include expected
+        File.read('plugins/request_times.rb').should include expected
       end
 
       it "can create a revisions plugin" do
@@ -128,7 +128,7 @@ end"""
   end
 end"""
         Nark::CLI.example :revisions
-        File.read('lib/nark/plugin/revisions.rb').should include expected
+        File.read('plugins/revisions.rb').should include expected
       end
 
       it "does not throw an exeception if the plugin template can not be found" do

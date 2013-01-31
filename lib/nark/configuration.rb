@@ -1,6 +1,5 @@
 module Nark
   module Configuration
-    PLUGIN_DESTINATION = 'lib/nark/plugin'.freeze
     PLUGIN_PATH = 'plugins'.freeze
 
     class << self
@@ -12,7 +11,7 @@ module Nark
       #
       # Configuration settings can be setting via a YAML file or a config block
       #
-      attr_accessor :plugins_path, :plugin_destination
+      attr_accessor :plugins_path
      
       #
       # Can only be set via the config block to define the path of the config file
@@ -25,15 +24,6 @@ module Nark
       #        
       def plugins_path
         settings.fetch('plugins_path', PLUGIN_PATH)
-      end
-
-      #
-      # Stores where plugins will be created
-      #
-      # TODO: There's no real use for this, remove it.
-      #
-      def plugin_destination
-        settings.fetch('plugin_destination', PLUGIN_DESTINATION)
       end
 
       #
