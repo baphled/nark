@@ -52,6 +52,8 @@
      * They seems to be executing when executing the block within the plugin definition 
    * Have a easy way to include plugins.
      * Would be nice to have a format akin to bundle and librarian-puppet
+   * Be able to list all plugins
+   * Dynamically add plugins at runtime
 
  * CLI
    * Be able to get a list of currently attached plugins via the CLI
