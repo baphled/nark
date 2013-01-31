@@ -14,6 +14,21 @@ module Nark
     #
     class Event
       #
+      # Stores the type of event
+      #
+      attr_reader :type
+
+      #
+      # Stores the event block to be triggered
+      #
+      attr_reader :method_block
+
+      #
+      # Stores the name of the plugin that the event belongs to
+      #
+      attr_reader :plugin
+
+      #
       # Only allow the object to change the state of the event
       #
       private
@@ -31,21 +46,6 @@ module Nark
       attr_accessor :attributes
 
       public
-
-      #
-      # Stores the type of event
-      #
-      attr_reader :type
-
-      #
-      # Stores the event block to be triggered
-      #
-      attr_reader :method_block
-
-      #
-      # Stores the name of the plugin that the event belongs to
-      #
-      attr_reader :plugin
 
       #
       # Initialise the new Event
