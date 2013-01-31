@@ -61,6 +61,8 @@ module Nark
         Dir["#{defined_plugin_path}/*.rb"].each { |plugin| eval File.read(plugin) }
       end
 
+      protected
+
       #
       # Stores the path of the plugins
       #
@@ -69,8 +71,6 @@ module Nark
       def defined_plugin_path
         File.absolute_path File.join File.dirname(__FILE__), "..", "..", Nark.plugins_path
       end
-
-      protected
 
       #
       # This is a helper method that returns a list of plugin modules
