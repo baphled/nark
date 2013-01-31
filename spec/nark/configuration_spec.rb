@@ -5,4 +5,8 @@ describe Nark::Configuration do
     Nark::Configuration.plugins_paths.should eql 'plugins'
   end
 
+  describe "#settings" do
+    it "from the default path"
+    it "from a custom path"
+  end
 end
