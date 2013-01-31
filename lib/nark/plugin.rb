@@ -58,6 +58,9 @@ module Nark
       #
       # Figures out what plugins are setup and returns a list of them
       #
+      # TODO: Refactor, need to be able to update the ancestor tree when
+      # undefining a plugin
+      #
       def available_plugins
         found_modules = Nark::Plugin.constants
         modules = filter_modules found_modules

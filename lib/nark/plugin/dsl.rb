@@ -50,7 +50,7 @@ module Nark
       # possibly do with having a new home. We'll leave it where it is
       # for the time being and see how this module evolves.
       #
-      # FIXME: This functionality is getting quite complex and most of the logic doesn't actually belong within here.
+      # TODO: This could be done a lot easier if the ancestor tree was updated
       #
       def undefine plugin_name
         undefine_plugin_class_methods plugin_name
