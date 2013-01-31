@@ -94,7 +94,7 @@ module Nark
         #
         def undefine_plugin_class_methods plugin_name
           plugin_module = eval "Nark::Plugin::#{plugin_name.to_s.camelize}"
-          if plugin_module.constants.include? :ClassMethods
+          if plugin_module.constants.include? :PluginMethods
             remove_plugin_class_methods plugin_module
           end
         end
@@ -112,10 +112,10 @@ module Nark
         end
 
         #
-        # Gets an instance of the plugin's ClassMethods
+        # Gets an instance of the plugin's class methods
         #
         def module_instance plugin_module
-          eval "#{plugin_module}::ClassMethods"
+          eval "#{plugin_module}::PluginMethods"
         end
 
         #

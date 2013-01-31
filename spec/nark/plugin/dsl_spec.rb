@@ -43,7 +43,7 @@ describe Nark::Plugin::DSL do
       Nark::Plugin.define :random_plugin do |plugin|
         plugin.variables :bar => 1
       end
-      Nark::Plugin::RandomPlugin::ClassMethods.class_variables.should eql [:@@bar]
+      Nark::Plugin::RandomPlugin::PluginMethods.class_variables.should eql [:@@bar]
       Nark.should respond_to :bar
       Nark.should respond_to :bar=
       Nark::Plugin.undefine :random_plugin

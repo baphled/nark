@@ -34,14 +34,14 @@ module Nark
       def method method_name, &block
         plugin_method_code = """
             module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
-              module ClassMethods
+              module PluginMethods
                 def #{method_name}
                   '#{block.call}'
                 end
               end
 
               def self.included(receiver)
-                receiver.extend ClassMethods
+                receiver.extend PluginMethods
               end
             end
           """
@@ -58,7 +58,7 @@ module Nark
         variable_hashes.reduce('') do |s, (variable, value)|
           plugin_class_methods = """
               module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
-                module ClassMethods
+                module PluginMethods
                   @@#{variable} = #{value.inspect}
 
                   def #{variable}
@@ -72,7 +72,7 @@ module Nark
                 end
 
                 def self.included(receiver)
-                  receiver.extend ClassMethods
+                  receiver.extend PluginMethods
                 end
               end
           """

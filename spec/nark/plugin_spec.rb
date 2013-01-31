@@ -45,7 +45,7 @@ describe Nark::Plugin do
     it "exposes only accessors" do
       Nark.load_plugins
       Nark::Plugin.defined_methods.should_not include :total_requests=
-      Nark::Plugin.defined_methods.should include :total_requests
+        Nark::Plugin.defined_methods.should include :total_requests
     end
   end
 end

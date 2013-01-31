@@ -33,7 +33,7 @@ module Nark
       # @TODO: Refactor so that we rely on plugin accessors being added to Nark via an internal module
       #
       def defined_methods
-        plugin_accessors.select { |method| not method.to_s.include? '='}.sort
+        Nark.available_plugins.map {|plugin| plugin_accessors(plugin) }.flatten.sort
       end
 
       #
@@ -44,16 +44,10 @@ module Nark
       #
       protected
 
-      def plugin_accessors
-        module_single_methods - module_class_methods
-      end
-
-      def module_single_methods
-        (Nark.singleton_methods - Nark::ReportBroker.singleton_methods - Nark::Configuration.singleton_methods)
-      end
-
-      def module_class_methods
-        Nark::Plugin::ClassMethods.instance_methods
+      def plugin_accessors plugin_name
+        plugin_class = "Nark::Plugin::#{plugin_name.camelize}::PluginMethods".constantize
+        plugin_instance_methods = plugin_class.instance_methods
+        plugin_instance_methods.select { |accessor| not accessor.to_s.include? '=' }
       end
     end
 
