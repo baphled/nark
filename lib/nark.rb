@@ -1,10 +1,10 @@
 require "active_support/core_ext"
 
-require 'nark/configuration'
 require 'nark/middleware'
 require 'nark/exceptions'
 require 'nark/plugin'
 require 'nark/report_broker'
+require 'nark/configuration'
 
 #
 # This middleware is the basis of all tracking via rack middleware.
@@ -17,27 +17,27 @@ module Nark
   include Nark::Plugin
 
   #
-  # All Rack::Tracker class variables are settable via this configuration method.
+  # All Nark class variables are settable via this configuration method.
   #
   # This means that configuration settings are dynamically added dependant on
-  # what variables you expose via your plugins to Rack::Tracker.
+  # what variables you expose via your plugins to Nark.
   #
   # TODO: Refactor so only specific class variables, possibly only setters, are exposed via our plugins.
   #
   class << self
+    extend Forwardable
+
+    def_delegators :'Nark::Configuration',
+      :settings_path, :settings_path=
+
+    def_delegators :'Nark::Configuration',
+      :plugins_paths,
+      :plugins_path,
+      :plugin_destination
+
     def configure
       yield self
       true
-    end
-
-    #
-    # Delegate missing methods so that configuration settings can still be
-    # dynamically set using a config block
-    #
-    # TODO: Be nice when delegating
-    #
-    def method_missing method, *args, &block
-      Nark::Configuration.public_send method, *args, &block
     end
   end
 end
