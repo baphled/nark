@@ -1,2 +1,1 @@
-plugin_destination: 'plugins'
-plugins_path: 'plugins'
+plugins_path: 'example/plugins'
