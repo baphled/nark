@@ -9,7 +9,7 @@ module Nark
       # Make a call to Nark
       #
       # Effectively delegates to Nark making sure to only attempt to
-      # call public methods.
+      # call methods that are accessible to the outside world.
       #
       # TODO: Refactor so that only the expected methods are accessible
       #
@@ -30,10 +30,15 @@ module Nark
       # TODO: Review this functionality.
       #
       def messages
+        { :messages => gather_messages.sort}
+      end
+
+      protected
+      def gather_messages
         plugin_accessors = Nark::Plugin.defined_methods
         module_acessors = Nark::Plugin::ClassMethods.public_instance_methods
         reporters_accessors = Nark::ReportBroker.singleton_methods.delete_if { |method_name| method_name.to_s.include? '=' }
-        { :messages => (plugin_accessors + module_acessors + reporters_accessors).sort}
+        (plugin_accessors + module_acessors + reporters_accessors)
       end
     end
   end
