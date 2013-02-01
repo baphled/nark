@@ -1,4 +1,4 @@
-require 'nark/plugin/macros'
+require 'nark/macros'
 
 module Nark
   #

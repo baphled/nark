@@ -1,5 +1,5 @@
-require_relative "plugin/dsl"
-require_relative "plugin/cli"
+require_relative "dsl"
+require_relative "cli"
 
 module Nark
   #
