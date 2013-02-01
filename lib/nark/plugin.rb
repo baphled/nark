@@ -52,6 +52,9 @@ module Nark
     end
 
     module ClassMethods
+      extend Forwardable
+
+      def_delegators :'Nark::Plugin', :defined_methods
 
       #
       # Returns a list of plugins that are currently attached
