@@ -96,7 +96,7 @@ module Nark
       protected
 
       def determine_plugin_content plugin_name
-        plugin_path = File.join File.dirname(__FILE__), '..','..', '..', 'plugins', plugin_name
+        plugin_path = File.join File.dirname(__FILE__), '..', '..', 'plugins', plugin_name
         IO.read(File.expand_path plugin_path).chomp
       end
 
