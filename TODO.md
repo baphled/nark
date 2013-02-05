@@ -44,15 +44,17 @@
      * When going down the road of maintaining a Nark plugin repository
      descriptions won't be needed as they can be taken from the metadata.
    * Improve the way plugins are created. It's quite hacky at the moment.
-     * Can reuse Cucumber and Rspec helpers so to help other developer plugins
-     * Users should be able to define where plugins get created
-       * For the moment this will be done via the configuration settings.
-       * Later this will also be possible via the CLI.
+   * Can reuse Cucumber and Rspec helpers so to help other developer plugins
+   * Users should be able to define where plugins get created
+     * For the moment this will be done via the configuration settings.
+     * Later this will also be possible via the CLI.
    * Fix issue with plugin method blocks not executing at the right time
      * They seems to be executing when executing the block within the plugin definition 
    * Have a easy way to include plugins.
      * Would be nice to have a format akin to bundle and librarian-puppet
    * Be able to list all plugins
+   * Prove a way to send tracked data to a datastore
+     * The datastore could be anything from a DB of some sort to a server/daemon that waits listens for these messages
    * Dynamically add plugins at runtime
 
  * CLI
@@ -69,6 +71,9 @@
      * This way we can easily find out what methods are plugin based and do cool things with the information
    * Think about making components more pluggable.
      * Would be nice is people to easily pick and mix components to do things not originally conceived of
+     * Refactor plugin architecture
+       * At the moment we are not able to have persistent data with the CLI and reporter.
+         * Should be able to jump into the terminal and retain the values coming in from the application Nark is watching
 
  * Eating my own dog food
    * Come up with use cases for using Nark
