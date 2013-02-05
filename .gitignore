@@ -49,3 +49,4 @@ pkg
 #*.rbc
 tags
 .DS_Store
+Gemfile.lock
