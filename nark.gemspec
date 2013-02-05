@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "nark"
-  s.version = "0.3.1"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["baphled"]
-  s.date = "2013-01-19"
-  s.description = "TODO: Allows you to build plugins that can be used to nark on various parts of your application"
+  s.date = "2013-02-05"
+  s.description = "Allows you to build plugins that can be used to nark on various parts of your application"
   s.email = "baphled@boodah.net"
   s.executables = ["nark"]
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".gitignore",
     ".rspec",
     ".rvmrc",
     ".simplecov",
@@ -32,33 +33,42 @@ Gem::Specification.new do |s|
     "TODO.md",
     "VERSION",
     "bin/nark",
+    "config/cucumber.yml",
     "example/.rvmrc",
     "example/Gemfile",
     "example/Gemfile.lock",
     "example/config.ru",
+    "example/config/nark.yml",
     "example/dummy_app.rb",
     "example/plugins/requests.rb",
     "example/plugins/status_report.rb",
     "features/command_line_interaction.feature",
-    "features/expose_plugin_functionality_via_http.feature",
+    "features/configuration_settings.feature",
     "features/generating_a_plugin.feature",
-    "features/nark.feature",
     "features/nark_middleware.feature",
+    "features/plugin_dsl.feature",
+    "features/reporter.feature",
+    "features/reporter_http.feature",
     "features/step_definitions/http_reporting_steps.rb",
     "features/step_definitions/nark_steps.rb",
+    "features/step_definitions/plugin_steps.rb",
+    "features/step_definitions/reporter_steps.rb",
     "features/step_definitions/undefine_plugin_steps.rb",
     "features/support/env.rb",
     "features/support/example_app_env.rb",
+    "features/total_requests_plugin.feature",
     "features/undefining_a_plugin.feature",
     "lib/nark.rb",
+    "lib/nark/cli.rb",
+    "lib/nark/configuration.rb",
+    "lib/nark/dsl.rb",
     "lib/nark/exceptions.rb",
+    "lib/nark/macros.rb",
     "lib/nark/middleware.rb",
     "lib/nark/plugin.rb",
-    "lib/nark/plugin/cli.rb",
-    "lib/nark/plugin/dsl.rb",
     "lib/nark/plugin/event.rb",
     "lib/nark/plugin/events.rb",
-    "lib/nark/plugin/macros.rb",
+    "lib/nark/report_broker.rb",
     "lib/nark/reporter/http.rb",
     "nark.gemspec",
     "plugins/request_times.rb",
@@ -66,14 +76,17 @@ Gem::Specification.new do |s|
     "plugins/revisions.rb",
     "plugins/status_report.rb",
     "plugins/template.erb",
+    "spec/fixtures/config/nark.yml",
+    "spec/fixtures/plugins/dummy_plugin.rb",
     "spec/integration/plugin_dsl_spec.rb",
     "spec/integration/running_multiple_plugins_spec.rb",
+    "spec/nark/cli_spec.rb",
+    "spec/nark/configuration_spec.rb",
+    "spec/nark/dsl_spec.rb",
+    "spec/nark/macros_spec.rb",
     "spec/nark/middleware_spec.rb",
-    "spec/nark/plugin/cli_spec.rb",
-    "spec/nark/plugin/dsl_spec.rb",
     "spec/nark/plugin/event_spec.rb",
     "spec/nark/plugin/events_spec.rb",
-    "spec/nark/plugin/macros_spec.rb",
     "spec/nark/plugin_spec.rb",
     "spec/nark_spec.rb",
     "spec/spec_helper.rb",
@@ -84,6 +97,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
   s.summary = "Narks on your application like a dirty little snitch"
+  s.test_files = ["features/command_line_interaction.feature", "features/configuration_settings.feature", "features/generating_a_plugin.feature", "features/nark_middleware.feature", "features/plugin_dsl.feature", "features/reporter.feature", "features/reporter_http.feature", "features/step_definitions/http_reporting_steps.rb", "features/step_definitions/nark_steps.rb", "features/step_definitions/plugin_steps.rb", "features/step_definitions/reporter_steps.rb", "features/step_definitions/undefine_plugin_steps.rb", "features/support/env.rb", "features/support/example_app_env.rb", "features/total_requests_plugin.feature", "features/undefining_a_plugin.feature", "spec/fixtures/config/nark.yml", "spec/fixtures/plugins/dummy_plugin.rb", "spec/integration/plugin_dsl_spec.rb", "spec/integration/running_multiple_plugins_spec.rb", "spec/nark/cli_spec.rb", "spec/nark/configuration_spec.rb", "spec/nark/dsl_spec.rb", "spec/nark/macros_spec.rb", "spec/nark/middleware_spec.rb", "spec/nark/plugin/event_spec.rb", "spec/nark/plugin/events_spec.rb", "spec/nark/plugin_spec.rb", "spec/nark_spec.rb", "spec/spec_helper.rb", "spec/support/create_plugin.rb"]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -91,6 +105,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<nark>, [">= 0"])
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
+      s.add_runtime_dependency(%q<rubygems-tasks>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<fakefs>, [">= 0"])
@@ -101,28 +116,10 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<pry>, [">= 0"])
       s.add_development_dependency(%q<sinatra>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
-      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
-      s.add_development_dependency(%q<fakefs>, [">= 0"])
-      s.add_development_dependency(%q<cucumber>, [">= 0"])
-      s.add_development_dependency(%q<aruba>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_development_dependency(%q<rack-test>, [">= 0"])
-      s.add_development_dependency(%q<pry>, [">= 0"])
-      s.add_development_dependency(%q<sinatra>, [">= 0"])
-      s.add_development_dependency(%q<simplecov>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
-      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
-      s.add_development_dependency(%q<fakefs>, [">= 0"])
-      s.add_development_dependency(%q<cucumber>, [">= 0"])
-      s.add_development_dependency(%q<aruba>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_development_dependency(%q<rack-test>, [">= 0"])
-      s.add_development_dependency(%q<pry>, [">= 0"])
-      s.add_development_dependency(%q<sinatra>, [">= 0"])
     else
       s.add_dependency(%q<nark>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<rubygems-tasks>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<fakefs>, [">= 0"])
@@ -133,29 +130,11 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<pry>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.8.0"])
-      s.add_dependency(%q<rdoc>, ["~> 3.12"])
-      s.add_dependency(%q<fakefs>, [">= 0"])
-      s.add_dependency(%q<cucumber>, [">= 0"])
-      s.add_dependency(%q<aruba>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_dependency(%q<rack-test>, [">= 0"])
-      s.add_dependency(%q<pry>, [">= 0"])
-      s.add_dependency(%q<sinatra>, [">= 0"])
-      s.add_dependency(%q<simplecov>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.8.0"])
-      s.add_dependency(%q<rdoc>, ["~> 3.12"])
-      s.add_dependency(%q<fakefs>, [">= 0"])
-      s.add_dependency(%q<cucumber>, [">= 0"])
-      s.add_dependency(%q<aruba>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_dependency(%q<rack-test>, [">= 0"])
-      s.add_dependency(%q<pry>, [">= 0"])
-      s.add_dependency(%q<sinatra>, [">= 0"])
     end
   else
     s.add_dependency(%q<nark>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<rubygems-tasks>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<fakefs>, [">= 0"])
@@ -166,25 +145,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<pry>, [">= 0"])
     s.add_dependency(%q<sinatra>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.8.0"])
-    s.add_dependency(%q<rdoc>, ["~> 3.12"])
-    s.add_dependency(%q<fakefs>, [">= 0"])
-    s.add_dependency(%q<cucumber>, [">= 0"])
-    s.add_dependency(%q<aruba>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-    s.add_dependency(%q<rack-test>, [">= 0"])
-    s.add_dependency(%q<pry>, [">= 0"])
-    s.add_dependency(%q<sinatra>, [">= 0"])
-    s.add_dependency(%q<simplecov>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.8.0"])
-    s.add_dependency(%q<rdoc>, ["~> 3.12"])
-    s.add_dependency(%q<fakefs>, [">= 0"])
-    s.add_dependency(%q<cucumber>, [">= 0"])
-    s.add_dependency(%q<aruba>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-    s.add_dependency(%q<rack-test>, [">= 0"])
-    s.add_dependency(%q<pry>, [">= 0"])
-    s.add_dependency(%q<sinatra>, [">= 0"])
   end
 end
 

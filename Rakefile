@@ -24,9 +24,13 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/baphled/nark"
   gem.license = "MIT"
   gem.summary = %Q{Narks on your application like a dirty little snitch}
-  gem.description = %Q{TODO: Allows you to build plugins that can be used to nark on various parts of your application}
+  gem.description = %Q{Allows you to build plugins that can be used to nark on various parts of your application}
   gem.email = "baphled@boodah.net"
   gem.authors = ["baphled"]
+  gem.files         = `git ls-files`.split("\n")
+  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.require_paths = ["lib"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
