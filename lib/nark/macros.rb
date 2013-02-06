@@ -45,7 +45,7 @@ module Nark
               end
             end
           """
-          eval plugin_method_code
+          Nark::Plugin.module_eval plugin_method_code
       end
 
       #
@@ -76,7 +76,7 @@ module Nark
                 end
               end
           """
-          eval plugin_class_methods
+          Nark::Plugin.module_eval plugin_class_methods
           Nark::Plugin.defined_methods << variable
         end
       end

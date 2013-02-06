@@ -75,7 +75,7 @@ module Nark
       # TODO: Refactor so that we can iterate of more than one path
       #
       def load_plugins
-        Dir["#{defined_plugin_path}/*.rb"].each { |plugin| eval File.read(plugin) }
+        Dir["#{defined_plugin_path}/*.rb"].each { |plugin| Nark::Plugin.module_eval File.read(plugin) }
       end
 
       protected
@@ -103,7 +103,7 @@ module Nark
       #
       def filter_modules found_modules
         found_modules.delete_if do |plugin|
-          eval("Nark::Plugin::#{plugin}").is_a? Class or ignored_modules.include? plugin.to_s.camelize
+          "Nark::Plugin::#{plugin}".constantize.is_a? Class or ignored_modules.include? plugin.to_s.camelize
         end
       end
 
