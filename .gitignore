@@ -50,3 +50,4 @@ pkg
 tags
 .DS_Store
 Gemfile.lock
+gems.tags
