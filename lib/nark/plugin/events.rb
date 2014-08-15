@@ -51,6 +51,8 @@ module Nark
       # This is used internally to determine whether there are any events to be
       # triggered.
       #
+      # FIXME: When an event is triggered should keep it persistent
+      #
       def trigger event, env
         triggered(event).each do |triggered_event|
           Nark.class_eval 'triggered_event.method_block.call env'
