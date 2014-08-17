@@ -5,6 +5,7 @@ require 'nark/exceptions'
 require 'nark/plugin'
 require 'nark/report_broker'
 require 'nark/configuration'
+require 'yaml'
 
 #
 # This middleware is the basis of all tracking via rack middleware.
