@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Nark
   module Configuration
     PLUGIN_PATH = 'plugins'.freeze
