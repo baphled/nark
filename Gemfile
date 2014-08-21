@@ -16,7 +16,7 @@ group :development do
   gem "fakefs"
   gem "cucumber", ">= 0"
   gem "capybara"
-  gem "aruba"
+  gem "aruba", '~> 0.5.1'
   gem "jeweler", "~> 1.8.4"
   gem 'rack-test'
   gem 'pry'
