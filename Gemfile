@@ -22,3 +22,5 @@ group :development do
   gem 'pry'
   gem 'sinatra'
 end
+
+gem "codeclimate-test-reporter", group: :test, require: nil
