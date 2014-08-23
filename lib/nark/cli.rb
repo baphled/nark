@@ -18,6 +18,7 @@ module Nark
       # information via the new feature.
       #
       def help option = ''
+        option = option.to_s
         case option.to_sym
         when :list
         """
