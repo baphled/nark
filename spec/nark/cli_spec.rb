@@ -43,6 +43,18 @@ describe Nark::CLI do
         """
         Nark::CLI.help.should eql help_output
     end
+
+    context "when the option is nil" do
+      it "falls back gracefully" do
+        help_output =
+        """
+        Usage: nark help
+
+        Displays this message.
+        """
+        Nark::CLI.help(nil).should eql help_output
+      end
+    end
   end
 
   describe "#create" do
