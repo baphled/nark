@@ -25,7 +25,7 @@ describe "Plugin DSL" do
 
     it "allows us to define a plugin method" do
       Nark::Plugin.define :something_really_cool, &plugin_block
-      Nark.revision.should eql %x[cat .git/refs/heads/master| cut -f 1].chomp
+      Nark.revision.should eql "2"
     end
   end
 
