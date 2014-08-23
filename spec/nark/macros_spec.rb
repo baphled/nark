@@ -30,10 +30,10 @@ describe Nark::Macros do
     it "creates the defined class method" do
       Nark::Plugin.define(:revision) do |plugin|
         plugin.method :revision do
-          `cat .git/refs/heads/master| cut -f 1`.chomp
+          `cat .git/HEAD| cut -f 1`.chomp
         end
       end
-      Nark.revision.should eql `cat .git/refs/heads/master| cut -f 1`.chomp
+      Nark.revision.should eql `cat .git/HEAD| cut -f 1`.chomp
     end
   end
 
