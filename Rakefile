@@ -84,4 +84,4 @@ end
 
 task :cucumber => :features
 task :wip => 'features:wip'
-task :default => [:spec,:features]
+task :default => [:spec]
