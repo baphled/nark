@@ -47,7 +47,7 @@ Feature: Generating a plugin
     """
     Nark::Plugin.define :revisions do |plugin|
       plugin.method :revision do
-        %x[cat .git/refs/heads/master| cut -f 1].chomp
+        %x[cat .git/HEAD| cut -f 1].chomp
       end
     end
     """
@@ -77,7 +77,7 @@ Feature: Generating a plugin
     """
     Nark::Plugin.define :revisions do |plugin|
       plugin.method :revision do
-        %x[cat .git/refs/heads/master| cut -f 1].chomp
+        %x[cat .git/HEAD| cut -f 1].chomp
       end
     end
     """

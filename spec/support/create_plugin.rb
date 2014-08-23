@@ -6,7 +6,7 @@ module PluginMacro
       when :revision
         Proc.new do |plugin|
           plugin.method :revision do
-            %x[cat .git/refs/heads/master| cut -f 1].chomp
+            2
           end
         end
       when :request_times
