@@ -7,6 +7,9 @@ require "pry"
 require 'rack/test'
 require 'fakefs/spec_helpers'
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require 'nark'
 
 ENV['RACK_ENV'] = 'test'
