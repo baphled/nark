@@ -75,6 +75,14 @@ end"""
       Nark::CLI.create :baz_bar
       File.read('plugins/baz_bar.rb').should eql expected
     end
+
+    context "no plugin name provided" do
+      it "fails gracefully" do
+        expect {
+          Nark::CLI.create nil
+        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+      end
+    end
   end
 
   describe "#list" do
