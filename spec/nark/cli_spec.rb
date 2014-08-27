@@ -142,21 +142,4 @@ end"""
       end
     end
   end
-
-  describe "#plugins" do
-    it "returns a list of all included plugins" do
-      Nark::Plugin.define :requests do |plugin|
-        plugin.description 'Tracks the number of requests made to your application'
-      end
-      expected = [
-        "requests             - Tracks the number of requests made to your application",
-      ]
-      CliWrapper.plugins(:included).should eql expected
-    end
-    
-    it "returns an error message if the given option is not valid" do
-      expected = 'Invalid plugins option'
-      CliWrapper.plugins(:foo).should eql expected
-    end
-  end
 end
