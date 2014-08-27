@@ -82,6 +82,12 @@ end"""
           Nark::CLI.create nil
         }.to raise_error Nark::Exceptions::PluginNameNotDefined
       end
+
+      it "won't create a plugin with an empty name" do
+        expect {
+          Nark::CLI.create ''
+        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+      end
     end
   end
 

@@ -99,7 +99,7 @@ module Nark
       # Creates a template plugin that you can use to create your own plugin
       #
       def create plugin
-        raise Nark::Exceptions::PluginNameNotDefined.new 'plugin name not defined' if plugin.nil?
+        raise Nark::Exceptions::PluginNameNotDefined.new 'plugin name not defined' if not plugin.present?
         template_content = determine_plugin_content 'template.erb'
         template = ERB.new template_content
 
