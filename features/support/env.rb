@@ -15,7 +15,6 @@ $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'nark'
 
 After do
-  Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin }
-  # FIXME: This stinks!
   Nark.settings_path = 'config/nark.yml'
+  Nark.available_plugins.each { |plugin| Nark::Plugin.undefine plugin[:name].to_sym }
 end

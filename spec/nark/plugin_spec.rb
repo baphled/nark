@@ -18,7 +18,7 @@ describe Nark::Plugin do
 
     it "automatically includes a defined module" do
       Nark::Plugin.define :requests, &requests
-      Nark.available_plugins.should include 'requests'
+      Nark.available_plugins.should include :name => 'requests', :description => 'Fallback description: Use the description macro to define the plugins description'
     end
   end
 

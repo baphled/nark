@@ -19,10 +19,22 @@ Feature: Nark Reporter
     """
     {
       "plugins": [
-        "request_times",
-        "requests",
-        "revisions",
-        "status_report"
+        {
+          "name": "request_times",
+          "description": "Keeps track of the amount of time each request takes"
+        },
+        {
+          "name": "requests",
+          "description": "Track the amount of requests made whilst the server is up"
+        },
+        {
+          "name": "revisions",
+          "description": "Outputs the git revision"
+        },
+        {
+          "name": "status_report",
+          "description": "Fallback description: Use the description macro to define the plugins description"
+        }
       ]
     }
     """

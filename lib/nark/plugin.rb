@@ -33,7 +33,7 @@ module Nark
       # @TODO: Refactor so that we rely on plugin accessors being added to Nark via an internal module
       #
       def defined_methods
-        Nark.available_plugins.map {|plugin| plugin_accessors(plugin) }.flatten.sort
+        Nark.available_plugins.map {|plugin| plugin_accessors(plugin[:name]) }.flatten.sort
       end
 
       #
@@ -64,7 +64,12 @@ module Nark
       def available_plugins
         found_modules = Nark::Plugin.constants
         modules = filter_modules found_modules
-        modules.collect { |plugin| plugin.to_s.underscore }.sort
+        modules.collect do |plugin|
+          {
+            :name => plugin.to_s.underscore,
+            :description => eval("Nark::Plugin::#{plugin.to_s.camelize}.metadata")
+          }
+        end
       end
 
       #

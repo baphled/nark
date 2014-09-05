@@ -84,6 +84,20 @@ module Nark
           Nark::Plugin.defined_methods << variable
         end
       end
+
+      def description title
+        description_method = 
+          """
+          module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+            class << self
+              def metadata
+                '#{title.to_s}'
+              end
+            end
+          end
+          """
+         eval description_method
+      end
     end
 
     def self.included(receiver)

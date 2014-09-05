@@ -54,6 +54,8 @@ describe Nark::CLI do
     it "creates the skeleton file with the plugin name" do
       expected = 
 """Nark::Plugin.define :baz_bar do |plugin|
+  plugin.description 'Some cool description'
+
   plugin.method :baz_bar do
     # Do something clever here.
   end
@@ -92,6 +94,8 @@ end"""
       it "can create a requests plugin" do
         expected =
 """Nark::Plugin.define :requests do |plugin|
+  plugin.description 'Track the amount of requests made whilst the server is up'
+
   plugin.variables :total_requests => 0
 
   plugin.add_hook :before_call do |env|
@@ -105,6 +109,8 @@ end"""
       it "can create a request_times plugin" do
         expected =
 """Nark::Plugin.define :request_times do |plugin|
+  plugin.description 'Keeps track of the amount of time each request takes'
+
   plugin.variables :last_request_time => nil
 
   plugin.add_hook :before_call do |env|
@@ -134,6 +140,23 @@ end"""
         expected = "Invalid plugin name. Try one of the following: requests, request_times, revisions"
         Nark::CLI.example(:foo).should eql expected
       end
+    end
+  end
+
+  describe "#plugins" do
+    it "returns a list of all included plugins" do
+      Nark::Plugin.define :requests do |plugin|
+        plugin.description 'Tracks the number of requests made to your application'
+      end
+      expected = [
+        "requests             - Tracks the number of requests made to your application",
+      ]
+      Nark::CLI.plugins(:included).should eql expected
+    end
+    
+    it "returns an error message if the given option is not valid" do
+      expected = 'Invalid plugins option'
+      Nark::CLI.plugins(:foo).should eql expected
     end
   end
 end

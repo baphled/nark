@@ -10,6 +10,8 @@ Feature: Generating a plugin
     And the file "plugins/requests.rb" should contain exactly:
     """
     Nark::Plugin.define :requests do |plugin|
+      plugin.description 'Track the amount of requests made whilst the server is up'
+
       plugin.variables :total_requests => 0
 
       plugin.add_hook :before_call do |env|
@@ -26,6 +28,8 @@ Feature: Generating a plugin
     And the file "plugins/request_times.rb" should contain exactly:
     """
     Nark::Plugin.define :request_times do |plugin|
+      plugin.description 'Keeps track of the amount of time each request takes'
+
       plugin.variables :last_request_time => nil
 
       plugin.add_hook :before_call do |env|
@@ -46,6 +50,8 @@ Feature: Generating a plugin
     And the file "plugins/revisions.rb" should contain exactly:
     """
     Nark::Plugin.define :revisions do |plugin|
+      plugin.description 'Outputs the git revision'
+
       plugin.method :revision do
         ref_directory = %x[cat .git/HEAD| cut -d ' ' -f 2].chomp
         %x[cat .git/#{ref_directory}].chomp
@@ -77,9 +83,30 @@ Feature: Generating a plugin
     And the file "nark/plugins/revisions.rb" should contain exactly:
     """
     Nark::Plugin.define :revisions do |plugin|
+      plugin.description 'Outputs the git revision'
+
       plugin.method :revision do
         ref_directory = %x[cat .git/HEAD| cut -d ' ' -f 2].chomp
         %x[cat .git/#{ref_directory}].chomp
       end
     end
+    """
+    When I successfully run `bundle exec nark list foo`
+    Then the output should contain "Invalid list type"
+
+  Scenario: I should be able to get a list of available plugins
+    Given I have installed the plugin
+    When I created the following plugin
+    """
+      Nark::Plugin.define :random do |plugin|
+        plugin.description 'A basic description'
+        plugin.method :revision do
+          2 + 2
+        end
+      end
+    """
+    When I successfully run `bundle exec nark list plugins`
+    Then the "available_plugins" should be
+    """
+    [{:name => 'random', :description => 'A basic description'}]
     """

@@ -125,6 +125,11 @@ module Nark
       def define_plugin_module plugin_name
         """
         module Nark::Plugin::#{plugin_name.to_s.camelize}
+          class << self
+            def metadata
+              'Fallback description: Use the description macro to define the plugins description'
+            end
+          end
         end
         """
       end

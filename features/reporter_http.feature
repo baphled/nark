@@ -21,7 +21,10 @@ Feature: Expose plugin functionality via HTTP
     """
     {
       "plugins": [
-        "status_codes"
+        {
+          "name": "status_codes",
+          "description": "Fallback description: Use the description macro to define the plugins description"
+        }
       ]
     }
     """
