@@ -80,7 +80,12 @@ module Nark
       # TODO: Refactor so that we can iterate of more than one path
       #
       def load_plugins
-        Dir["#{defined_plugin_path}/*.rb"].each { |plugin| Nark::Plugin.module_eval File.read(plugin) }
+        Dir["#{defined_plugin_path}/*.rb"].each do |plugin| 
+          begin
+            Nark::Plugin.module_eval File.read(plugin)
+          rescue Nark::Exceptions::DuplicateEvent
+          end
+        end
       end
 
       protected

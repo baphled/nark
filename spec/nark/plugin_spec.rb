@@ -33,6 +33,12 @@ describe Nark::Plugin do
       Nark.load_plugins
       Nark.available_plugins.count.should eql 4
     end
+
+    it "doesn't load the same plugins more than once" do
+      Nark.load_plugins
+      Nark.load_plugins
+      Nark.available_plugins.count.should eql 4
+    end
   end
 
   describe "#defined_methods" do
