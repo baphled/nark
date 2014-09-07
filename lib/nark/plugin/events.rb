@@ -30,7 +30,7 @@ module Nark
         if event.class != Nark::Plugin::Event
           raise Nark::Exceptions::InvalidEventType
         elsif event.exists?
-          raise Nark::Exceptions::DuplicateEvent
+          raise Nark::Exceptions::DuplicateEvent.new "#{event.plugin}: #{event.type} already exists"
         else
           events << event
         end

@@ -62,7 +62,7 @@ module Nark
       # Checks the exists of the plugin in the events collection
       #
       def exists?
-        Nark::Plugin.events.find { |event| method_block == event.method_block  }
+        Nark::Plugin.events.find { |event| (self.plugin == event.plugin) && (self.type == event.type) }
       end
 
       #
