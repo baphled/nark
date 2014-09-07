@@ -8,6 +8,10 @@ describe Nark::Events do
   end
 
   describe "#events" do
+    after :each do
+      Wrapper.remove_trigger :new_plugin
+    end
+
     it "stores a list of events" do
       Wrapper.events.should be_an Array
     end
@@ -22,6 +26,10 @@ describe Nark::Events do
   end
 
   describe "#add_trigger" do
+    after :each do
+      Wrapper.remove_trigger :new_plugin
+    end
+
     it "adds a new event" do
       Wrapper.events.should_receive(:<<).and_return event_hook
       Wrapper.add_trigger event_hook
@@ -35,11 +43,21 @@ describe Nark::Events do
     end
 
     describe "a duplication event" do
+      let(:duplicate_event_hook) { Nark::Event.new type: :before_call, method_block: Proc.new {}, plugin: 'new_plugin' }
+      let(:alternate_event_hook) { Nark::Event.new type: :after_call, method_block: Proc.new {}, plugin: 'new_plugin' }
+
       it "shares the same method block" do
         Wrapper.add_trigger event_hook
         expect {
-          Wrapper.add_trigger event_hook
+          Wrapper.add_trigger duplicate_event_hook
         }.to raise_error Nark::Exceptions::DuplicateEvent
+      end
+
+      it "accpets events with a different type" do
+        Wrapper.add_trigger event_hook
+        expect {
+          Wrapper.add_trigger alternate_event_hook
+        }.not_to raise_error Nark::Exceptions::DuplicateEvent
       end
     end
   end
