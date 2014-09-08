@@ -43,6 +43,18 @@ describe Nark::CLI do
         """
         Nark::CLI.help.should eql help_output
     end
+
+    context "when the option is nil" do
+      it "falls back gracefully" do
+        help_output =
+        """
+        Usage: nark help
+
+        Displays this message.
+        """
+        Nark::CLI.help(nil).should eql help_output
+      end
+    end
   end
 
   describe "#create" do
@@ -62,6 +74,20 @@ describe Nark::CLI do
 end"""
       Nark::CLI.create :baz_bar
       File.read('plugins/baz_bar.rb').should eql expected
+    end
+
+    context "no plugin name provided" do
+      it "fails gracefully" do
+        expect {
+          Nark::CLI.create nil
+        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+      end
+
+      it "won't create a plugin with an empty name" do
+        expect {
+          Nark::CLI.create ''
+        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+      end
     end
   end
 
