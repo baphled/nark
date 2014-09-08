@@ -1,7 +1,8 @@
 Nark
 ====
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/baphled/nark) [![Dependency Status](https://gemnasium.com/baphled/nark.png)](https://gemnasium.com/baphled/nark) [![Build Status](https://travis-ci.org/baphled/nark.png)](undefined)
+[![Code Climate](https://codeclimate.com/github/baphled/nark/badges/gpa.svg)](https://codeclimate.com/github/baphled/nark) [![Dependency Status](https://gemnasium.com/baphled/nark.png)](https://gemnasium.com/baphled/nark) [![Build Status](https://travis-ci.org/baphled/nark.png)](https://travis-ci.org/baphled/nark)
+
 
 Rack middleware that allows you to easily track and handle rack information of your own choosing.
 
