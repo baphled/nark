@@ -3,3 +3,6 @@ rvm:
   - 2.1.0
   - 1.9.3
   - ruby-head
+addons:
+  codeclimate:
+    repo_token: b380687f4b5ec23ac33dec806d26a95df7cf5f72130406160e6fa8dae9b3167e
