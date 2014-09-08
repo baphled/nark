@@ -16,8 +16,8 @@ describe Nark::Macros do
     it "takes an event" do
       method_block = Proc.new { |env| start_time = Time.now }
       params = { :type => :before_call, :method_block => method_block, :plugin => 'requests' }
-      Nark::Plugin::Event.stub(:new).and_return params
-      event = Nark::Plugin::Event.new params
+      Nark::Event.stub(:new).and_return params
+      event = Nark::Event.new params
       Nark::Plugin.should_receive(:add_trigger).with(event)
 
       Nark::Plugin.define :requests do |plugin|

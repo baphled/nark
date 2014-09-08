@@ -27,7 +27,7 @@ module Nark
       # This is used to fire off custom messages when Nark is running.
       #
       def add_trigger event
-        if event.class != Nark::Plugin::Event
+        if event.class != Nark::Event
           raise Nark::Exceptions::InvalidEventType
         elsif event.exists?
           raise Nark::Exceptions::DuplicateEvent

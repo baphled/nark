@@ -120,7 +120,7 @@ module Nark
       # we add a mixin to the Plugin module.
       #
       def ignored_modules
-        ['ClassMethods','InstanceMethods','DSL']
+        ['ClassMethods']
       end
     end
 

@@ -1,76 +1,74 @@
 require_relative 'events'
 
 module Nark
-  module Plugin
+  #
+  # An event based value object allowing use to easily deal with event based functionality.
+  #
+  # Used to keep track and interact with a plugin's triggers.
+  #
+  # Essentially this is a value object used to store a plugins event block which is then used by the middleware to
+  # trigger at the right time.
+  #
+  # TODO: Rename to Trigger
+  #
+  class Event
     #
-    # An event based value object allowing use to easily deal with event based functionality.
+    # Stores the type of event
     #
-    # Used to keep track and interact with a plugin's triggers.
+    attr_reader :type
+
     #
-    # Essentially this is a value object used to store a plugins event block which is then used by the middleware to
-    # trigger at the right time.
+    # Stores the event block to be triggered
     #
-    # TODO: Rename to Trigger
+    attr_reader :method_block
+
     #
-    class Event
-      #
-      # Stores the type of event
-      #
-      attr_reader :type
+    # Stores the name of the plugin that the event belongs to
+    #
+    attr_reader :plugin
 
-      #
-      # Stores the event block to be triggered
-      #
-      attr_reader :method_block
+    #
+    # Only allow the object to change the state of the event
+    #
+    private
 
-      #
-      # Stores the name of the plugin that the event belongs to
-      #
-      attr_reader :plugin
+    #
+    # Protect the the object from being changed externally
+    #
+    attr_writer :type
+    attr_writer :method_block
+    attr_writer :plugin
 
-      #
-      # Only allow the object to change the state of the event
-      #
-      private
+    #
+    # Used to simplify the way parameters are returned and stored
+    #
+    attr_accessor :attributes
 
-      #
-      # Protect the the object from being changed externally
-      #
-      attr_writer :type
-      attr_writer :method_block
-      attr_writer :plugin
+    public
 
-      #
-      # Used to simplify the way parameters are returned and stored
-      #
-      attr_accessor :attributes
+    #
+    # Initialise the new Event
+    #
+    def initialize params
+      throw ArgumentError.new('Must pass a block to :method_block') unless params[:method_block].is_a? Proc
+      @attributes = params
+      @type = params[:type]
+      @method_block = params[:method_block]
+      @plugin = params[:plugin]
+    end
 
-      public
+    #
+    # Checks the exists of the plugin in the events collection
+    #
+    def exists?
+      Nark::Plugin.events.find { |event| method_block == event.method_block  }
+    end
 
-      #
-      # Initialise the new Event
-      #
-      def initialize params
-        throw ArgumentError.new('Must pass a block to :method_block') unless params[:method_block].is_a? Proc
-        @attributes = params
-        @type = params[:type]
-        @method_block = params[:method_block]
-        @plugin = params[:plugin]
-      end
-
-      #
-      # Checks the exists of the plugin in the events collection
-      #
-      def exists?
-        Nark::Plugin.events.find { |event| method_block == event.method_block  }
-      end
-
-      #
-      # Returns a hash of the events attributes
-      #
-      def to_hash
-        attributes
-      end
+    #
+    # Returns a hash of the events attributes
+    #
+    def to_hash
+      attributes
     end
   end
 end
