@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe Nark::Plugin::Event do
+describe Nark::Event do
   let(:plugin_method_block) { Proc.new {|p| p } }
   let(:params) { { :plugin => :some_plugin, :type => 'before_call', :method_block => plugin_method_block } }
 
-  subject { Nark::Plugin::Event.new params }
+  subject { Nark::Event.new params }
 
   describe "#type" do
     it "stores the trigger type" do
@@ -24,7 +24,7 @@ describe Nark::Plugin::Event do
 
     it "throws an exception if a block is not passed" do
       expect {
-        subject = Nark::Plugin::Event.new :type => :before_call, :method_block => 'foo'
+        subject = Nark::Event.new :type => :before_call, :method_block => 'foo'
       }.to raise_error ArgumentError
     end
   end
