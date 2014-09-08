@@ -36,20 +36,7 @@ module Nark
       # short with the use of helper methods.
       #
       def method method_name, &block
-        plugin_method_code = """
-            module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
-              module PluginMethods
-                def #{method_name}
-                  '#{block.call}'
-                end
-              end
-
-              def self.included(receiver)
-                receiver.extend PluginMethods
-              end
-            end
-          """
-          Nark::Plugin.module_eval plugin_method_code
+        Nark::Plugin.module_eval self.plugin_method_code method_name, &block
       end
 
       #
@@ -60,48 +47,72 @@ module Nark
       #
       def variables variable_hashes
         variable_hashes.reduce('') do |s, (variable, value)|
-          plugin_class_methods = """
-              module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
-                module PluginMethods
-                  @@#{variable} = #{value.inspect}
-
-                  def #{variable}
-                    @@#{variable}
-                  end
-
-                  # FIXME: It's only really need for a way to clear our slate when running specs
-                  def #{variable}= value
-                    @@#{variable} = value
-                  end
-                end
-
-                def self.included(receiver)
-                  receiver.extend PluginMethods
-                end
-              end
-          """
-          Nark::Plugin.module_eval plugin_class_methods
+          Nark::Plugin.module_eval self.plugin_class_methods variable, value
           Nark::Plugin.defined_methods << variable
         end
       end
 
       def description title
-        description_method = 
-          """
-          module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
-            class << self
-              def metadata
-                '#{title.to_s}'
-              end
-            end
-          end
-          """
-         eval description_method
+        eval description_method title
       end
     end
 
     def self.included(receiver)
       receiver.extend         ClassMethods
+    end
+  end
+
+  protected
+
+  class << self
+    def plugin_method_code method_name, &block
+      """
+      module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+        module PluginMethods
+          def #{method_name}
+            '#{block.call}'
+          end
+        end
+
+        def self.included(receiver)
+          receiver.extend PluginMethods
+        end
+      end
+      """
+    end
+
+    def description_method title
+      """
+      module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+        class << self
+          def metadata
+            '#{title.to_s}'
+          end
+        end
+      end
+      """
+    end
+
+    def plugin_class_methods variable, value
+      """
+      module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+        module PluginMethods
+          @@#{variable} = #{value.inspect}
+
+          def #{variable}
+            @@#{variable}
+          end
+
+          def #{variable}= value
+            @@#{variable} = value
+          end
+        end
+
+        def self.included(receiver)
+          receiver.extend PluginMethods
+        end
+      end
+      """
     end
   end
 end
