@@ -1,4 +1,4 @@
-require_relative 'plugin/events'
+require_relative 'events'
 #
 # This middleware is the basis of all tracking via rack middleware.
 #
