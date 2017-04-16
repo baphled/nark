@@ -32,7 +32,7 @@ module Nark
       # This allows a user to define a custom plugin that then can be used
       # to interact with an Rack based system.
       #
-      def define plugin_name, &definition_block
+      def define plugin_name
         @@currently_defining = plugin_name
         Nark.module_eval define_plugin_module plugin_name
         yield Nark::DSL
