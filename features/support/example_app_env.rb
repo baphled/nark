@@ -14,10 +14,10 @@ Before('@http-reporter') do
   end
 end
 
-Before('@app-call, @middleware, @reporting-api') do
+Before('@webapp, @app-call, @middleware, @reporting-api') do
   Capybara.app = Nark::Middleware.with(DummyApp)
 end
 
-After('@app-call, @middleware, @reporting-api, @reporter') do
+After('@webapp, @app-call, @middleware, @reporting-api, @reporter') do
   Capybara.app = nil
 end
