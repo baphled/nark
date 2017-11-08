@@ -10,7 +10,7 @@ gem 'rubygems-tasks', '0.2.4'
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem 'simplecov', '0.9.1', :require => false
+  gem 'simplecov', :require => false
   gem "rspec", "~> 3.0"
   gem "rdoc", "~> 3.12"
   gem "fakefs", '0.4.2'
