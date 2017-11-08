@@ -6,6 +6,7 @@ describe Nark::DSL do
     it "allows me to define a plugin" do
       Nark::Plugin.define :suttin_cool do
       end
+
       expect {
         Nark::Plugin::SuttinCool
       }.to_not raise_error
@@ -16,13 +17,14 @@ describe Nark::DSL do
         Nark::Plugin.define :a_cool_plugin do |plugin|
           plugin.variables :total_requests => 0
         end
-        Nark.total_requests.should eql 0
+
+        expect(Nark.total_requests).to eql(0)
       end
     end
 
     it "keeps track of the current plugin being defined" do
       Nark::Plugin.define :a_random_plugin do
-        Nark::Plugin.currently_defining.should eql :a_random_plugin
+        expect(Nark::Plugin.currently_defining).to eql(:a_random_plugin)
       end
     end
   end
@@ -34,21 +36,27 @@ describe Nark::DSL do
           'cool stuff'
         end
       end
-      Nark::Plugin.constants.should include :RandomPlugin
+
+      expect(Nark::Plugin.constants).to include(:RandomPlugin)
+
       Nark::Plugin.undefine :random_plugin
-      Nark::Plugin.constants.should_not include :RandomPlugin
+
+      expect(Nark::Plugin.constants).not_to include(:RandomPlugin)
     end
 
     it "removes all of the relating class variables" do
       Nark::Plugin.define :random_plugin do |plugin|
         plugin.variables :bar => 1
       end
-      Nark::Plugin::RandomPlugin::PluginMethods.class_variables.should eql [:@@bar]
-      Nark.should respond_to :bar
-      Nark.should respond_to :bar=
+
+      expect(Nark::Plugin::RandomPlugin::PluginMethods.class_variables).to eql([:@@bar])
+      expect(Nark).to respond_to(:bar)
+      expect(Nark).to respond_to(:bar=)
+
       Nark::Plugin.undefine :random_plugin
-      Nark.should_not respond_to :bar
-      Nark.should_not respond_to :bar=
+
+      expect(Nark).not_to respond_to(:bar)
+      expect(Nark).not_to respond_to(:bar=)
     end
 
     it "removes all of the relating class methods" do
@@ -57,9 +65,12 @@ describe Nark::DSL do
           2 + 2
         end
       end
-      Nark.should respond_to :cool
+
+      expect(Nark).to respond_to(:cool)
+
       Nark::Plugin.undefine :random_plugin
-      Nark.should_not respond_to :cool
+
+      expect(Nark).not_to respond_to(:cool)
     end
 
     it "removes the plugin events" do
@@ -68,14 +79,18 @@ describe Nark::DSL do
           puts 'some before hook'
         end
       end
-      Nark::Plugin.events.should_not be_empty
+
+      expect(Nark::Plugin.events).not_to be_empty
+
       Nark::Plugin.undefine :random_plugin
-      Nark::Plugin.events.collect{ |event| event.plugin }.should_not include 'random_plugin'
+
+      expect(Nark::Plugin.events.collect{ |event| event.plugin }).not_to include('random_plugin')
     end
 
     it "doesn't try to undefine class methods when there aren't any" do
       Nark::Plugin.define :random_plugin do |plugin|
       end
+
       expect {
         Nark::Plugin.undefine :random_plugin
       }.to_not raise_error
@@ -93,8 +108,10 @@ describe Nark::DSL do
           puts 'some before hook'
         end
       end
+
       Nark::Plugin.undefine :random_plugin
-      Nark::Plugin.events.collect{ |event| event.plugin }.should_not include 'random_plugin'
+
+      expect(Nark::Plugin.events.collect{ |event| event.plugin }).not_to include('random_plugin')
     end
   end
 
