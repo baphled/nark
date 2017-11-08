@@ -4,7 +4,7 @@ source "http://rubygems.org"
 #
 gemspec
 
-gem "activesupport", '4.1.5'
+gem "activesupport", '~> 4.1.5'
 gem 'rubygems-tasks', '0.2.4'
 
 # Add dependencies to develop your gem here.
@@ -12,13 +12,12 @@ gem 'rubygems-tasks', '0.2.4'
 group :development do
   gem 'simplecov', '~> 0.15.1', :require => false
   gem "rspec", "~> 3.0"
-  gem "rdoc", "~> 3.12"
   gem "fakefs", '0.4.2'
-  gem "cucumber", "~> 1.3.16"
-  gem "aruba", '~> 0.4.11'
+  gem "cucumber", '~> 1.3.20'
+  gem "aruba", '~> 0.14.2'
   gem "jeweler", "~> 2.1.2"
   gem 'rack-test', '0.6.2'
-  gem 'pry', '0.10.0'
+  gem 'pry', '~> 0.11.2'
   gem 'sinatra', '1.4.5'
 end
 

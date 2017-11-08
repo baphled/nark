@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     ".document",
     ".gitignore",
     ".rspec",
+    ".ruby-gemset",
     ".ruby-version",
     ".simplecov",
     ".travis.yml",
@@ -96,7 +97,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/baphled/nark".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "2.6.12".freeze
+  s.rubygems_version = "2.6.10".freeze
   s.summary = "Narks on your application like a dirty little snitch".freeze
   s.test_files = ["features/command_line_interaction.feature".freeze, "features/configuration_settings.feature".freeze, "features/generating_a_plugin.feature".freeze, "features/nark_middleware.feature".freeze, "features/plugin_dsl.feature".freeze, "features/reporter.feature".freeze, "features/reporter_http.feature".freeze, "features/step_definitions/http_reporting_steps.rb".freeze, "features/step_definitions/nark_steps.rb".freeze, "features/step_definitions/plugin_steps.rb".freeze, "features/step_definitions/reporter_steps.rb".freeze, "features/step_definitions/undefine_plugin_steps.rb".freeze, "features/support/env.rb".freeze, "features/support/example_app_env.rb".freeze, "features/total_requests_plugin.feature".freeze, "features/undefining_a_plugin.feature".freeze, "spec/fixtures/config/nark.yml".freeze, "spec/fixtures/plugins/dummy_plugin.rb".freeze, "spec/integration/plugin_dsl_spec.rb".freeze, "spec/integration/running_multiple_plugins_spec.rb".freeze, "spec/nark/cli_spec.rb".freeze, "spec/nark/configuration_spec.rb".freeze, "spec/nark/dsl_spec.rb".freeze, "spec/nark/macros_spec.rb".freeze, "spec/nark/middleware_spec.rb".freeze, "spec/nark/plugin/event_spec.rb".freeze, "spec/nark/plugin/events_spec.rb".freeze, "spec/nark/plugin_spec.rb".freeze, "spec/nark_spec.rb".freeze, "spec/spec_helper.rb".freeze, "spec/support/create_plugin.rb".freeze]
 
@@ -104,50 +105,50 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<activesupport>.freeze, ["= 4.1.5"])
+      s.add_runtime_dependency(%q<activesupport>.freeze, ["~> 4.1.5"])
       s.add_runtime_dependency(%q<rubygems-tasks>.freeze, ["= 0.2.4"])
       s.add_development_dependency(%q<mime-types>.freeze, ["= 2.3"])
       s.add_development_dependency(%q<capybara>.freeze, [">= 2.4.4"])
+      s.add_development_dependency(%q<rdoc>.freeze, [">= 0"])
       s.add_development_dependency(%q<simplecov>.freeze, ["~> 0.15.1"])
       s.add_development_dependency(%q<rspec>.freeze, ["~> 3.0"])
-      s.add_development_dependency(%q<rdoc>.freeze, ["~> 3.12"])
       s.add_development_dependency(%q<fakefs>.freeze, ["= 0.4.2"])
-      s.add_development_dependency(%q<cucumber>.freeze, ["~> 1.3.16"])
-      s.add_development_dependency(%q<aruba>.freeze, ["~> 0.4.11"])
+      s.add_development_dependency(%q<cucumber>.freeze, ["~> 1.3.20"])
+      s.add_development_dependency(%q<aruba>.freeze, ["~> 0.14.2"])
       s.add_development_dependency(%q<jeweler>.freeze, ["~> 2.1.2"])
       s.add_development_dependency(%q<rack-test>.freeze, ["= 0.6.2"])
-      s.add_development_dependency(%q<pry>.freeze, ["= 0.10.0"])
+      s.add_development_dependency(%q<pry>.freeze, ["~> 0.11.2"])
       s.add_development_dependency(%q<sinatra>.freeze, ["= 1.4.5"])
     else
-      s.add_dependency(%q<activesupport>.freeze, ["= 4.1.5"])
+      s.add_dependency(%q<activesupport>.freeze, ["~> 4.1.5"])
       s.add_dependency(%q<rubygems-tasks>.freeze, ["= 0.2.4"])
       s.add_dependency(%q<mime-types>.freeze, ["= 2.3"])
       s.add_dependency(%q<capybara>.freeze, [">= 2.4.4"])
+      s.add_dependency(%q<rdoc>.freeze, [">= 0"])
       s.add_dependency(%q<simplecov>.freeze, ["~> 0.15.1"])
       s.add_dependency(%q<rspec>.freeze, ["~> 3.0"])
-      s.add_dependency(%q<rdoc>.freeze, ["~> 3.12"])
       s.add_dependency(%q<fakefs>.freeze, ["= 0.4.2"])
-      s.add_dependency(%q<cucumber>.freeze, ["~> 1.3.16"])
-      s.add_dependency(%q<aruba>.freeze, ["~> 0.4.11"])
+      s.add_dependency(%q<cucumber>.freeze, ["~> 1.3.20"])
+      s.add_dependency(%q<aruba>.freeze, ["~> 0.14.2"])
       s.add_dependency(%q<jeweler>.freeze, ["~> 2.1.2"])
       s.add_dependency(%q<rack-test>.freeze, ["= 0.6.2"])
-      s.add_dependency(%q<pry>.freeze, ["= 0.10.0"])
+      s.add_dependency(%q<pry>.freeze, ["~> 0.11.2"])
       s.add_dependency(%q<sinatra>.freeze, ["= 1.4.5"])
     end
   else
-    s.add_dependency(%q<activesupport>.freeze, ["= 4.1.5"])
+    s.add_dependency(%q<activesupport>.freeze, ["~> 4.1.5"])
     s.add_dependency(%q<rubygems-tasks>.freeze, ["= 0.2.4"])
     s.add_dependency(%q<mime-types>.freeze, ["= 2.3"])
     s.add_dependency(%q<capybara>.freeze, [">= 2.4.4"])
+    s.add_dependency(%q<rdoc>.freeze, [">= 0"])
     s.add_dependency(%q<simplecov>.freeze, ["~> 0.15.1"])
     s.add_dependency(%q<rspec>.freeze, ["~> 3.0"])
-    s.add_dependency(%q<rdoc>.freeze, ["~> 3.12"])
     s.add_dependency(%q<fakefs>.freeze, ["= 0.4.2"])
-    s.add_dependency(%q<cucumber>.freeze, ["~> 1.3.16"])
-    s.add_dependency(%q<aruba>.freeze, ["~> 0.4.11"])
+    s.add_dependency(%q<cucumber>.freeze, ["~> 1.3.20"])
+    s.add_dependency(%q<aruba>.freeze, ["~> 0.14.2"])
     s.add_dependency(%q<jeweler>.freeze, ["~> 2.1.2"])
     s.add_dependency(%q<rack-test>.freeze, ["= 0.6.2"])
-    s.add_dependency(%q<pry>.freeze, ["= 0.10.0"])
+    s.add_dependency(%q<pry>.freeze, ["~> 0.11.2"])
     s.add_dependency(%q<sinatra>.freeze, ["= 1.4.5"])
   end
 end
