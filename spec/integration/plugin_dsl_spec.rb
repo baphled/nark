@@ -36,9 +36,10 @@ describe "Plugin DSL" do
   end
 
   context "finished defining a plugin" do
+    let(:plugin_block) { create_plugin(:revision) }
+
     it "should not be storing a plugin name" do
-      Nark::Plugin.define :something_really_cool do |plugin|
-      end
+      Nark::Plugin.define(:something_really_cool, &plugin_block)
 
       expect {
         Nark::Plugin.currently_defining

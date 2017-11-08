@@ -14,8 +14,7 @@ group :development do
   gem "rspec", "~> 3.0"
   gem "rdoc", "~> 3.12"
   gem "fakefs", '0.4.2'
-  gem "cucumber", "1.3.16"
-  gem "capybara", '2.4.1'
+  gem "cucumber", "~> 1.3.16"
   gem "aruba", '~> 0.4.11'
   gem "jeweler", "~> 1.8.8"
   gem 'rack-test', '0.6.2'
