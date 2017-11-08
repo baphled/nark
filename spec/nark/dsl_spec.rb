@@ -8,7 +8,7 @@ describe Nark::DSL do
       end
       expect {
         Nark::Plugin::SuttinCool
-      }.to_not raise_error NameError
+      }.to_not raise_error
     end
 
     context "defining class variables" do
@@ -78,7 +78,7 @@ describe Nark::DSL do
       end
       expect {
         Nark::Plugin.undefine :random_plugin
-      }.to_not raise_error NameError
+      }.to_not raise_error
     end
 
     it "only remove events relating to the plugin we're Undefining" do

@@ -80,13 +80,13 @@ end"""
       it "fails gracefully" do
         expect {
           Nark::CLI.create nil
-        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+        }.to raise_exception(Nark::Exceptions::PluginNameNotDefined)
       end
 
       it "won't create a plugin with an empty name" do
         expect {
           Nark::CLI.create ''
-        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+        }.to raise_exception(Nark::Exceptions::PluginNameNotDefined)
       end
     end
   end
@@ -159,7 +159,7 @@ end"""
       it "does not throw an exeception if the plugin template can not be found" do
         expect {
           Nark::CLI.example :foo
-        }.to_not raise_error Errno
+        }.to_not raise_error
       end
 
       it "displays an error if the plugin is not found" do

@@ -35,7 +35,7 @@ describe "Plugin DSL" do
       end
       expect {
         Nark::Plugin.currently_defining
-      }.to raise_error Nark::Exceptions::UnableToTrackPluginBeingDefined
+      }.to raise_exception(Nark::Exceptions::UnableToTrackPluginBeingDefined)
     end
   end
 end

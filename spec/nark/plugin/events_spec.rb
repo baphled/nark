@@ -57,7 +57,7 @@ describe Nark::Events do
         Wrapper.add_trigger event_hook
         expect {
           Wrapper.add_trigger alternate_event_hook
-        }.not_to raise_error Nark::Exceptions::DuplicateEvent
+        }.not_to raise_error
       end
     end
   end
