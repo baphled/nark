@@ -4,7 +4,7 @@ describe "Running multiple plugins" do
   include Rack::Test::Methods
 
   def app
-    @target_app = mock('The target application')
+    @target_app = double('The target application')
     @target_app.stub(:call).and_return([200, {'PATH_INFO' => '/'}, "Target application"])
     Nark::Middleware.new @target_app
   end

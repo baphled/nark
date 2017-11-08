@@ -2,9 +2,9 @@ require "spec_helper"
 
 describe Nark::Middleware do
   let(:response_body) { [ 200, {}, {} ] }
-  let(:target_app) { mock('The target application', call: response_body) }
+  let(:target_app) { double('The target application', call: response_body) }
   let(:environment) { { 'PATH_INFO' => '/' } }
-  let(:event_handler) { stub(:CustomEventHandler, trigger: stub) }
+  let(:event_handler) { double(:CustomEventHandler, trigger: double) }
   subject { Nark::Middleware.new target_app, event_handler: event_handler }
 
   describe "#new" do
