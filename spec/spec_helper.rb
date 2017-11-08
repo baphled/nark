@@ -8,7 +8,7 @@ require 'rack/test'
 require 'fakefs/spec_helpers'
 
 require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+SimpleCov.start
 
 require 'nark'
 
