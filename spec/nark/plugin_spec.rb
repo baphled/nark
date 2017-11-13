@@ -7,6 +7,7 @@ describe Nark::Plugin do
 
   describe "#available_plugins" do
     let(:requests) { create_plugin(:requests) }
+    let(:revision) { create_plugin(:revision) }
 
     it "should not include class_methods" do
       expect(Nark.available_plugins).not_to include('class_methods')
@@ -25,6 +26,24 @@ describe Nark::Plugin do
       }
 
       expect(Nark.available_plugins).to include(expected_hash)
+    end
+
+    it 'should be ordered by plugin name' do
+      Nark::Plugin.define :revision, &revision
+      Nark::Plugin.define :requests, &requests
+
+      expected = [
+        {
+          :name => 'requests',
+          :description => 'Fallback description: Use the description macro to define the plugins description'
+        },
+        {
+          :name => 'revision',
+          :description => 'Fallback description: Use the description macro to define the plugins description'
+        }
+      ]
+
+      expect(Nark.available_plugins).to eql(expected)
     end
   end
 
