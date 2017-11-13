@@ -112,11 +112,11 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<fakefs>.freeze, ["~> 0.11.3"])
       s.add_development_dependency(%q<cucumber>.freeze, ["<= 3.0.1"])
       s.add_development_dependency(%q<capybara>.freeze, ["~> 2.15.4"])
-      s.add_development_dependency(%q<aruba>.freeze, ["~> 0.14.2"])
+      s.add_development_dependency(%q<aruba>.freeze, ["<= 0.14.2"])
       s.add_development_dependency(%q<jeweler>.freeze, ["~> 2.3.7"])
       s.add_development_dependency(%q<rack-test>.freeze, [">= 0"])
-      s.add_development_dependency(%q<pry>.freeze, ["~> 0.11.2"])
-      s.add_development_dependency(%q<sinatra>.freeze, ["~> 2.0.0"])
+      s.add_development_dependency(%q<pry>.freeze, ["<= 0.11.2"])
+      s.add_development_dependency(%q<sinatra>.freeze, ["<= 2.0.0"])
     else
       s.add_dependency(%q<activesupport>.freeze, [">= 0"])
       s.add_dependency(%q<rubygems-tasks>.freeze, ["~> 0.2.4"])
@@ -125,11 +125,11 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<fakefs>.freeze, ["~> 0.11.3"])
       s.add_dependency(%q<cucumber>.freeze, ["<= 3.0.1"])
       s.add_dependency(%q<capybara>.freeze, ["~> 2.15.4"])
-      s.add_dependency(%q<aruba>.freeze, ["~> 0.14.2"])
+      s.add_dependency(%q<aruba>.freeze, ["<= 0.14.2"])
       s.add_dependency(%q<jeweler>.freeze, ["~> 2.3.7"])
       s.add_dependency(%q<rack-test>.freeze, [">= 0"])
-      s.add_dependency(%q<pry>.freeze, ["~> 0.11.2"])
-      s.add_dependency(%q<sinatra>.freeze, ["~> 2.0.0"])
+      s.add_dependency(%q<pry>.freeze, ["<= 0.11.2"])
+      s.add_dependency(%q<sinatra>.freeze, ["<= 2.0.0"])
     end
   else
     s.add_dependency(%q<activesupport>.freeze, [">= 0"])
@@ -139,11 +139,11 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<fakefs>.freeze, ["~> 0.11.3"])
     s.add_dependency(%q<cucumber>.freeze, ["<= 3.0.1"])
     s.add_dependency(%q<capybara>.freeze, ["~> 2.15.4"])
-    s.add_dependency(%q<aruba>.freeze, ["~> 0.14.2"])
+    s.add_dependency(%q<aruba>.freeze, ["<= 0.14.2"])
     s.add_dependency(%q<jeweler>.freeze, ["~> 2.3.7"])
     s.add_dependency(%q<rack-test>.freeze, [">= 0"])
-    s.add_dependency(%q<pry>.freeze, ["~> 0.11.2"])
-    s.add_dependency(%q<sinatra>.freeze, ["~> 2.0.0"])
+    s.add_dependency(%q<pry>.freeze, ["<= 0.11.2"])
+    s.add_dependency(%q<sinatra>.freeze, ["<= 2.0.0"])
   end
 end
 
