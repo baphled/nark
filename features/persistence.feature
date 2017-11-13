@@ -6,7 +6,7 @@ Feature: Persistence
   @wip
   Scenario: Active plugins should be consistent across interfaces
     Given I have installed the plugin
-    When I successfully run `bundle exec nark foo`
+    When I run `bundle exec nark foo`
     And I created the following plugin
     """
     Nark::Plugin.define :status_report do |plugin|
@@ -23,7 +23,7 @@ Feature: Persistence
   @wip @api-call @reporting-api
   Scenario: I should be able to access data collected via the CLI
     Given I have installed the plugin
-    When I successfully run `bundle exec nark foo`
+    When I run `bundle exec nark foo`
     And I created the following plugin
     """
     Nark::Plugin.define :status_report do |plugin|
@@ -35,7 +35,7 @@ Feature: Persistence
     end
     """
     When I request a page
-    And I successfully run `bundle exec nark status_report`
+    And I run `bundle exec nark status_report`
     Then the output should contain exactly:
     """
     {
