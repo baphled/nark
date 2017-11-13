@@ -5,7 +5,7 @@ Feature: Generating a plugin
   @CLI
   Scenario: I should be able to generate a "requests" plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec nark example requests`
+    When I run `bundle exec nark example requests`
     Then The "requests" plugin should be created
     And the file "plugins/requests.rb" should contain exactly:
     """
@@ -23,7 +23,7 @@ Feature: Generating a plugin
   @CLI
   Scenario: I should be able to generate a "request times" plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec nark example request_times`
+    When I run `bundle exec nark example request_times`
     Then The "request_times" plugin should be created
     And the file "plugins/request_times.rb" should contain exactly:
     """
@@ -45,7 +45,7 @@ Feature: Generating a plugin
   @CLI
   Scenario: I should be able to generate a "revisions" plugin
     Given I have installed the plugin
-    When I successfully run `bundle exec nark example revisions`
+    When I run `bundle exec nark example revisions`
     Then The "revisions" plugin should be created
     And the file "plugins/revisions.rb" should contain exactly:
     """
@@ -62,7 +62,7 @@ Feature: Generating a plugin
   @CLI
   Scenario: I should be able to get a list of available plugin examples
     Given I have installed the plugin
-    When I successfully run `bundle exec nark list plugins`
+    When I run `bundle exec nark list plugins`
     Then the output should contain:
     """
     requests             - Tracks the number of requests made to your application
@@ -77,7 +77,7 @@ Feature: Generating a plugin
     """
     plugins_path: 'nark/plugins'
     """
-    When I successfully run `bundle exec nark example revisions`
+    When I run `bundle exec nark example revisions`
     Then a file named "lib/nark/plugin/revisions.rb" should not exist
     Then a file named "nark/plugins/revisions.rb" should exist
     And the file "nark/plugins/revisions.rb" should contain exactly:
@@ -91,7 +91,7 @@ Feature: Generating a plugin
       end
     end
     """
-    When I successfully run `bundle exec nark list foo`
+    When I run `bundle exec nark list foo`
     Then the output should contain "Invalid list type"
 
   Scenario: I should be able to get a list of available plugins
@@ -105,7 +105,7 @@ Feature: Generating a plugin
         end
       end
     """
-    When I successfully run `bundle exec nark list plugins`
+    When I run `bundle exec nark list plugins`
     Then the "available_plugins" should be
     """
     [{:name => 'random', :description => 'A basic description'}]
