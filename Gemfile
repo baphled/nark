@@ -3,6 +3,8 @@ source "http://rubygems.org"
 # Example:
 #
 
+gemspec
+
 gem "activesupport"
 gem 'rubygems-tasks', '~> 0.2.4'
 
