@@ -9,13 +9,13 @@ describe Nark::Macros do
         plugin.variables :last_request_time => nil
 
         plugin.add_hook :before_call do |env|
-          start_time = Time.now
+          Time.now
         end
       end
     end
 
     it "takes an event" do
-      method_block = Proc.new { |env| start_time = Time.now }
+      method_block = Proc.new { |env| Time.now }
       params = { :type => :before_call, :method_block => method_block, :plugin => 'requests' }
 
       allow(Nark::Event).to receive(:new).and_return(params)
