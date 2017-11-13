@@ -12,7 +12,7 @@ group :development do
   gem 'simplecov', :require => false
   gem "rspec", '~> 3.7.0'
   gem "fakefs", '~> 0.11.3'
-  gem "cucumber", '~> 3.0.1'
+  gem "cucumber", '<= 3.0.1'
   gem 'capybara', '~> 2.15.4'
   gem "aruba", '~> 0.14.2'
   gem "jeweler", '~> 2.3.7'
