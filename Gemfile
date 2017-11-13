@@ -3,9 +3,7 @@ source "http://rubygems.org"
 # Example:
 #
 
-gemspec
-
-gem "activesupport", '>= 5.1.4'
+gem "activesupport"
 gem 'rubygems-tasks', '~> 0.2.4'
 
 # Add dependencies to develop your gem here.

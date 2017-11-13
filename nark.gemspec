@@ -97,7 +97,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/baphled/nark".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "2.6.10".freeze
+  s.rubygems_version = "2.7.2".freeze
   s.summary = "Narks on your application like a dirty little snitch".freeze
   s.test_files = ["features/command_line_interaction.feature".freeze, "features/configuration_settings.feature".freeze, "features/generating_a_plugin.feature".freeze, "features/nark_middleware.feature".freeze, "features/plugin_dsl.feature".freeze, "features/reporter.feature".freeze, "features/reporter_http.feature".freeze, "features/step_definitions/http_reporting_steps.rb".freeze, "features/step_definitions/nark_steps.rb".freeze, "features/step_definitions/plugin_steps.rb".freeze, "features/step_definitions/reporter_steps.rb".freeze, "features/step_definitions/undefine_plugin_steps.rb".freeze, "features/support/env.rb".freeze, "features/support/example_app_env.rb".freeze, "features/total_requests_plugin.feature".freeze, "features/undefining_a_plugin.feature".freeze, "spec/fixtures/config/nark.yml".freeze, "spec/fixtures/plugins/dummy_plugin.rb".freeze, "spec/integration/plugin_dsl_spec.rb".freeze, "spec/integration/running_multiple_plugins_spec.rb".freeze, "spec/nark/cli_spec.rb".freeze, "spec/nark/configuration_spec.rb".freeze, "spec/nark/dsl_spec.rb".freeze, "spec/nark/macros_spec.rb".freeze, "spec/nark/middleware_spec.rb".freeze, "spec/nark/plugin/event_spec.rb".freeze, "spec/nark/plugin/events_spec.rb".freeze, "spec/nark/plugin_spec.rb".freeze, "spec/nark_spec.rb".freeze, "spec/spec_helper.rb".freeze, "spec/support/create_plugin.rb".freeze]
 
@@ -105,7 +105,7 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<activesupport>.freeze, [">= 5.1.4"])
+      s.add_runtime_dependency(%q<activesupport>.freeze, [">= 0"])
       s.add_runtime_dependency(%q<rubygems-tasks>.freeze, ["~> 0.2.4"])
       s.add_development_dependency(%q<simplecov>.freeze, [">= 0"])
       s.add_development_dependency(%q<rspec>.freeze, ["~> 3.7.0"])
@@ -118,7 +118,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<pry>.freeze, ["~> 0.11.2"])
       s.add_development_dependency(%q<sinatra>.freeze, ["~> 2.0.0"])
     else
-      s.add_dependency(%q<activesupport>.freeze, [">= 5.1.4"])
+      s.add_dependency(%q<activesupport>.freeze, [">= 0"])
       s.add_dependency(%q<rubygems-tasks>.freeze, ["~> 0.2.4"])
       s.add_dependency(%q<simplecov>.freeze, [">= 0"])
       s.add_dependency(%q<rspec>.freeze, ["~> 3.7.0"])
@@ -132,7 +132,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sinatra>.freeze, ["~> 2.0.0"])
     end
   else
-    s.add_dependency(%q<activesupport>.freeze, [">= 5.1.4"])
+    s.add_dependency(%q<activesupport>.freeze, [">= 0"])
     s.add_dependency(%q<rubygems-tasks>.freeze, ["~> 0.2.4"])
     s.add_dependency(%q<simplecov>.freeze, [">= 0"])
     s.add_dependency(%q<rspec>.freeze, ["~> 3.7.0"])
