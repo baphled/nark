@@ -82,13 +82,27 @@ describe Nark::Events do
   end
 
   describe "#trigger" do
-    context "event is found" do
-      it "calls an event"
-      it "the event can make use the of the environment"
+    let(:event_hook) { Nark::Event.new type: :before_call, method_block: Proc.new { 2 }, plugin: 'new_plugin' }
+    let(:env) { double }
+
+    before :each do
+      subject.add_trigger(event_hook)
     end
 
-    context "event not found" do
-      it "does not call any events"
+    it 'does something' do
+      subject.trigger(:before_call, env)
+    end
+
+    it "finds an event associated to an event hook" do
+      expect(event_hook.method_block).to receive(:call).with(env)
+
+      subject.trigger(:before_call, env)
+    end
+
+    it "does not find an event hook" do
+      expect(event_hook.method_block).not_to receive(:call)
+
+      subject.trigger(:non_existent_event, env)
     end
   end
 end

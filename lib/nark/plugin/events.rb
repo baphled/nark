@@ -54,7 +54,7 @@ module Nark
       # FIXME: When an event is triggered should keep it persistent
       #
       def trigger event, env
-        triggered(event).each do |triggered_event|
+        triggered(event).collect do |triggered_event|
           Nark.class_eval 'triggered_event.method_block.call env'
         end
       end
