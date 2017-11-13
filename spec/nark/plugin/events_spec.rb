@@ -1,7 +1,8 @@
 require "spec_helper"
 
 describe Nark::Events do
-  let(:event_hook) { Nark::Event.new type: :before_call, method_block: Proc.new {}, plugin: 'new_plugin' }
+  let(:event_value) { }
+  let(:event_hook) { Nark::Event.new type: :before_call, method_block: Proc.new { event_value }, plugin: 'new_plugin' }
 
   class Wrapper
     include Nark::Events
@@ -74,6 +75,10 @@ describe Nark::Events do
       subject.add_trigger(event_hook)
     end
 
+    before :each do
+      subject.remove_trigger(event_hook)
+    end
+
     it "can remove a plugin event" do
       subject.remove_trigger(:new_plugin)
 
@@ -82,15 +87,14 @@ describe Nark::Events do
   end
 
   describe "#trigger" do
-    let(:event_hook) { Nark::Event.new type: :before_call, method_block: Proc.new { 2 }, plugin: 'new_plugin' }
     let(:env) { double }
 
     before :each do
       subject.add_trigger(event_hook)
     end
 
-    it 'does something' do
-      subject.trigger(:before_call, env)
+    after :each do
+      subject.remove_trigger(:new_plugin)
     end
 
     it "finds an event associated to an event hook" do
