@@ -17,6 +17,9 @@ describe Nark do
     end
   end
 
+  it 'has access to the list of available plugins' do
+    expect(Nark).to respond_to(:available_plugins)
+  end
 
   context 'accessing plugin variables' do
     before :each do

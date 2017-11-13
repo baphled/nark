@@ -69,7 +69,6 @@ describe Nark::Macros do
       end
 
       expect(Nark::Plugin::Requests.metadata).to eql('A cool description')
-      expect(Nark.available_plugins).to include(:name => 'requests', :description => 'A cool description')
     end
   end
 end
