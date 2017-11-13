@@ -16,4 +16,21 @@ describe Nark do
       expect(Nark).to respond_to(:plugins_path)
     end
   end
+
+
+  context 'accessing plugin variables' do
+    before :each do
+      Nark::Plugin.define(:some_plugin) do |plugin|
+        plugin.variables last_request_time: nil, something_else: 23
+      end
+    end
+
+    it "has access to the plugin variables" do
+      expect(Nark).to respond_to(:last_request_time)
+    end
+
+    it 'returns the expected plugin value' do
+      expect(subject.something_else).to eql(23)
+    end
+  end
 end

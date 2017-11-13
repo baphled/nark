@@ -99,6 +99,10 @@ module Nark
         module PluginMethods
           @@#{variable} = #{value.inspect}
 
+          def self.#{variable}
+            @@#{variable}
+          end
+
           def #{variable}
             @@#{variable}
           end

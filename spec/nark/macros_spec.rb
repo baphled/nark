@@ -41,22 +41,24 @@ describe Nark::Macros do
   end
 
   describe "#variables" do
-    it "are accessible" do
-      Nark::Plugin.define(:some_plugin) do |plugin|
-        plugin.variables :last_request_time => nil
-      end
+    let(:hash) { {:foo => 'bar'} }
 
-      expect(Nark).to respond_to(:last_request_time)
+    before :each do
+      Nark::Plugin.define(:some_plugin) do |plugin|
+        plugin.variables :msg => 'hey', :value => 2, :hash => {:foo => 'bar'}
+      end
+    end
+
+    after :each do
+      Nark::Plugin.undefine(:some_plugin)
+    end
+
+    it "are accessible" do
+      expect(Nark::Plugin::SomePlugin::PluginMethods).to respond_to(:msg)
     end
 
     it "can take a hash of variables" do
-      Nark::Plugin.define(:some_cool_plugin) do |plugin|
-        plugin.variables :msg => 'hey', :value => 2, :hash => {:foo => 'bar'}
-      end
-      hash = {:foo => 'bar'}
-      expect(Nark.hash).to eql(hash)
-      expect(Nark.msg).to eql('hey')
-      expect(Nark.value).to eql(2)
+      expect(Nark::Plugin::SomePlugin::PluginMethods.hash).to eql(hash)
     end
   end
 
