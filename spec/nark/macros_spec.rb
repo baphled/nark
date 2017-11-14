@@ -45,7 +45,7 @@ describe Nark::Macros do
 
     before :each do
       Nark::Plugin.define(:some_plugin) do |plugin|
-        plugin.variables :msg => 'hey', :value => 2, :hash => {:foo => 'bar'}
+        plugin.variables :msg => 'hey', :values => hash
       end
     end
 
@@ -58,7 +58,7 @@ describe Nark::Macros do
     end
 
     it "can take a hash of variables" do
-      expect(Nark::Plugin::SomePlugin::PluginMethods.hash).to eql(hash)
+      expect(Nark::Plugin::SomePlugin::PluginMethods.values).to eql(hash)
     end
   end
 
