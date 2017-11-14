@@ -15,7 +15,7 @@ describe Nark::Macros do
     end
 
     it "takes an event" do
-      method_block = Proc.new { |env| Time.now }
+      method_block = Proc.new { Time.now }
       params = { :type => :before_call, :method_block => method_block, :plugin => 'requests' }
 
       allow(Nark::Event).to receive(:new).and_return(params)
