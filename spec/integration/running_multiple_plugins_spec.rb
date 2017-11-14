@@ -3,10 +3,14 @@ require "spec_helper"
 describe "Running multiple plugins" do
   include Rack::Test::Methods
 
-  def app
-    @target_app = mock('The target application')
-    @target_app.stub(:call).and_return([200, {'PATH_INFO' => '/'}, "Target application"])
-    Nark::Middleware.new @target_app
+  let(:target_app) { double('The target application') }
+
+  before :each do
+    def app
+      allow(target_app).to receive(:call).and_return([200, {'PATH_INFO' => '/'}, "Target application"])
+
+      Nark::Middleware.new(target_app)
+    end
   end
 
   describe "running two plugins that use the before hook" do
@@ -20,8 +24,9 @@ describe "Running multiple plugins" do
 
     it "can track the number of requests and the amount of time the request took" do
       get '/'
-      Nark.last_request_time.should be_within(0.1).of(0.1)
-      Nark.total_requests.should_not eql 0
+
+      expect(Nark.last_request_time).to be_within(0.1).of(0.1)
+      expect(Nark.total_requests).not_to eql(0)
     end
   end
 end

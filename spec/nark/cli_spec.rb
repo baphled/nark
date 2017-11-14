@@ -3,6 +3,8 @@ require "spec_helper"
 describe Nark::CLI do
   include FakeFS::SpecHelpers
 
+  subject { Nark::CLI }
+
   describe "#help" do
     it "describes how to use list" do
       help_output =
@@ -11,7 +13,8 @@ describe Nark::CLI do
 
         Lists all example plugins that you can generate.
         """
-        Nark::CLI.help(:list).should eql help_output
+
+      expect(subject.help(:list)).to eql(help_output)
     end
 
     it "describes how to use example" do
@@ -21,7 +24,8 @@ describe Nark::CLI do
 
         Creates an example plugin.
         """
-        Nark::CLI.help(:example).should eql help_output
+
+      expect(subject.help(:example)).to eql(help_output)
     end
 
     it "describes how to use create" do
@@ -31,7 +35,8 @@ describe Nark::CLI do
 
         Creates new plugin template called foo.
         """
-        Nark::CLI.help(:create).should eql help_output
+
+      expect(subject.help(:create)).to eql(help_output)
     end
 
     it "displays the help message by default" do
@@ -41,7 +46,8 @@ describe Nark::CLI do
 
         Displays this message.
         """
-        Nark::CLI.help.should eql help_output
+
+      expect(subject.help).to eql(help_output)
     end
 
     context "when the option is nil" do
@@ -52,15 +58,17 @@ describe Nark::CLI do
 
         Displays this message.
         """
-        Nark::CLI.help(nil).should eql help_output
+
+        expect(subject.help(nil)).to eql(help_output)
       end
     end
   end
 
   describe "#create" do
     it "create a skeleton file in the expected path" do
-      Nark::CLI.create(:foo_bar)
-      File.should exist 'plugins/foo_bar.rb'
+      subject.create(:foo_bar)
+
+      expect(File).to exist('plugins/foo_bar.rb')
     end
 
     it "creates the skeleton file with the plugin name" do
@@ -72,21 +80,22 @@ describe Nark::CLI do
     # Do something clever here.
   end
 end"""
-      Nark::CLI.create :baz_bar
-      File.read('plugins/baz_bar.rb').should eql expected
+      subject.create(:baz_bar)
+
+      expect(File.read('plugins/baz_bar.rb')).to eql(expected)
     end
 
     context "no plugin name provided" do
       it "fails gracefully" do
         expect {
-          Nark::CLI.create nil
-        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+          subject.create nil
+        }.to raise_exception(Nark::Exceptions::PluginNameNotDefined)
       end
 
       it "won't create a plugin with an empty name" do
         expect {
-          Nark::CLI.create ''
-        }.to raise_error Nark::Exceptions::PluginNameNotDefined
+          subject.create ''
+        }.to raise_exception(Nark::Exceptions::PluginNameNotDefined)
       end
     end
   end
@@ -99,12 +108,12 @@ end"""
           "request_times        - Keeps track of the amount of time each request takes",
           "revisions            - Outputs the git revision"
         ]
-        Nark::CLI.list(:plugins).should eql example_list
+        expect(subject.list(:plugins)).to eql(example_list)
       end
 
       context "list not found" do
         it "returns an error" do
-          Nark::CLI.list(:foo).should eql 'Invalid list type'
+          expect(subject.list(:foo)).to eql('Invalid list type')
         end
       end
     end
@@ -113,8 +122,8 @@ end"""
   describe "#examples" do
     context "copying an example" do
       it "allows a user to create an example to the plugins directory" do
-        Nark::CLI.example :requests
-        File.should exist 'plugins/requests.rb'
+        subject.example :requests
+        expect(File).to exist('plugins/requests.rb')
       end
 
       it "can create a requests plugin" do
@@ -128,8 +137,8 @@ end"""
     plugin.total_requests += 1
   end
 end"""
-        Nark::CLI.example :requests
-        File.read('plugins/requests.rb').should eql expected
+        subject.example :requests
+        expect(File.read('plugins/requests.rb')).to eql(expected)
       end
 
       it "can create a request_times plugin" do
@@ -147,24 +156,24 @@ end"""
     plugin.last_request_time = (Time.now - @start_time)
   end
 end"""
-        Nark::CLI.example :request_times
-        File.read('plugins/request_times.rb').should eql expected
+        subject.example :request_times
+        expect(File.read('plugins/request_times.rb')).to eql(expected)
       end
 
       it "can create a revisions plugin" do
-        Nark::CLI.example :revisions
-        File.read('plugins/revisions.rb').should_not be_nil
+        subject.example :revisions
+        expect(File.read('plugins/revisions.rb')).not_to be_nil
       end
 
       it "does not throw an exeception if the plugin template can not be found" do
         expect {
-          Nark::CLI.example :foo
-        }.to_not raise_error Errno
+          subject.example :foo
+        }.to_not raise_error
       end
 
       it "displays an error if the plugin is not found" do
         expected = "Invalid plugin name. Try one of the following: requests, request_times, revisions"
-        Nark::CLI.example(:foo).should eql expected
+        expect(subject.example(:foo)).to eql(expected)
       end
     end
   end
@@ -177,12 +186,12 @@ end"""
       expected = [
         "requests             - Tracks the number of requests made to your application",
       ]
-      Nark::CLI.plugins(:included).should eql expected
+      expect(subject.plugins(:included)).to eql(expected)
     end
     
     it "returns an error message if the given option is not valid" do
       expected = 'Invalid plugins option'
-      Nark::CLI.plugins(:foo).should eql expected
+      expect(subject.plugins(:foo)).to eql expected
     end
   end
 end

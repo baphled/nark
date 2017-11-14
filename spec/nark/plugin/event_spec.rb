@@ -9,35 +9,36 @@ describe Nark::Event do
   describe "#type" do
     it "stores the trigger type" do
       params.merge! :type => :before_call
-      subject.type.should eql :before_call
+
+      expect(subject.type).to eql(:before_call)
     end
 
     it "can be a string" do
-      subject.type.should eql 'before_call'
+      expect(subject.type).to eql('before_call')
     end
   end
 
   describe "#method_block" do
     it "stores a block" do
-      subject.method_block.should eql plugin_method_block
+      expect(subject.method_block).to eql(plugin_method_block)
     end
 
     it "throws an exception if a block is not passed" do
       expect {
         subject = Nark::Event.new :type => :before_call, :method_block => 'foo'
-      }.to raise_error ArgumentError
+      }.to raise_exception(ArgumentError)
     end
   end
 
   describe "#plugin" do
     it "stores the plugin's name" do
-      subject.plugin.should eql :some_plugin
+      expect(subject.plugin).to eql(:some_plugin)
     end
   end
 
   describe "#to_hash" do
     it "returns the attributes as a Hash" do
-      subject.to_hash.should eql params
+      expect(subject.to_hash).to eql(params)
     end
   end
 
@@ -53,13 +54,19 @@ describe Nark::Event do
     end
 
     it "returns false" do
-      Nark::Plugin.events.stub(:find).and_return false
-      subject.should_not exist
+      allow(Nark::Plugin.events)
+        .to receive(:find)
+        .and_return(false)
+
+      expect(subject).not_to exist
     end
 
     it "returns true" do
-      Nark::Plugin.events.stub(:find).and_return true
-      subject.should exist
+      allow(Nark::Plugin.events)
+        .to receive(:find)
+        .and_return(true)
+
+      expect(subject).to exist
     end
   end
 
@@ -69,25 +76,25 @@ describe Nark::Event do
         it "restricts the type" do
           expect {
             subject.type = 'foo'
-          }.to raise_error NoMethodError
+          }.to raise_exception(NoMethodError)
         end
 
         it "restricts the method_block" do
           expect {
             subject.method_block = 'foo'
-          }.to raise_error NoMethodError
+          }.to raise_exception(NoMethodError)
         end
 
         it "restricts the plugin" do
           expect {
             subject.plugin = 'foo'
-          }.to raise_error NoMethodError
+          }.to raise_exception(NoMethodError)
         end
 
         it "restricts the attributes" do
           expect {
             subject.attributes = {}
-          }.to raise_error NoMethodError
+          }.to raise_exception(NoMethodError)
         end
       end
     end

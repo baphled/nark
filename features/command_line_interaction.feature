@@ -6,7 +6,7 @@ Feature: Command line interaction
   @CLI
   Scenario: I should be informed if I give an invalid command
     Given I have installed the plugin
-    When I successfully run `bundle exec nark foo`
+    When I run `bundle exec nark foo`
     Then the output should contain exactly:
     """
 
@@ -20,7 +20,7 @@ Feature: Command line interaction
   @CLI
   Scenario: I should get the help import if the command is invalid
     Given I have installed the plugin
-    When I successfully run `bundle exec nark help example`
+    When I run `bundle exec nark help example`
     Then the output should contain exactly:
     """
 
@@ -34,7 +34,7 @@ Feature: Command line interaction
   @CLI
   Scenario: I should be able to get a list of plugins
     Given I have installed the plugin
-    When I successfully run `bundle exec nark list plugins`
+    When I run `bundle exec nark list plugins`
     Then the output should contain exactly:
     """
     requests             - Tracks the number of requests made to your application
@@ -46,7 +46,7 @@ Feature: Command line interaction
   @CLI
   Scenario: I should be able to get a list of available plugin examples
     Given I have installed the plugin
-    When I successfully run `bundle exec nark list foo`
+    When I run `bundle exec nark list foo`
     Then the output should contain "Invalid list type"
 
   @wip
@@ -63,7 +63,7 @@ Feature: Command line interaction
         end
       end
     """
-    When I successfully run `bundle exec nark plugins`
+    When I run `bundle exec nark plugins`
     Then the output should contain:
     """
     requests             - Tracks the number of requests made to your application

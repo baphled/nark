@@ -2,54 +2,84 @@ require "spec_helper"
 
 describe Nark::Plugin do
   it "stores an array of plugin available" do
-    Nark.available_plugins.should be_an Array
+    expect(Nark.available_plugins).to be_an(Array)
   end
 
   describe "#available_plugins" do
     let(:requests) { create_plugin(:requests) }
+    let(:revision) { create_plugin(:revision) }
 
     it "should not include class_methods" do
-      Nark.available_plugins.should_not include 'class_methods'
+      expect(Nark.available_plugins).not_to include('class_methods')
     end
 
     it "should not include instance_methods" do
-      Nark.available_plugins.should_not include 'instance_methods'
+      expect(Nark.available_plugins).not_to include('instance_methods')
     end
 
     it "automatically includes a defined module" do
       Nark::Plugin.define :requests, &requests
-      Nark.available_plugins.should include :name => 'requests', :description => 'Fallback description: Use the description macro to define the plugins description'
+
+      expected_hash = {
+        :name => 'requests',
+        :description => 'Fallback description: Use the description macro to define the plugins description'
+      }
+
+      expect(Nark.available_plugins).to include(expected_hash)
+    end
+
+    it 'should be ordered by plugin name' do
+      Nark::Plugin.define :revision, &revision
+      Nark::Plugin.define :requests, &requests
+
+      expected = [
+        {
+          :name => 'requests',
+          :description => 'Fallback description: Use the description macro to define the plugins description'
+        },
+        {
+          :name => 'revision',
+          :description => 'Fallback description: Use the description macro to define the plugins description'
+        }
+      ]
+
+      expect(Nark.available_plugins).to eql(expected)
     end
   end
 
   describe "#load_plugins" do
+    let(:plugin_path) { File.absolute_path File.join File.dirname(__FILE__), "..", "..", 'plugins' }
+
     it "gets the defined plugin path" do
-      plugin_path = File.absolute_path File.join File.dirname(__FILE__), "..", "..", 'plugins'
-      Nark.should_receive(:defined_plugin_path).and_return plugin_path
+      expect(Nark).to receive(:defined_plugin_path).and_return(plugin_path)
+
       Nark.load_plugins
     end
 
     it "requires all plugins found" do
       Nark.load_plugins
-      Nark.available_plugins.count.should eql 4
+
+      expect(Nark.available_plugins.count).to eql(4)
     end
 
     it "doesn't load the same plugins more than once" do
       Nark.load_plugins
       Nark.load_plugins
-      Nark.available_plugins.count.should eql 4
+
+      expect(Nark.available_plugins.count).to eql(4)
     end
   end
 
   describe "#defined_methods" do
     it "can track defined plugin messages" do
-      Nark::Plugin.defined_methods.should eql []
+      expect(Nark::Plugin.defined_methods).to eql([])
     end
 
     it "exposes only accessors" do
       Nark.load_plugins
-      Nark::Plugin.defined_methods.should_not include :total_requests=
-        Nark::Plugin.defined_methods.should include :total_requests
+
+      expect(Nark::Plugin.defined_methods).not_to include(:total_requests=)
+      expect(Nark::Plugin.defined_methods).to include(:total_requests)
     end
   end
 end

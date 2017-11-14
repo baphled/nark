@@ -1,18 +1,20 @@
 require 'spec_helper'
 
 describe Nark::Configuration do
+  subject { Nark::Configuration }
   it "stores the defauly plugin path" do
-    Nark::Configuration.plugins_path.should eql 'plugins'
+    expect(subject.plugins_path).to eql('plugins')
   end
 
   it "stores the default plugin path" do
-    Nark::Configuration.settings_path.should eql 'config/nark.yml'
+    expect(subject.settings_path).to eql('config/nark.yml')
   end
 
   describe "#configure" do
     it "allows for setting the config path" do
       Nark.settings_path = 'nark.yml'
-      Nark.settings_path.should eql 'nark.yml'
+
+      expect(Nark.settings_path).to eql('nark.yml')
     end
 
     context "adding a reporter" do
@@ -20,21 +22,24 @@ describe Nark::Configuration do
         Nark.configure do |c|
           c.reporters = [:HTTP]
         end
-        Nark.reporters.should include Nark::Reporter::HTTP
+
+        expect(Nark.reporters).to include(Nark::Reporter::HTTP)
       end
     end
   end
 
   describe "#settings" do
     it "returns an empty hash if no config file was found" do
-      Nark::Configuration.settings_path = ''
-      Nark::Configuration.settings.should == {}
+      subject.settings_path = ''
+
+      expect(subject.settings).to eql({})
     end
 
     it "can get the plugins path" do
       config_path = 'spec/fixtures/config/nark.yml'
-      Nark::Configuration.settings_path = config_path
-      Nark::Configuration.settings.should eql "plugins_path" => "spec/fixtures/plugins"
+      subject.settings_path = config_path
+
+      expect(subject.settings).to eql("plugins_path" => "spec/fixtures/plugins")
     end
   end
 end

@@ -69,7 +69,7 @@ module Nark
             :name => plugin.to_s.underscore,
             :description => eval("Nark::Plugin::#{plugin.to_s.camelize}.metadata")
           }
-        end
+        end.sort_by { |hash| hash[:name] }
       end
 
       #

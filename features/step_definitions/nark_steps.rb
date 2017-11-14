@@ -21,15 +21,20 @@ Then /^The "([^"]*)" plugin should be created$/ do |plugin_name|
 end
 
 Then /^it should be included$/ do
-  Nark.available_plugins.should include :name=>"requests", :description=>"Fallback description: Use the description macro to define the plugins description"
+  params = {
+    :name=>"requests",
+    :description=>"Fallback description: Use the description macro to define the plugins description"
+  }
+
+  expect(Nark.available_plugins).to include(params)
 end
 
 Then /^the "(.*?)" will be accessible via "(.*?)"$/ do |method, module_name|
-  module_name.constantize.should respond_to method.to_sym
+  expect(module_name.constantize).to respond_to(method.to_sym)
 end
 
 Then /^the "(.*?)" should be (\d+)$/ do |method, value|
-  Nark.send(method.to_sym).should eql value
+  expect(Nark.send(method.to_sym)).to eql(value)
 end
 
 When /^I request a page$/ do
@@ -37,11 +42,11 @@ When /^I request a page$/ do
 end
 
 Then /^the total requests should be (\d+)$/ do |amount|
-  Nark.total_requests.should eql amount.to_i
+  expect(Nark.total_requests).to eql(amount.to_i)
 end
 
 Then /^the "(.*?)" should be$/ do |method, string|
-  Nark.send(method.to_sym).should eql eval(string)
+  expect(Nark.send(method.to_sym)).to eql(eval(string))
 end
 
 When /^I setup Nark with the following$/ do |string|
@@ -49,13 +54,14 @@ When /^I setup Nark with the following$/ do |string|
 end
 
 Then /^the "(.*?)" should be "(.*?)"$/ do |method, value|
-  Nark.send(method.to_sym).should eql value
+  expect(Nark.send(method.to_sym)).to eql value
 end
 
 Then /^(\d+) plugins should be loaded$/ do |amount|
-  Nark.available_plugins.count.should eql amount.to_i
+  expect(Nark.available_plugins.count).to eql(amount.to_i)
 end
+
 Then /^the plugin path should be set to "(.*?)"$/ do |value|
-  Nark::Configuration.plugins_path.should eql value
+  expect(Nark::Configuration.plugins_path).to eql(value)
 end
 

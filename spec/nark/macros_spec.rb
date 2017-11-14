@@ -3,22 +3,25 @@ require "spec_helper"
 describe Nark::Macros do
   describe "#add_hook" do
     it "adds the hook to the middlewares events" do
-      Nark::Plugin.events.should_receive :<<
+      expect(Nark::Plugin.events).to receive(:<<).exactly(:once)
+
       Nark::Plugin.define :requests do |plugin|
         plugin.variables :last_request_time => nil
 
         plugin.add_hook :before_call do |env|
-          start_time = Time.now
+          Time.now
         end
       end
     end
 
     it "takes an event" do
-      method_block = Proc.new { |env| start_time = Time.now }
+      method_block = Proc.new { Time.now }
       params = { :type => :before_call, :method_block => method_block, :plugin => 'requests' }
-      Nark::Event.stub(:new).and_return params
+
+      allow(Nark::Event).to receive(:new).and_return(params)
       event = Nark::Event.new params
-      Nark::Plugin.should_receive(:add_trigger).with(event)
+
+      expect(Nark::Plugin).to receive(:add_trigger).with(event)
 
       Nark::Plugin.define :requests do |plugin|
         plugin.add_hook :before_call, &method_block
@@ -33,26 +36,29 @@ describe Nark::Macros do
           2
         end
       end
-      Nark.foo.should eql "2"
+      expect(Nark.foo).to eql("2")
     end
   end
 
   describe "#variables" do
-    it "are accessible" do
+    let(:hash) { {:foo => 'bar'} }
+
+    before :each do
       Nark::Plugin.define(:some_plugin) do |plugin|
-        plugin.variables :last_request_time => nil
+        plugin.variables :msg => 'hey', :values => hash
       end
-      Nark.should respond_to :last_request_time
+    end
+
+    after :each do
+      Nark::Plugin.undefine(:some_plugin)
+    end
+
+    it "are accessible" do
+      expect(Nark::Plugin::SomePlugin::PluginMethods).to respond_to(:msg)
     end
 
     it "can take a hash of variables" do
-      Nark::Plugin.define(:some_cool_plugin) do |plugin|
-        plugin.variables :msg => 'hey', :value => 2, :hash => {:foo => 'bar'}
-      end
-      hash = {:foo => 'bar'}
-      Nark.hash.should eql hash
-      Nark.msg.should eql 'hey'
-      Nark.value.should eql 2
+      expect(Nark::Plugin::SomePlugin::PluginMethods.values).to eql(hash)
     end
   end
 
@@ -61,8 +67,8 @@ describe Nark::Macros do
       Nark::Plugin.define :requests do |plugin|
         plugin.description 'A cool description'
       end
-      Nark::Plugin::Requests.metadata.should eql 'A cool description'
-      Nark.available_plugins.should include :name => 'requests', :description => 'A cool description'
+
+      expect(Nark::Plugin::Requests.metadata).to eql('A cool description')
     end
   end
 end
