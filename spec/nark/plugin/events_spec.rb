@@ -75,10 +75,6 @@ describe Nark::Events do
       subject.add_trigger(event_hook)
     end
 
-    before :each do
-      subject.remove_trigger(event_hook)
-    end
-
     it "can remove a plugin event" do
       subject.remove_trigger(:new_plugin)
 
