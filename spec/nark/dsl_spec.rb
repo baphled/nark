@@ -27,6 +27,31 @@ describe Nark::DSL do
         expect(Nark::Plugin.currently_defining).to eql(:a_random_plugin)
       end
     end
+
+    context 'namespacing' do
+      before :each do
+        Nark::Plugin.define :a_cool_plugin do |plugin|
+          plugin.variables :total_requests => 0
+          plugin.method :revision { 4 }
+        end
+      end
+
+      it 'exposes variables to the defined plugins PluginMethods module' do
+        expect(Nark::Plugin::ACoolPlugin::PluginMethods.class_variables).to include(:@@total_requests)
+      end
+
+      it 'expects the variables to be accessible via Nark' do
+        expect(Nark).to respond_to(:total_requests)
+      end
+
+      it 'exposes methods to the defined plugin PluginMethods module' do
+        expect(Nark::Plugin::ACoolPlugin::PluginMethods.instance_methods).to include(:revision)
+      end
+
+      it 'expects the methods to be accessible via Nark' do
+        expect(Nark).to respond_to(:revision)
+      end
+    end
   end
 
   describe "#undefine" do

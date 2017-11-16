@@ -16,4 +16,21 @@ describe Nark do
       expect(Nark).to respond_to(:plugins_path)
     end
   end
+
+  context 'accessing a plugins accessors and methods' do
+    before(:each) do
+      Nark::Plugin.define :a_cool_plugin do |plugin|
+        plugin.method :revision { 4 + 4 }
+        plugin.variables random_number: 23
+      end
+    end
+
+    it 'should have access to the method' do
+      expect(Nark.revision).to eql(8)
+    end
+
+    it 'should have access to the variables' do
+      expect(Nark.random_number).to eql(23)
+    end
+  end
 end
