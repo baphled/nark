@@ -31,7 +31,7 @@ describe "Plugin DSL" do
     it "allows us to define a plugin method" do
       Nark::Plugin.define(:something_really_cool, &plugin_block)
 
-      expect(Nark.revision).to eql('2')
+      expect(Nark.revision).to eql(2)
     end
   end
 

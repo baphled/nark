@@ -32,11 +32,10 @@ describe Nark::Macros do
   describe "#method" do
     it "creates the defined class method" do
       Nark::Plugin.define(:revision) do |plugin|
-        plugin.method :foo do
-          2
-        end
+        plugin.method :foo { 2 }
       end
-      expect(Nark.foo).to eql("2")
+
+      expect(Nark.foo).to eql(2)
     end
   end
 

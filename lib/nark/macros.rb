@@ -74,7 +74,7 @@ module Nark
       module #{Nark::Plugin.currently_defining.to_s.camelize}
         module PluginMethods
           def #{method_name}
-            '#{block.call}'
+            #{block.call}
           end
         end
 
