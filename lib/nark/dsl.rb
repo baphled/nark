@@ -34,7 +34,7 @@ module Nark
       #
       def define plugin_name, &definition_block
         @@currently_defining = plugin_name
-        Nark.module_eval define_plugin_module plugin_name
+        Nark::Plugin.module_eval(define_plugin_module(plugin_name))
         yield Nark::DSL
         Nark.module_eval "include Nark::Plugin::#{plugin_name.to_s.camelize}"
         @@currently_defining = nil

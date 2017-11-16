@@ -82,7 +82,9 @@ module Nark
       def load_plugins
         Dir["#{defined_plugin_path}/*.rb"].each do |plugin| 
           begin
-            Nark::Plugin.module_eval File.read(plugin)
+            plugin_content = File.read(plugin)
+
+            Nark::Plugin.module_eval(plugin_content)
           rescue Nark::Exceptions::DuplicateEvent
           end
         end

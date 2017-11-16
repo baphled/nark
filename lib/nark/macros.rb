@@ -36,7 +36,9 @@ module Nark
       # short with the use of helper methods.
       #
       def method method_name, &block
-        Nark::Plugin.module_eval self.plugin_method_code method_name, &block
+        plugin_method_definition = self.plugin_method_code(method_name, &block)
+
+        Nark::Plugin.module_eval(plugin_method_definition)
       end
 
       #
@@ -47,13 +49,15 @@ module Nark
       #
       def variables variable_hashes
         variable_hashes.reduce('') do |s, (variable, value)|
-          Nark::Plugin.module_eval self.plugin_class_methods variable, value
+          plugin_class_methods_definition = self.plugin_class_methods variable, value
+
+          Nark::Plugin.module_eval(plugin_class_methods_definition)
           Nark::Plugin.defined_methods << variable
         end
       end
 
       def description title
-        eval description_method title
+        Nark::Plugin.module_eval(description_method title)
       end
     end
 
@@ -67,7 +71,7 @@ module Nark
   class << self
     def plugin_method_code method_name, &block
       """
-      module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+      module #{Nark::Plugin.currently_defining.to_s.camelize}
         module PluginMethods
           def #{method_name}
             '#{block.call}'
@@ -83,7 +87,7 @@ module Nark
 
     def description_method title
       """
-      module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+      module #{Nark::Plugin.currently_defining.to_s.camelize}
         class << self
           def metadata
             '#{title.to_s}'
@@ -95,7 +99,7 @@ module Nark
 
     def plugin_class_methods variable, value
       """
-      module Nark::Plugin::#{Nark::Plugin.currently_defining.to_s.camelize}
+      module #{Nark::Plugin.currently_defining.to_s.camelize}
         module PluginMethods
           @@#{variable} = #{value.inspect}
 
