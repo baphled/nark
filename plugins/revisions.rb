@@ -1,8 +1,4 @@
 Nark::Plugin.define :revisions do |plugin|
   plugin.description 'Outputs the git revision'
-
-  plugin.method :revision do
-    ref_directory = %x[cat .git/HEAD| cut -d ' ' -f 2].chomp
-    %x[cat .git/#{ref_directory}].chomp
-  end
+  plugin.variables :latest_revision => '6a872239080c920c5d42fb444a8c9c'
 end
