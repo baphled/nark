@@ -31,12 +31,12 @@ Feature: Plugin DSL
     """
       Nark::Plugin.define :requests do |plugin|
         plugin.method :revision do
-          '4'
+          4
         end
       end
     """
     Then the "revision" will be accessible via "Nark"
-    And the "revision" should be "4"
+    And the "revision" should be 4
 
   @webapp
   Scenario: I should be able to setup a new event hook
